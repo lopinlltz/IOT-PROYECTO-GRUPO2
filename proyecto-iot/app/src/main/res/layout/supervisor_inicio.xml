@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Barra de opciones en la parte superior derecha -->
+    <RelativeLayout
+        android:id="@+id/options_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp">
+
+        <!-- Botón de mensajes/chat -->
+        <ImageView
+            android:id="@+id/chat_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/chaticon"
+            android:layout_alignParentEnd="true"/>
+
+        <!-- Botón de perfil del usuario -->
+        <ImageView
+            android:id="@+id/profile_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/profilepicicon"
+            android:layout_toStartOf="@id/chat_button"/>
+    </RelativeLayout>
+
+    <!-- Barra de búsqueda -->
+    <RelativeLayout
+        android:id="@+id/search_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/options_layout">
+
+        <!-- Campo de búsqueda -->
+        <EditText
+            android:id="@+id/search_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Buscar..."/>
+
+
+        <!-- Botón de búsqueda -->
+        <ImageView
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/lupaicon"/>
+
+    </RelativeLayout>
+
+    <!-- Lista de elementos -->
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/search_bar_layout"
+        android:layout_above="@+id/bottom_navigation"/>
+
+    <!-- Barra de navegación inferior -->
+    <RelativeLayout
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <!-- Botón de sitios -->
+        <ImageView
+            android:id="@+id/sites_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/sitioicon"
+            android:adjustViewBounds="true"
+            android:maxWidth="48dp"
+            android:maxHeight="48dp"/>
+
+        <!-- Botón de tipo de equipos -->
+        <ImageView
+            android:id="@+id/equipment_type_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/equiptypeicon"
+            android:adjustViewBounds="true"
+            android:maxWidth="48dp"
+            android:maxHeight="48dp"/>
+
+        <!-- Botón de equipos -->
+        <ImageView
+            android:id="@+id/equipment_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/equipoicon"/>
+
+        <!-- Botón de historial -->
+        <ImageView
+            android:id="@+id/history_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/historialicon"/>
+    </RelativeLayout>
+
+</RelativeLayout>
