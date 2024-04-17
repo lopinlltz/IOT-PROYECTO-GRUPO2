@@ -31,7 +31,41 @@
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="377dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:background="#CCCCCC"
+        android:contentDescription="b"
+        android:gravity="bottom|left"
+        android:padding="8dp"
+        android:shadowColor="#000000"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="1"
+        android:text="Buscar"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+    <ImageButton
+        android:id="@+id/myButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="kkkk"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/lupaicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/lupaicon" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
