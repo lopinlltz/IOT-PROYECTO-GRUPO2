@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -17,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027" />
 
+
     <ImageView
         android:id="@+id/ivProfile"
         android:layout_width="40dp"
@@ -29,108 +30,102 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027" />
 
+
     <LinearLayout
         android:id="@+id/detailsContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="@color/light_gray"
+        android:layout_width="319dp"
+        android:layout_height="164dp"
+        android:background="#969CBA"
         android:orientation="vertical"
-        android:backgroundTint="#969CBA"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivChat"
-        app:layout_constraintBottom_toTopOf="@id/equiposButton">
-
-        <TextView
-            android:id="@+id/SitioDetalleTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nombre de Sitio"
-            android:textSize="20sp"
-            android:gravity="center" />
-        <TextView
-            android:id="@+id/siteIdTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ID Sitio: 12345"/>
-
-        <TextView
-            android:id="@+id/departamentoTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Departamento: Lima"/>
-
-        <TextView
-            android:id="@+id/provinciaTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Provincia: Lima"/>
-
-        <TextView
-            android:id="@+id/distritoTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Distrito: San Miguel"/>
-
-        <TextView
-            android:id="@+id/ubigeoTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ubigeo: 150140"/>
-
-        <TextView
-            android:id="@+id/latLongTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Latitud y Longitud: 12.1111, -76.5555"/>
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:src="@drawable/mapapic"
-            android:scaleType="centerCrop"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tipoZonaTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipo de Zona: a"/>
-
-        <TextView
-            android:id="@+id/tipoSitioTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tipo de Sitio: no c"/>
-
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/equiposButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:text="Equipos"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/detailsContainer" />
+        app:layout_constraintTop_toBottomOf="@id/ivChat">
+
+
+        <TextView
+            android:id="@+id/TextView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+
+        <TextView
+            android:id="@+id/TextView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+
+
+        <TextView
+            android:id="@+id/IDTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID"
+            android:gravity="center" />
+
+
+        <TextView
+            android:id="@+id/fechaTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha"
+            android:gravity="center"  />
+
+
+        <TextView
+            android:id="@+id/accionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Acción"
+            android:gravity="center"  />
+
+
+        <TextView
+            android:id="@+id/decscripcionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción"
+            android:gravity="center" />
+
+
+
+
+
+
+    </LinearLayout>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
+        android:background="#969CBA"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_navigation_menu" />
 
+
+    <TextView
+        android:id="@+id/SitioDetalleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Actividad"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.127"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

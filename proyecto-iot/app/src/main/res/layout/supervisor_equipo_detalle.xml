@@ -22,7 +22,7 @@
         android:id="@+id/ivEquipoPic"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/routerpic"
+        android:src="@drawable/profilepicicon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.956"
@@ -30,32 +30,34 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.027" />
 
-    <TextView
-        android:id="@+id/EquipoDetalleTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Nombre de Equipo"
-        android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@id/ivChat"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp"/>
+
 
     <LinearLayout
         android:id="@+id/detailsContainer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:background="@color/rectangular_background_color"
+        android:background="#969CBA"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/EquipoDetalleTextView"
+        app:layout_constraintTop_toBottomOf="@id/ivChat"
         app:layout_constraintVertical_bias="0.0">
+
+        <TextView
+            android:id="@+id/EquipoDetalleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Nombre de Equipo"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/ivChat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="16dp"/>
 
         <ImageView
             android:id="@+id/imageView"
@@ -138,10 +140,10 @@
         android:text="Editar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
+        app:layout_constraintHorizontal_bias="0.244"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
+        app:layout_constraintVertical_bias="0.781" />
 
     <Button
         android:id="@+id/BorrarEquipoButton"
@@ -150,10 +152,10 @@
         android:text="Borrar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.671"
+        app:layout_constraintHorizontal_bias="0.749"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.724" />
+        app:layout_constraintVertical_bias="0.781" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
