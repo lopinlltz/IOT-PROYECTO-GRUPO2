@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_sites"
         android:icon="@drawable/sitioicon"
-        android:title="Sitios" />
+        android:title=""/>
     <item
-        android:id="@+id/navigation_chat"
+        android:id="@+id/navigation_type"
         android:icon="@drawable/equiptypeicon"
-        android:title="Tipo de equipo" />
+        android:title=""/>
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_equipment"
         android:icon="@drawable/equipoicon"
-        android:title="Equipos" />
+        android:title=""/>
     <item
-        android:id="@+id/navigation_profile"
+        android:id="@+id/navigation_history"
         android:icon="@drawable/historialicon"
-        android:title="Historial" />
+        android:title=""/>
 </menu>
