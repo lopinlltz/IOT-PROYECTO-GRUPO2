@@ -1,10 +1,14 @@
-package com.example.proyecto_iot;
+package com.example.proyecto_iot.Supervisor;
 
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proyecto_iot.ChatAdapter;
+import com.example.proyecto_iot.ChatItem;
+import com.example.proyecto_iot.R;
 
 import java.util.ArrayList;
 import java.util.List;
