@@ -13,10 +13,12 @@
         android:theme="@style/Theme.PROYECTOIOT"
         tools:targetApi="31">
         <activity
-            android:name=".PaginaPrincipalSuperadmin"
-            android:exported="false" />
+            android:name=".ChatSupervisor"
+            android:exported="true"
+            android:label="@string/title_activity_chat_supervisor"
+            android:theme="@style/Theme.PROYECTOIOT" />
         <activity
-            android:name=".MainActivity2"
+            android:name=".PaginaPrincipalSuperadmin"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
