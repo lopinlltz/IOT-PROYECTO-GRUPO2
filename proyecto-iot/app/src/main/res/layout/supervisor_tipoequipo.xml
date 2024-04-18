@@ -73,15 +73,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 1"
+                    android:text="Tipo de equipo 1"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ubicación 1"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -100,15 +95,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 2"
+                    android:text="Tipo de equipo 2"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ubicación 2"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -127,15 +117,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 3"
+                    android:text="Tipo de equipo 3"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ubicación 3"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,15 +139,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 4"
+                    android:text="Tipo de equipo 4"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ubicación 4"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -181,15 +161,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 5"
+                    android:text="Tipo de equipo 5"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ubicación 5"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -208,15 +183,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 6"
+                    android:text="Tipo de equipo 6"
                     android:textSize="18sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ubicación 6"
-                    android:textSize="14sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -235,15 +205,53 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Sitio 7"
+                    android:text="Tipo de equipo 7"
                     android:textSize="18sp"
                     android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/EighthItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/rectangular_background_color"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/SeventhItem">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ubicación 7"
-                    android:textSize="14sp" />
+                    android:text="Tipo de equipo 8"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/NinthItem"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/rectangular_background_color"
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/EighthItem">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tipo de equipo 9"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
