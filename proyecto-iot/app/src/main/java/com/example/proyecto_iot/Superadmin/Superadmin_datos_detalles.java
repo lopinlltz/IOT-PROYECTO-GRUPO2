@@ -1,5 +1,4 @@
 package com.example.proyecto_iot.Superadmin;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,37 +14,21 @@ import com.example.proyecto_iot.R;
 import com.example.proyecto_iot.Supervisor.SupervisorSitioDetalles;
 import com.example.proyecto_iot.Supervisor.SupervisorSitioEquipo;
 
-public class Superadmin_vista_supervisor extends AppCompatActivity {
-
+public class Superadmin_datos_detalles extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_superadmin_vista_supervisor);
-        Button ingresar = findViewById(R.id.button2);
-        ingresar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Superadmin_vista_supervisor.this, Superadmin_datos_nuevo.class);
-                startActivity(intent);
-            }
-        });
-        Button ingresar2 = findViewById(R.id.button4);
+        setContentView(R.layout.superadmin_datos_detalles);
+        Button ingresar = findViewById(R.id.button8);
 
         ingresar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Superadmin_vista_supervisor.this, Superadmin_datos_detalles.class);
+                Intent intent = new Intent(Superadmin_datos_detalles.this, Superadmin_datos_editar.class);
                 startActivity(intent);
             }
         });
-
-
-
-
-
-
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
