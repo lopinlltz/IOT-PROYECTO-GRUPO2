@@ -10,16 +10,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyecto_iot.R;
 
-public class SupervisorEquipoDetalle extends AppCompatActivity {
+public class SupervisorEquipoForm extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.supervisor_equipo_detalle);
+        setContentView(R.layout.supervisor_editar_equipo);
 
-        Button editar = findViewById(R.id.EditarEquipoButton);
-        Button borrar = findViewById(R.id.BorrarEquipoButton);
-        editar.setOnClickListener(new View.OnClickListener() {
+        Button atras = findViewById(R.id.AtrasEquipoButton);
+        Button actualizar = findViewById(R.id.ActualizarEquipoButton);
+        atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SupervisorEquipoDetalle.this, SupervisorEquipoForm.class);
@@ -27,7 +28,7 @@ public class SupervisorEquipoDetalle extends AppCompatActivity {
             }
         });
 
-        borrar.setOnClickListener(new View.OnClickListener() {
+        actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SupervisorEquipoDetalle.this, SupervisorInicio.class);
