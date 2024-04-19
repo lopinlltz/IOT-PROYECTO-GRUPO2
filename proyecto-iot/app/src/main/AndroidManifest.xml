@@ -12,22 +12,41 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PROYECTOIOT"
         tools:targetApi="31">
+
         <activity
-<<<<<<< HEAD
-            android:name=".Superadmin_vista_supervisor"
-            android:exported="false" />
-        <activity
-            android:name=".PaginaPrincipalSuperadmin"
-            android:exported="false" />
-=======
-            android:name=".ChatSupervisor"
+            android:name=".Supervisor.ChatSupervisor"
             android:exported="true"
             android:label="@string/title_activity_chat_supervisor"
             android:theme="@style/Theme.PROYECTOIOT" />
->>>>>>> bf5ec5a5af6aa59a51eccc0070a60ee02a3e3bc2
+
         <activity
-            android:name=".PaginaPrincipalSuperadmin"
-            android:exported="false" />
+            android:name=".Supervisor.SupervisorEquipo"
+            android:exported="true" />
+
+        <activity
+            android:name=".Supervisor.SupervisorEquipoDetalle"
+            android:exported="true" />
+
+        <activity
+            android:name=".Supervisor.SupervisorEquipoForm"
+            android:exported="true" />
+
+        <activity
+            android:name=".Supervisor.SupervisorInicio"
+            android:exported="true" />
+
+        <activity
+            android:name=".Supervisor.SupervisorSitioEquipo"
+            android:exported="true" />
+
+        <activity
+            android:name=".Supervisor.SupervisorSitioDetalles"
+            android:exported="true" />
+
+        <activity
+            android:name=".Supervisor.SupervisorSitioEquipoDetalle"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

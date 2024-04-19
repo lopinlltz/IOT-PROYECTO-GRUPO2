@@ -23,7 +23,7 @@ public class SupervisorEquipoForm extends AppCompatActivity {
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SupervisorEquipoDetalle.this, SupervisorEquipoForm.class);
+                Intent intent = new Intent(SupervisorEquipoForm.this, SupervisorEquipoForm.class);
                 startActivity(intent);
             }
         });
@@ -31,7 +31,7 @@ public class SupervisorEquipoForm extends AppCompatActivity {
         actualizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SupervisorEquipoDetalle.this, SupervisorInicio.class);
+                Intent intent = new Intent(SupervisorEquipoForm.this, SupervisorInicio.class);
                 startActivity(intent);
             }
         });
