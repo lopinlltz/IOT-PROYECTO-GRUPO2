@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
+/*----------------------------------
         boton_Registrar = findViewById(R.id.login_button);
         boton_Registrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Admin_lista.class);
                 startActivity(intent);
             }
-        });
+        }); /*----------------
+
+ */
         setContentView(R.layout.bar_menu);
         //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
         //    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
