@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/fondo3"
     android:id="@+id/main"
-    tools:context=".MainActivity">
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
