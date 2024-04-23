@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/list_morado_border"
+        android:focusable="false"
+        app:closeIcon="@drawable/baseline_clear_24"
+        app:iconifiedByDefault="false"
+        app:queryHint="Buscar..."
+        app:searchHintIcon="@null"
+        app:searchIcon="@drawable/baseline_search_24" />
+
+
+    <EditText
+        android:id="@+id/item_1"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="530dp"
+        android:background="@drawable/edittext_bkg"
+        android:text="Nombre de Sitio"
+        android:padding="10dp" />
+
+    <EditText
+        android:id="@+id/item_2"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="465dp"
+        android:background="@drawable/edittext_bkg"
+        android:text="Nombre de Sitio"
+        android:padding="8dp" />
+
+
+    <EditText
+        android:id="@+id/item_3"
+        android:layout_width="400dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="400dp"
+        android:background="@drawable/edittext_bkg"
+        android:text="Nombre de Sitio"
+        android:padding="8dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="40dp"
+        android:backgroundTint="@color/color_admin"
+        app:tint = "@color/white"
+        android:src="@drawable/baseline_add_24" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="415dp"
+        android:src="@drawable/baseline_edit_square_24" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="415dp"
+        android:src="@drawable/baseline_delete_outline_24" />
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="480dp"
+        android:src="@drawable/baseline_edit_square_24" />
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="480dp"
+        android:src="@drawable/baseline_delete_outline_24" />
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="540dp"
+        android:src="@drawable/baseline_edit_square_24" />
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="21dp"
+        android:layout_marginBottom="540dp"
+        android:src="@drawable/baseline_delete_outline_24" />
+</RelativeLayout>
+

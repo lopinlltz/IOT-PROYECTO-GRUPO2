@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "115165806108",
+    "project_id": "proyecto-final-iot-eb3e6",
+    "storage_bucket": "proyecto-final-iot-eb3e6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:115165806108:android:cec56da18a56062ef9a9d9",
+        "android_client_info": {
+          "package_name": "com.example.proyecto_final_iot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBm_8524uKa-_TolHMAoENJVtEEtw3TJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
