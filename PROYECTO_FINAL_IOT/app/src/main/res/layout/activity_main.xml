@@ -8,6 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/fondo3"
     android:id="@+id/main"
+    tools:context=".MainActivity"
     >
 
     <LinearLayout
@@ -54,7 +55,7 @@
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="300dp"
+                android:layout_width="199dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
