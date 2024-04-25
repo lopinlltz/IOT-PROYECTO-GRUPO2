@@ -1,5 +1,6 @@
 package com.example.proyecto_final_iot;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,8 +25,17 @@ public class MenuBarFragment extends Fragment {
     private TextView textViewSitio, textViewTipo, textViewEquipo, textViewHistorial;
     private LinearLayout linearLayoutSitio, linearLayoutTipo, linearLayoutEquipo, linearLayoutHistorial;
 
+    //Aplicando binding
+    //private FragmentMenuBarBinding binding;
     @Nullable
     @Override
+    /*public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        binding = FragmentMenuBarBinding.inflate(inflater, container, false);
+        View view = binding.getRoot();
+        configurarListeners();
+        return view;
+    }*/
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.menu_bar_fragment, container, false);
 
@@ -60,21 +70,21 @@ public class MenuBarFragment extends Fragment {
         buttonTipo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleOptionClick(true, false, false, false);
+                handleOptionClick(false, true, false, false);
             }
         });
 
         buttonEquipo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleOptionClick(true, false, false, false);
+                handleOptionClick(false, false, true, false);
             }
         });
 
         buttonHistorial.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleOptionClick(true, false, false, false);
+                handleOptionClick(false, false, false, true);
             }
         });
 
@@ -89,6 +99,9 @@ public class MenuBarFragment extends Fragment {
             buttonSitio.setScaleX(0.8f);
             buttonSitio.setScaleY(0.8f);
             textViewSitio.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(getActivity(), SitioSupervisorActivity.class);
+            startActivity(intent);
         }
 
         if (isTipo) {
@@ -97,6 +110,9 @@ public class MenuBarFragment extends Fragment {
             buttonTipo.setScaleX(0.8f);
             buttonTipo.setScaleY(0.8f);
             textViewTipo.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(getActivity(), TipoEquipoSupervisorActivity.class);
+            startActivity(intent);
         }
 
         if (isEquipo) {
@@ -105,6 +121,9 @@ public class MenuBarFragment extends Fragment {
             buttonEquipo.setScaleX(0.8f);
             buttonEquipo.setScaleY(0.8f);
             textViewEquipo.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(getActivity(), EquiposSupervisorActivity.class);
+            startActivity(intent);
         }
 
         if (isHistorial) {
@@ -113,6 +132,9 @@ public class MenuBarFragment extends Fragment {
             buttonHistorial.setScaleX(0.8f);
             buttonHistorial.setScaleY(0.8f);
             textViewHistorial.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(getActivity(), HistorialSupervisorActivity.class);
+            startActivity(intent);
         }
 
 

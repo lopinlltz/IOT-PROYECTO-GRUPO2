@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Admin_lista;
-import com.google.firebase.database.core.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
