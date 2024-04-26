@@ -95,7 +95,7 @@ public class MenuBarFragment extends Fragment {
 
         if (isSitio) {
             isSitioSelected = true;
-            linearLayoutSitio.setBackgroundColor(Color.parseColor("#FF0000"));
+            linearLayoutSitio.setBackgroundColor(Color.parseColor("#3F2D40"));
             buttonSitio.setScaleX(0.8f);
             buttonSitio.setScaleY(0.8f);
             textViewSitio.setVisibility(View.VISIBLE);
@@ -106,7 +106,7 @@ public class MenuBarFragment extends Fragment {
 
         if (isTipo) {
             isTipoSelected = true;
-            linearLayoutTipo.setBackgroundColor(Color.parseColor("#FF0000"));
+            linearLayoutTipo.setBackgroundColor(Color.parseColor("#3F2D40"));
             buttonTipo.setScaleX(0.8f);
             buttonTipo.setScaleY(0.8f);
             textViewTipo.setVisibility(View.VISIBLE);
@@ -117,7 +117,7 @@ public class MenuBarFragment extends Fragment {
 
         if (isEquipo) {
             isEquipoSelected = true;
-            linearLayoutEquipo.setBackgroundColor(Color.parseColor("#FF0000"));
+            linearLayoutEquipo.setBackgroundColor(Color.parseColor("#3F2D40"));
             buttonEquipo.setScaleX(0.8f);
             buttonEquipo.setScaleY(0.8f);
             textViewEquipo.setVisibility(View.VISIBLE);
@@ -128,7 +128,7 @@ public class MenuBarFragment extends Fragment {
 
         if (isHistorial) {
             isHistorialSelected = true;
-            linearLayoutHistorial.setBackgroundColor(Color.parseColor("#FF0000"));
+            linearLayoutHistorial.setBackgroundColor(Color.parseColor("#3F2D40"));
             buttonHistorial.setScaleX(0.8f);
             buttonHistorial.setScaleY(0.8f);
             textViewHistorial.setVisibility(View.VISIBLE);

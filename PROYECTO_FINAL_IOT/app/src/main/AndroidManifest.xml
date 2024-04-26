@@ -23,7 +23,22 @@
             android:name=".ListaContactos"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_lista"
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UserEditProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SitioSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TipoEquipoSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EquiposSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HistorialSupervisorActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

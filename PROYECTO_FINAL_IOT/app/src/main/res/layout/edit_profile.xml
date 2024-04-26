@@ -161,15 +161,23 @@
                             android:background="@drawable/rounded_intern_cell"
                             android:orientation="horizontal">
 
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/dnipic" />
+
                             <TextView
                                 android:id="@+id/textView"
                                 android:layout_width="75dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="0.5"
-                                android:gravity="center"
                                 android:text="DNI"
                                 android:textSize="16dp"
+                                android:textColor="@color/white"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -207,15 +215,23 @@
                             android:background="@drawable/rounded_intern_cell"
                             android:orientation="horizontal">
 
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/mailpic" />
+
                             <TextView
                                 android:id="@+id/textView3"
                                 android:layout_width="70dp"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:text="Correo"
                                 android:textSize="16dp"
+                                android:textColor="@color/white"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -253,16 +269,24 @@
                             android:background="@drawable/rounded_intern_cell"
                             android:orientation="horizontal">
 
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/phonepic" />
+
                             <TextView
                                 android:id="@+id/textView4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
-                                android:gravity="center"
                                 android:text="Teléfono"
                                 android:textSize="16dp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -331,16 +355,24 @@
                             android:background="@drawable/rounded_intern_cell"
                             android:orientation="horizontal">
 
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:src="@drawable/phonepic" />
+
                             <TextView
-                                android:id="@+id/textView7"
+                                android:id="@+id/textView4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
                                 android:layout_weight="1"
-                                android:gravity="center"
-                                android:text="Domicilio"
+                                android:text="Teléfono"
                                 android:textSize="16dp"
-                                android:textStyle="bold" />
+                                android:textColor="@color/white"
+                                android:textStyle="bold"
+                                android:layout_gravity="center_vertical"/>
                         </LinearLayout>
 
                         <LinearLayout

@@ -2,6 +2,7 @@ package com.example.proyecto_final_iot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
@@ -14,7 +15,7 @@ import com.example.proyecto_final_iot.Administrador.Admin_lista;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button boton_Registrar;
+    //Button boton_Registrar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +25,16 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+        });
+
+        //Button buttonCerrarSesion = findViewById(R.id.buttonCerrarSesion);
+        Button loginbutton = findViewById(R.id.login_button);
+        loginbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                startActivity(intent);
+            }
         });
 /*----------------------------------
         boton_Registrar = findViewById(R.id.login_button);
@@ -37,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
         }); /*----------------
 
  */
-        setContentView(R.layout.bar_menu);
         //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
         //    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
         //    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
