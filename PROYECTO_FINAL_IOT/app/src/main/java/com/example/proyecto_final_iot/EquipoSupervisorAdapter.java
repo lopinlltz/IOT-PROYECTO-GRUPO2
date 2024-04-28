@@ -29,7 +29,6 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
         EquipoData equipoData = equipoList.get(position);
         holder.equipmentNameTextView.setText(equipoData.getEquipmentName());
         holder.eqTypeTextView.setText(equipoData.getTypeEq());
-
     }
 
     @Override
