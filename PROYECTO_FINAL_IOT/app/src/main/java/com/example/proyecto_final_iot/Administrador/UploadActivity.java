@@ -12,7 +12,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
 
 
@@ -38,7 +37,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(UploadActivity.this, Admin_lista.class);
+                Intent intent = new Intent(UploadActivity.this, Admin_lista_Sitio.class);
                 startActivity(intent);
             }
         });
@@ -48,7 +47,7 @@ public class UploadActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(UploadActivity.this, Admin_lista.class);
+                Intent intent = new Intent(UploadActivity.this, Admin_lista_Sitio.class);
                 startActivity(intent);
             }
         });
