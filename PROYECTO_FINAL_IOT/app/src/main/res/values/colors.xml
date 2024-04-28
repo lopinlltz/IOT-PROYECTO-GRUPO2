@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color  name="muerte">#969CBA</color>
     <color  name="color_admin">#957698</color>
+    <color name="color_supervisor">#c0a0c3</color>
 
 </resources>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="9dp"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="376dp"
+        android:layout_height="68dp"
+        android:background="@drawable/background_supervisor_equipment"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/item_equipment_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Nombre de Equipo"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/item_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="TIPO DE EQUIPO"
+                android:textSize="14sp"
+                android:textColor="@color/white"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:id="@+id/imageButtonReport"
+                android:layout_width="wrap_content"
+                android:layout_height="46dp"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:scaleX="0.9"
+                android:scaleY="0.9"
+                android:src="@drawable/reporticon2" />
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

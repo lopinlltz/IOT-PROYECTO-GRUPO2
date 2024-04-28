@@ -279,7 +279,7 @@
                                 android:src="@drawable/phonepic" />
 
                             <TextView
-                                android:id="@+id/textView4"
+                                android:id="@+id/textViewPhone"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -378,11 +378,11 @@
                                 android:src="@drawable/phonepic" />
 
                             <TextView
-                                android:id="@+id/textViewEditPhone"
+                                android:id="@+id/textViewAddress"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Teléfono"
+                                android:text="Domicilio"
                                 android:textSize="16dp"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
