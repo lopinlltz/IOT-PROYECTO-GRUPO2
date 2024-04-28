@@ -14,6 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.HistorialSupervisorActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.TipoEquipoSupervisorActivity;
+
 public class MenuBarFragment extends Fragment {
 
     private boolean isSitioSelected = false;

@@ -335,8 +335,8 @@
 
                                 <EditText
                                     android:id="@+id/editTextPhone"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_width="183dp"
+                                    android:layout_height="5dp"
                                     android:layout_weight="1"
                                     android:background="@drawable/background_edit_text"
                                     android:hint="Ingresa tu número de celular"

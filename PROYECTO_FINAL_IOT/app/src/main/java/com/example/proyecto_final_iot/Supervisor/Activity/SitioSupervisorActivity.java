@@ -1,10 +1,14 @@
-package com.example.proyecto_final_iot;
+package com.example.proyecto_final_iot.Supervisor.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+
+import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.SitioData;
+import com.example.proyecto_final_iot.Supervisor.Adapter.SitioSupervisorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
