@@ -32,25 +32,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textView32"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
+                android:gravity="center"
                 android:text="Nombre de Sitio"
-                android:textStyle="bold"
                 android:textSize="18dp"
-                android:gravity="center"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView33"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="UBICACION"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:text="UBICACION" />
         </LinearLayout>
 
         <LinearLayout
@@ -62,7 +63,8 @@
                 android:layout_width="166dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:background="@drawable/rounded_background">
 
                 <LinearLayout
                     android:layout_width="149dp"
@@ -100,7 +102,8 @@
                         android:id="@+id/textView40"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Provincia" />
+                        android:text="Provincia"
+                        tools:text="Provincia" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -113,7 +116,9 @@
                         android:id="@+id/textView41"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Distrito" />
+                        android:contentDescription="Distrito"
+                        android:text="Distrito"
+                        tools:text="Distrito" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -146,7 +151,88 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <LinearLayout
+                    android:layout_width="228dp"
+                    android:layout_height="35dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView34"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView"
+                        tools:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="227dp"
+                    android:layout_height="30dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView35"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="225dp"
+                    android:layout_height="30dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView48"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="225dp"
+                    android:layout_height="37dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView37"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="225dp"
+                    android:layout_height="35dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView45"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="228dp"
+                    android:layout_height="33dp"
+                    android:orientation="vertical"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/textView46"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="TextView" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -172,7 +258,8 @@
                 android:layout_width="168dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:background="@drawable/rounded_background">
 
                 <LinearLayout
                     android:layout_width="155dp"
@@ -184,7 +271,9 @@
                         android:id="@+id/textView44"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Tipo de zona" />
+                        android:contentDescription="Tipo de zona"
+                        android:text="Tipo de zona"
+                        tools:text="Tipo de zona" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,7 +293,33 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"></LinearLayout>
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  TextView" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/textView51"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="  TextView" />
+                </LinearLayout>
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -220,8 +335,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/background_button_logout"
                 android:text="Equipos"
-                android:textColor="@color/white"
-                android:textAllCaps="true"/>
+                android:textAllCaps="true"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <androidx.fragment.app.FragmentContainerView
