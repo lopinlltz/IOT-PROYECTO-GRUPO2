@@ -1,5 +1,6 @@
 package com.example.proyecto_final_iot;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,5 +34,6 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
 
         adapter = new EquipoSupervisorAdapter(equipoList);
         recyclerView.setAdapter(adapter);
+
     }
 }
