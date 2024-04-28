@@ -84,6 +84,9 @@
             android:exported="false" />
         <activity
             android:name=".Administrador.UploadActivity"
+            android:exported="false" />
+        <activity
+
             android:name=".Supervisor.Activity.HistorialSupervisorActivity"
             android:exported="false" />
         <activity
