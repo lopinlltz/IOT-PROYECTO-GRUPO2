@@ -29,16 +29,16 @@
             android:name=".UserEditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".SitioSupervisorActivity"
+            android:name=".Supervisor.Activity.SitioSupervisorActivity"
             android:exported="false" />
         <activity
-            android:name=".TipoEquipoSupervisorActivity"
+            android:name=".Supervisor.Activity.TipoEquipoSupervisorActivity"
             android:exported="false" />
         <activity
-            android:name=".EquiposSupervisorActivity"
+            android:name=".Supervisor.Activity.EquiposSupervisorActivity"
             android:exported="false" />
         <activity
-            android:name=".HistorialSupervisorActivity"
+            android:name=".Supervisor.Activity.HistorialSupervisorActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
