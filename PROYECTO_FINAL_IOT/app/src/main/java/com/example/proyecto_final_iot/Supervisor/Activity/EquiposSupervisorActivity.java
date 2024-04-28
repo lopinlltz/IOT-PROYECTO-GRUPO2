@@ -1,4 +1,4 @@
-package com.example.proyecto_final_iot;
+package com.example.proyecto_final_iot.Supervisor.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,10 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.proyecto_final_iot.EquipoData;
+import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Adapter.EquipoSupervisorAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
