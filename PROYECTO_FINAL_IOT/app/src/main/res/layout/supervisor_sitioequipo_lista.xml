@@ -3,11 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".Supervisor.Activity.SitioEquipoSupervisorActivity">
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -16,7 +17,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="74dp"
+            android:layout_height="75dp"
             android:orientation="vertical">
 
         </LinearLayout>
@@ -42,19 +43,20 @@
 
             <TextView
                 android:id="@+id/textViewTituloEquipo"
-                android:layout_width="469dp"
+                android:layout_width="460dp"
                 android:layout_height="33dp"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="Equipos"
                 android:textColor="@color/white"
-                android:textSize="18dp" />
+                android:textSize="18dp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="512dp">
+            android:layout_height="532dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -65,7 +67,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_sitioequipo"
                     android:layout_width="match_parent"
-                    android:layout_height="501dp" />
+                    android:layout_height="505dp" />
             </LinearLayout>
         </ScrollView>
 
