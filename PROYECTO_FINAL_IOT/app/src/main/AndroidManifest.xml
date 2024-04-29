@@ -74,6 +74,9 @@
             android:name=".Supervisor.Activity.SitioDetalleActivity"
             android:exported="false" />
         <activity
+            android:name=".Supervisor.Activity.SitioEquipoSupervisorActivity"
+            android:exported="false" />
+        <activity
             android:name=".Supervisor.Activity.TipoEquipoSupervisorActivity"
             android:exported="false" />
         <activity
@@ -81,6 +84,15 @@
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquipoDetalleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.NuevoEquipoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.EquipoEditarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.NuevoReporteActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.HistorialSupervisorActivity"

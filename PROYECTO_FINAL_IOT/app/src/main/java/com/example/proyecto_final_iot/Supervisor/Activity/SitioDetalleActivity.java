@@ -34,7 +34,7 @@ public class SitioDetalleActivity extends AppCompatActivity {
         buttonEquipoSitio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(SitioDetalleActivity.this, SitioListaEquipoActivity.class));
+                startActivity(new Intent(SitioDetalleActivity.this, SitioEquipoSupervisorActivity.class));
             }
         });
 

@@ -81,7 +81,6 @@
                     android:id="@+id/recycler_view_equipo"
                     android:layout_width="match_parent"
                     android:layout_height="500dp" />
-                
 
             </LinearLayout>
         </ScrollView>
