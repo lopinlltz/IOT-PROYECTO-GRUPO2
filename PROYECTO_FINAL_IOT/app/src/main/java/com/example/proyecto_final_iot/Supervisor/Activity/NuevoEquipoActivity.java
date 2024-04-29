@@ -37,7 +37,7 @@ public class NuevoEquipoActivity extends AppCompatActivity {
         Guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(NuevoEquipoActivity.this,OpcionesActivity.class));
+                Intent intent = new Intent(NuevoEquipoActivity.this, EquiposSupervisorActivity.class);
                 ConfirmacionPopup();
             }
         });
@@ -52,7 +52,7 @@ public class NuevoEquipoActivity extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(NuevoEquipoActivity.this, HistorialSupervisorActivity.class);
+                Intent intent = new Intent(NuevoEquipoActivity.this, EquiposSupervisorActivity.class);
                 ConfirmacionPopup();
                 dialog.dismiss();
             }
