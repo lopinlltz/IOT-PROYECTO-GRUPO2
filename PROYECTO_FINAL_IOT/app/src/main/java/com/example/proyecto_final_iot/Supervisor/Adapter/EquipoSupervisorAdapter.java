@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_final_iot.EquipoData;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
 
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), HistorialSupervisorActivity.class);
+                Intent intent = new Intent(v.getContext(), EquipoDetalleActivity.class);
                 intent.putExtra("equipment_name", equipoData.getEquipmentName());
                 intent.putExtra("type_eq", equipoData.getTypeEq());
                 v.getContext().startActivity(intent);

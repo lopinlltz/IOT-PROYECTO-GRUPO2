@@ -50,10 +50,16 @@
             android:name=".Supervisor.Activity.SitioSupervisorActivity"
             android:exported="false" />
         <activity
+            android:name=".Supervisor.Activity.SitioDetalleActivity"
+            android:exported="false" />
+        <activity
             android:name=".Supervisor.Activity.TipoEquipoSupervisorActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquiposSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.EquipoDetalleActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.HistorialSupervisorActivity"

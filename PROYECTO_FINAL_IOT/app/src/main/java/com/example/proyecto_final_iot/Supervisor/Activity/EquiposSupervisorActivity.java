@@ -27,7 +27,7 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<EquipoData> equipoList = new ArrayList<>();
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
+        equipoList.add(new EquipoData("EquipoPrueba", "Router uwu"));
         equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
         equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
         equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
