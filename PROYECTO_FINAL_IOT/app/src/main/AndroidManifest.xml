@@ -17,6 +17,27 @@
         android:theme="@style/Theme.PROYECTO_FINAL_IOT"
         tools:targetApi="31" >
         <activity
+            android:name=".Administrador.Admin_nuevo_usuario"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_lista_usuario"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_supervisor"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_sitio_detalles"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_nuevo_sitio"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_perfil"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_chat"
+            android:exported="false" />
+        <activity
             android:name=".Superadmin.superadmin_logs"
             android:exported="false" />
         <activity
@@ -63,6 +84,12 @@
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.HistorialSupervisorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_lista_Sitio"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.UploadActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

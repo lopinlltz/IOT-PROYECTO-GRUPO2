@@ -4,4 +4,23 @@
     <string name="tipo">Tipo</string>
     <string name="equipo">Equipo</string>
     <string name="historial">Historial</string>
+    <string name="tipo_de_zona">Tipo de Zona</string>
+    <string name="tipo_de_sitio">Tipo de Sitio</string>
+
+
+    <string-array name="array_zona">
+
+        <item>Tipo de Zona</item>
+        <item>Urbana</item>
+        <item>Rural</item>
+
+    </string-array>
+    <string-array name="array_sitio">
+
+        <item>Tipo de Sitio</item>
+        <item>Móvil</item>
+        <item>Fijo</item>
+
+    </string-array>
+
 </resources>
