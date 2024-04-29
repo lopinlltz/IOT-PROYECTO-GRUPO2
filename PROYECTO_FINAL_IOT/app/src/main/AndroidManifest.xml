@@ -20,6 +20,24 @@
             android:name=".Superadmin.Activity.superadmin_logs"
             android:exported="false" />
         <activity
+            android:name=".Administrador.Admin_lista_usuario"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_supervisor"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_sitio_detalles"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_nuevo_sitio"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_perfil"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Admin_chat"
+            android:exported="false" />
+        <activity
             android:name=".Superadmin.Activity.superadmin_editar_administrador"
             android:exported="false" />
         <activity
@@ -27,9 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_nuevo_administrador"
-            android:exported="false" />
-        <activity
-            android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
@@ -50,17 +65,42 @@
             android:name=".Supervisor.Activity.SitioSupervisorActivity"
             android:exported="false" />
         <activity
+            android:name=".Supervisor.Activity.SitioDetalleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.SitioEquipoSupervisorActivity"
+            android:exported="false" />
+        <activity
             android:name=".Supervisor.Activity.TipoEquipoSupervisorActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquiposSupervisorActivity"
             android:exported="false" />
         <activity
+            android:name=".Supervisor.Activity.EquipoDetalleActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.NuevoEquipoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.EquipoEditarActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.NuevoReporteActivity"
+            android:exported="false" />
+        <activity
             android:name=".Supervisor.Activity.HistorialSupervisorActivity"
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.Superadmin_vista_principal1"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.UploadActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
             android:exported="true" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

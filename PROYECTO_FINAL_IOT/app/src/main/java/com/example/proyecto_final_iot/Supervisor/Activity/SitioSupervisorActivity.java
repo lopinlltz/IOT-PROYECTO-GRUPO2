@@ -26,7 +26,7 @@ public class SitioSupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<SitioData> dataList = new ArrayList<>();
-        dataList.add(new SitioData("Sitio 1", "UBICACIÓN"));
+        dataList.add(new SitioData("Pueblo Libre", "Av. Sucre 1023"));
         dataList.add(new SitioData("Sitio 2", "UBICACIÓN"));
         dataList.add(new SitioData("Sitio 3", "UBICACIÓN"));
         dataList.add(new SitioData("Sitio 4", "UBICACIÓN"));

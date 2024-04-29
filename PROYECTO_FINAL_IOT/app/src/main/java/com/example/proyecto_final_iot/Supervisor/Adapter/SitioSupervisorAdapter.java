@@ -1,5 +1,6 @@
 package com.example.proyecto_final_iot.Supervisor.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.SitioData;
+import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioDetalleActivity;
 
 import java.util.List;
 
@@ -32,6 +35,16 @@ public class SitioSupervisorAdapter extends RecyclerView.Adapter<SitioSupervisor
         SitioData sitioData = sitioList.get(position);
         holder.siteNameTextView.setText(sitioData.getSiteName());
         holder.locationTextView.setText(sitioData.getLocation());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SitioDetalleActivity.class);
+                intent.putExtra("site_name", sitioData.getSiteName());
+                intent.putExtra("location", sitioData.getLocation());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
