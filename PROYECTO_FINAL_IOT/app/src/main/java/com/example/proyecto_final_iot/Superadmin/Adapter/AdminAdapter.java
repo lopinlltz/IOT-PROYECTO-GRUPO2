@@ -8,11 +8,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.proyecto_final_iot.EquipoData;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
-import com.example.proyecto_final_iot.Superadmin.Adapter.AdminAdapter;
-import com.example.proyecto_final_iot.Supervisor.Adapter.HistorialSupervisorAdapter;
 
 import java.util.List;
 

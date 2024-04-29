@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.TipoEqData;
+import com.example.proyecto_final_iot.Supervisor.Entity.TipoEqData;
 
 import java.util.List;
 

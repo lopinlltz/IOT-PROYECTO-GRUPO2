@@ -1,4 +1,4 @@
-package com.example.proyecto_final_iot;
+package com.example.proyecto_final_iot.Supervisor.Entity;
 
 public class HistorialData {
     private String activityName;

@@ -10,8 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.SitioData;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
+import com.example.proyecto_final_iot.Supervisor.Entity.SitioData;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioDetalleActivity;
 
 import java.util.List;

@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.HistorialData;
+import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
 import com.example.proyecto_final_iot.R;
 
 import java.util.List;

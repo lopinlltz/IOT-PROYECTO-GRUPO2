@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.HistorialData;
+import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Adapter.HistorialSupervisorAdapter;
 
