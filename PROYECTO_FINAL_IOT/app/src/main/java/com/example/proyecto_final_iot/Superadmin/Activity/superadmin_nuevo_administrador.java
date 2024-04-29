@@ -1,4 +1,4 @@
-package com.example.proyecto_final_iot.Superadmin;
+package com.example.proyecto_final_iot.Superadmin.Activity;
 
 import android.os.Bundle;
 
