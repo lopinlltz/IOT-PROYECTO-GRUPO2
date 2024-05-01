@@ -80,7 +80,7 @@
             android:name=".Supervisor.Activity.EquipoDetalleActivity"
             android:exported="false" />
         <activity
-            android:name=".Supervisor.Activity.NuevoEquipoActivity"
+            android:name=".Supervisor.Activity.EquipoNuevoActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquipoEditarActivity"
@@ -100,6 +100,10 @@
 
         <activity android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
             android:exported="true" />
+
+        <activity android:name=".ChatContactoListaActivity"
+            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true" >

@@ -4,21 +4,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.proyecto_final_iot.R;
 
+public class EquipoNuevoActivity extends AppCompatActivity {
 
-public class NuevoEquipoActivity extends AppCompatActivity {
-
-    private LinearLayout atras;
-    private LinearLayout Guardar;
+    private ConstraintLayout atras;
+    private ConstraintLayout Guardar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +26,7 @@ public class NuevoEquipoActivity extends AppCompatActivity {
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(NuevoEquipoActivity.this,OpcionesActivity.class));
+                startActivity(new Intent(EquipoNuevoActivity.this,EquiposSupervisorActivity.class));
             }
         });
 
@@ -37,23 +34,24 @@ public class NuevoEquipoActivity extends AppCompatActivity {
         Guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NuevoEquipoActivity.this, EquiposSupervisorActivity.class);
+                Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
                 ConfirmacionPopup();
             }
         });
 
     }
 
+
     private void ConfirmacionPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Estas seguro de enviar el reporte?");
+        builder.setTitle("¿Estas seguro de guardar los cambios?");
 
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(NuevoEquipoActivity.this, EquiposSupervisorActivity.class);
-                ConfirmacionPopup();
+                Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
+                startActivity(intent);
                 dialog.dismiss();
             }
         });
