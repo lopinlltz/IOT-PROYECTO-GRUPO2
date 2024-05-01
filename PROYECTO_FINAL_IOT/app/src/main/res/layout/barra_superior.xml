@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:background="#c0a0c3"
+    android:orientation="horizontal"
+    android:padding="2dp">
+
+    <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="6dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="4dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout3"
+        android:layout_width="4dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutChat"
+        android:layout_width="13dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/imageButtonChat"
+            android:layout_width="104dp"
+            android:layout_height="45dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:src="@drawable/icon_mail" />
+        <TextView
+            android:id="@+id/textViewChat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chat"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutPerfil"
+        android:layout_width="9dp"
+        android:layout_height="50dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/imageButtonPerfil"
+            android:layout_width="100dp"
+            android:layout_height="46dp"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:scaleX="0.9"
+            android:scaleY="0.9"
+            android:src="@drawable/baseline_person_24" />
+
+        <TextView
+            android:id="@+id/textViewPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Perfil"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

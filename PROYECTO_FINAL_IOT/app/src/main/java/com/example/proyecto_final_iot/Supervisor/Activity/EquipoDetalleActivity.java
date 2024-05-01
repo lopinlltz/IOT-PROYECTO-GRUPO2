@@ -46,7 +46,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         buttonEditarEq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(EquipoDetalleActivity.this, EquiposSupervisorActivity.class);
+                Intent intent = new Intent(EquipoDetalleActivity.this, EquipoEditarActivity.class);
+                startActivity(intent);
             }
         });
 

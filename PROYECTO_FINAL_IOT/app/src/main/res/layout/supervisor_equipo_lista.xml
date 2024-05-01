@@ -16,12 +16,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/barra_superior"
+            android:name="com.example.proyecto_final_iot.BarraSuperior"
             android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:orientation="vertical">
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout="@layout/barra_superior" />
 
         <LinearLayout
             android:layout_width="match_parent"
