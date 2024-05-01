@@ -23,6 +23,9 @@
             android:name=".Administrador.Admin_lista_usuario"
             android:exported="false" />
         <activity
+            android:name=".Administrador.Admin_lista_Sitio"
+            android:exported="false" />
+        <activity
             android:name=".Administrador.Admin_supervisor"
             android:exported="false" />
         <activity
