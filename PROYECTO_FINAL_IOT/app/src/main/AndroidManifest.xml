@@ -47,9 +47,6 @@
             android:name=".Superadmin.Activity.superadmin_nuevo_administrador"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".detalles"
             android:exported="false" />
         <activity
@@ -97,8 +94,11 @@
         <activity
             android:name=".Administrador.UploadActivity"
             android:exported="false" />
+
+        <activity android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
+            android:exported="true" />
         <activity
-            android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
+            android:name=".MainActivity"
             android:exported="true" >
 
             <intent-filter>

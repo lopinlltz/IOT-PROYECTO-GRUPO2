@@ -12,6 +12,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Admin_lista_Sitio;
+import com.example.proyecto_final_iot.Superadmin.Activity.Superadmin_vista_principal1;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -55,6 +57,33 @@ public class MainActivity extends AppCompatActivity {
         //    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
          //   return insets;
         //});
+
+        Button buttonSuperadmin = findViewById(R.id.buttonSuperAdmin);
+        buttonSuperadmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Superadmin_vista_principal1.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonAdmin = findViewById(R.id.buttonAdmin);
+        buttonAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Admin_lista_Sitio.class);
+                startActivity(intent);
+            }
+        });
+
+        Button buttonSupervisor = findViewById(R.id.buttonSupervisor);
+        buttonSupervisor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SitioSupervisorActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
 
