@@ -74,7 +74,7 @@
                     android:background="@drawable/rounded_background1"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textView53"
                         android:layout_width="222dp"
                         android:layout_height="wrap_content"

@@ -103,7 +103,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textView58"
                         android:layout_width="238dp"
                         android:layout_height="wrap_content"
@@ -140,7 +140,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textView59"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textView61"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textView60"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <TextView
+                    <EditText
                         android:id="@+id/textView62"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -290,7 +290,7 @@
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <TextView
+                        <EditText
                             android:id="@+id/textView63"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
