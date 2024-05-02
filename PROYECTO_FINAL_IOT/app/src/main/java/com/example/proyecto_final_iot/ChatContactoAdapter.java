@@ -9,6 +9,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.proyecto_final_iot.Supervisor.Activity.ChatActivity;
+
 import java.util.List;
 
 public class ChatContactoAdapter extends RecyclerView.Adapter<ChatContactoAdapter.ViewHolder> {
@@ -33,7 +35,7 @@ public class ChatContactoAdapter extends RecyclerView.Adapter<ChatContactoAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ChatMensajeriaActivity.class);
+                Intent intent = new Intent(v.getContext(), ChatActivity.class);
                 v.getContext().startActivity(intent);
             }
         });
