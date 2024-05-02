@@ -1,4 +1,5 @@
 package com.example.proyecto_final_iot;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,15 +30,13 @@ public class ChatContactoAdapter extends RecyclerView.Adapter<ChatContactoAdapte
         holder.nameAdminTextView.setText(chatContactoData.getNombreAdmin());
         holder.shortMsgTextView.setText(chatContactoData.getShortMsg());
 
-        /*holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SitioDetalleActivity.class);
-                intent.putExtra("site_name", sitioData.getSiteName());
-                intent.putExtra("location", sitioData.getLocation());
+                Intent intent = new Intent(v.getContext(), ChatMensajeriaActivity.class);
                 v.getContext().startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override

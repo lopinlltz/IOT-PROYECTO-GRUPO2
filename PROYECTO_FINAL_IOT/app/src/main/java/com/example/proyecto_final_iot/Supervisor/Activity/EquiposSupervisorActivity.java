@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Supervisor.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,6 +48,14 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(EquiposSupervisorActivity.this,EquipoNuevoActivity.class));
+            }
+        });
+
+        adapter.setOnItemClickListener(new EquipoSupervisorAdapter.OnItemClickListener() {
+            @Override
+            public void onReportButtonClick(int position) {
+                Intent intent = new Intent(EquiposSupervisorActivity.this, HistorialSupervisorActivity.class);
+                startActivity(intent);
             }
         });
 
