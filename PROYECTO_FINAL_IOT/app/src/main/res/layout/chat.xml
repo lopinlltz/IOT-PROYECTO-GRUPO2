@@ -28,7 +28,7 @@
                 android:layout_marginTop="24dp"
                 android:src="@drawable/lanapic"
                 app:civ_border_color="#6A496C"
-                app:civ_border_width="10dp"
+                app:civ_border_width="8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -65,7 +65,7 @@
                     android:layout_height="50dp"
                     android:background="@drawable/search_background"
                     android:ems="10"
-                    android:hint="Esccribe un mensaje ...."
+                    android:hint="Escribe un mensaje ..."
                     android:inputType="text"
                     android:paddingStart="20dp"
                     android:textAlignment="center"
@@ -86,7 +86,7 @@
                     android:layout_marginStart="24dp"
                     android:src="@drawable/icono_enviar"
                     app:civ_border_color="#6A496C"
-                    app:civ_border_width="10dp"
+                    app:civ_border_width="6dp"
                     app:layout_constraintBottom_toBottomOf="@+id/editTextText"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
