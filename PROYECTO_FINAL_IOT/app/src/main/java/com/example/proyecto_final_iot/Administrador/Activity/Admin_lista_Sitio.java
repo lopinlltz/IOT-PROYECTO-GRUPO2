@@ -1,5 +1,6 @@
 package com.example.proyecto_final_iot.Administrador.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -74,23 +75,15 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         titlelistaSitio.setText("Bienvenido @Admin_1!");
 
 /*
-        ImageView iconoDetalles = findViewById(R.id.icono_editar1);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) ImageView iconoDetalles = findViewById(R.id.boton_edit);
         iconoDetalles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Admin_lista_Sitio.this, Admin_sitio_detalles.class);
+                Intent intent = new Intent(Admin_lista_Sitio.this, Admin_sitio_editar.class);
                 startActivity(intent);
             }
         });
 
-        ImageView iconoSupervisor = findViewById(R.id.icono_supervisor1);
-        iconoSupervisor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Admin_lista_Sitio.this, Admin_supervisor.class);
-                startActivity(intent);
-            }
-        });
 
         adapter.setOnItemClickListener(new EquipoSupervisorAdapter.OnItemClickListener() {
             @Override

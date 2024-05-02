@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Administrador.Activity.Admin_sitio_editar"
+        android:id="@+id/main"    >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
+            app:cardCornerRadius="30dp"
+            app:cardElevation="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/list_morado_border"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Editar Sitio"
+                    android:textAlignment="center"
+                    android:textColor="@color/color_admin"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/id_codigodeSitio"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/list_morado_border"
+                    android:elegantTextHeight="false"
+                    android:gravity="start|center_vertical"
+                    android:hint="Código o ID de Sitio"
+                    android:padding="10dp"
+                    android:textAlignment="viewStart"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/id_departamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/list_morado_border"
+                    android:gravity="start|center_vertical"
+                    android:hint="Departamento"
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/id_provincia"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edittext_bkg"
+                    android:gravity="start|center_vertical"
+                    android:hint="Provincia"
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/id_distrito"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edittext_bkg"
+                    android:gravity="start|center_vertical"
+                    android:hint="Distrito"
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/id_ubigeo"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edittext_bkg"
+                    android:gravity="start|center_vertical"
+                    android:hint="Ubigeo"
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
+                <Spinner
+                    android:id="@+id/spinner_tipoDeZona"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/id_ubigeo"
+                    tools:ignore="MissingConstraints" />
+
+                <Spinner
+                    android:id="@+id/spinner_tipoDeSitio"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/spinner_tipoDeZona"
+                    tools:ignore="MissingConstraints" />
+                <EditText
+                    android:id="@+id/id_latitud_long"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edittext_bkg"
+                    android:gravity="start|center_vertical"
+                    android:hint="Latitud y Longitud [geolocalización]"
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="293dp"
+                    android:layout_height="139dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/image_mapa" />
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </ScrollView>

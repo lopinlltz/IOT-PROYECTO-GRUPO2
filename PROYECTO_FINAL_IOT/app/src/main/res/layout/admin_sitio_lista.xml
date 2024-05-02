@@ -51,9 +51,9 @@
 
 
 <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/search_sitio"
+        android:layout_width="288dp"
+        android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:layout_marginStart="12dp"
         android:layout_marginTop="80dp"
@@ -66,44 +66,38 @@
         app:searchHintIcon="@null"
         app:searchIcon="@drawable/baseline_search_24" />
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="120dp"
-        android:layout_marginBottom="110dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_lista_sitio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginTop="13dp"
-
-                android:layout_marginBottom="250dp" />
-
-        </LinearLayout>
-    </ScrollView>
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="600dp"
         android:backgroundTint="@color/color_admin"
         android:src="@drawable/baseline_add_24"
         app:tint="@color/white" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="900dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_lista_sitio"
+                android:layout_width="match_parent"
+                android:layout_height="505dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 
     <androidx.fragment.app.FragmentContainerView
