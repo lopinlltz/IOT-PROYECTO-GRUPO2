@@ -54,7 +54,7 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new EquipoSupervisorAdapter.OnItemClickListener() {
             @Override
             public void onReportButtonClick(int position) {
-                Intent intent = new Intent(EquiposSupervisorActivity.this, HistorialSupervisorActivity.class);
+                Intent intent = new Intent(EquiposSupervisorActivity.this, NuevoReporteActivity.class);
                 startActivity(intent);
             }
         });

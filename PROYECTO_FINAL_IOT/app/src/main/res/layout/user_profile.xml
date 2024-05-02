@@ -34,13 +34,13 @@
                     android:orientation="horizontal">
                     <!-- toy agregando un atrás aki mejor para q
                     se vea menos vacio ga -->
-                    <ImageView
+                    <!--<ImageView
                         android:id="@+id/myImageAtras"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:scaleType="fitCenter"
-                        android:src="@drawable/backpic" />
+                        android:src="@drawable/backpic" />-->
 
                 </LinearLayout>
 
