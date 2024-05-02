@@ -1,4 +1,4 @@
-package com.example.proyecto_final_iot.Administrador;
+package com.example.proyecto_final_iot.Administrador.Activity;
 
 import android.os.Bundle;
 
@@ -10,13 +10,13 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.R;
 
-public class Admin_nuevo_usuario extends AppCompatActivity {
+public class ChatActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_nuevo_usuario);
+        setContentView(R.layout.activity_admin_chat);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);

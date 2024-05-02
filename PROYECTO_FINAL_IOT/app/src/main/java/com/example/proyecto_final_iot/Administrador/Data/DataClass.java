@@ -1,4 +1,4 @@
-package com.example.proyecto_final_iot.Administrador;
+package com.example.proyecto_final_iot.Administrador.Data;
 public class DataClass
 {
     private String dataTitle;

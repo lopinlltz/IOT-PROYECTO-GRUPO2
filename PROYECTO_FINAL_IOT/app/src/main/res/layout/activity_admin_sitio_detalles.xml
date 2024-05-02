@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".Administrador.Admin_sitio_detalles"
+        tools:context=".Administrador.Activity.Admin_sitio_detalles"
         android:id="@+id/main"    >
 
         <androidx.cardview.widget.CardView
@@ -178,6 +178,8 @@
                         app:fab_size="mini"/>
 
                 </com.github.clans.fab.FloatingActionMenu>
+
+
             </RelativeLayout>
 
 

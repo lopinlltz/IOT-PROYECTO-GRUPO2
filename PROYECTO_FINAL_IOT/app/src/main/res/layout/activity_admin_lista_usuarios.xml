@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/main"
-        tools:context=".Administrador.Admin_lista_Sitio">
+        tools:context=".Administrador.Activity.Admin_lista_Sitio">
 
 
         <RelativeLayout
@@ -65,100 +65,59 @@
             app:queryHint="Buscar..."
             app:searchHintIcon="@null"
             app:searchIcon="@drawable/baseline_search_24" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="110dp">
 
-
-        <EditText
-            android:id="@+id/item_1"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="532dp"
-            android:background="@drawable/edittext_bkg"
-            android:padding="10dp"
-            android:text="Nombre de Usuario 1"
-            android:elevation="3dp"
-            />
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/item_2"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="465dp"
-            android:background="@drawable/edittext_bkg"
-            android:text="Nombre de Usuario 2"
-            android:padding="8dp"
-            android:elevation="3dp"
-            android:layout_marginStart="10dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_lista_usuarios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="13dp"
 
+                android:layout_marginBottom="250dp" />
 
-        <EditText
-            android:id="@+id/item_3"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="400dp"
-            android:background="@drawable/edittext_bkg"
-            android:text="Nombre de Usuario 3"
-            android:padding="8dp"
-            android:elevation="3dp"
-            android:layout_marginStart="10dp"/>
+        </LinearLayout>
+    </ScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_margin="40dp"
-            android:backgroundTint="@color/color_admin"
-            app:tint = "@color/white"
-            android:src="@drawable/baseline_add_24" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="100dp"
+        android:backgroundTint="@color/color_admin"
+        android:src="@drawable/baseline_add_24"
+        app:tint="@color/white" />
 
 
-        <ImageView
-            android:id="@+id/icono_editar1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="528dp"
-            android:src="@drawable/toggle_off_40dp_fill0_wght400_grad0_opsz40"
-            android:elevation="3dp"
-
-            />
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView_Admin"
+        android:name="com.example.proyecto_final_iot.Administrador.Activity.MenuBarFragmentAdministrador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout="@layout/menu_bar_fragment_admin" />
 
 
-        <ImageView
-            android:id="@+id/icono_editar2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="460dp"
-            android:src="@drawable/toggle_on_40dp_fill0_wght400_grad0_opsz40"
-            android:elevation="3dp"
-            />
 
-        <ImageView
-            android:id="@+id/icono_editar3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="400dp"
-            android:src="@drawable/toggle_off_40dp_fill0_wght400_grad0_opsz40"
-            android:elevation="3dp"
-            />
+
+
 
     </RelativeLayout>

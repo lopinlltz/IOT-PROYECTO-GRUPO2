@@ -7,6 +7,9 @@
     <string name="tipo_de_zona">Tipo de Zona</string>
     <string name="tipo_de_sitio">Tipo de Sitio</string>
 
+    <string name="sitio_admin">Sitio</string>
+    <string name="usuario_admin">Usuarioo</string>
+
 
     <string-array name="array_zona">
 
