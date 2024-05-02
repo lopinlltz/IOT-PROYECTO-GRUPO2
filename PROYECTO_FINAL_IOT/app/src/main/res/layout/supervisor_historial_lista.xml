@@ -24,25 +24,52 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:layout="@layout/barra_superior" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="6dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="68dp"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:layout_height="82dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/idSearchBar"
-                android:layout_width="360dp"
-                android:layout_height="68dp"
-                android:background="@drawable/background_supervisor_searchbar"
-                android:ems="10"
-                android:hint="Buscar"
-                android:inputType="text"
-                android:paddingStart="20dp"
-                android:textSize="14sp"
-                android:textStyle="italic" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:background="@drawable/background_supervisor_searchbar">
+
+                <EditText
+                    android:id="@+id/idSearchBar"
+                    android:layout_width="307dp"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:hint="Buscar"
+                    android:inputType="text"
+                    android:background="@null"
+                    android:paddingStart="15dp"
+                    android:textSize="14sp"
+                    android:textStyle="italic" />
+
+                <ImageButton
+                    android:id="@+id/imageButtonSearch"
+                    android:layout_width="54dp"
+                    android:layout_height="46dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.8"
+                    android:scaleY="0.8"
+                    android:src="@drawable/lupasearchpic" />
+
+            </LinearLayout>
 
         </LinearLayout>
+
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -61,13 +88,20 @@
             </LinearLayout>
         </ScrollView>
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fragmentContainerView"
-            android:name="com.example.proyecto_final_iot.MenuBarFragment"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            tools:layout="@layout/menu_bar_fragment" />
+            android:layout_height="84dp">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/fragmentContainerView"
+                android:name="com.example.proyecto_final_iot.MenuBarFragment"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:layout_gravity="center_horizontal|bottom"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:layout="@layout/menu_bar_fragment" />
+
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
