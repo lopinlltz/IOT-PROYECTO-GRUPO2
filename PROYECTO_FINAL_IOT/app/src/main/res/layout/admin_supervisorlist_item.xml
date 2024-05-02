@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@drawable/edittext_bkg"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/NombreSupervisor_admin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre de Supervisor "
+                android:layout_marginStart="10dp"
+                android:padding="8dp"
+                android:elevation="3dp"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="63dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="40dp"
+            android:orientation="horizontal">
+            <!--
+            <CheckBox
+                android:id="@+id/bottom_checkbox"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="0dp"
+                android:background="#FFFFFF"
+
+                android:src="@drawable/icono_info" /> -->
+
+            <CheckBox
+                android:id="@+id/check_box"
+                android:layout_width="30dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/baseline_check_24" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
