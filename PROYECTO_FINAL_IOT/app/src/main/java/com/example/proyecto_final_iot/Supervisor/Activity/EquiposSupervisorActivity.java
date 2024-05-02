@@ -2,6 +2,7 @@ package com.example.proyecto_final_iot.Supervisor.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -9,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyecto_final_iot.MainActivity;
+import com.example.proyecto_final_iot.Superadmin.Activity.Superadmin_vista_principal1;
 import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Adapter.EquipoSupervisorAdapter;
@@ -59,5 +62,21 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
             }
         });
 
+        ImageButton cameraButton = findViewById(R.id.imageButtonCamera);
+        /*cameraButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dispatchTakePictureIntent();
+            }
+        });*/
+        cameraButton.setOnClickListener(view -> dispatchTakePictureIntent());
+
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(takePictureIntent);
+        }
     }
 }

@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+
+import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -22,6 +24,7 @@ public class UserEditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
+        //EdgeToEdge.enable(this);
 
         buttonActualizar = findViewById(R.id.buttonActualizar);
         buttonActualizar.setOnClickListener(new View.OnClickListener() {

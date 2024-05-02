@@ -22,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="72dp"
                 android:background="#5C1E67"
                 android:orientation="horizontal">
                 <!-- espacio para que en las vistas que lo requieran
@@ -46,14 +46,14 @@
 
                 <LinearLayout
                     android:layout_width="233dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="71dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/textViewPerfilInfo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="Mi Perfil"
@@ -91,7 +91,9 @@
                 android:layout_width="390dp"
                 android:layout_height="236dp"
                 android:layout_gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -391,14 +393,23 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom" />-->
 
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView"
-                android:name="com.example.proyecto_final_iot.MenuBarFragment"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout="@layout/menu_bar_fragment" />
+                android:layout_height="80dp">
+
+                <androidx.fragment.app.FragmentContainerView
+                    android:id="@+id/fragmentContainerView"
+                    android:name="com.example.proyecto_final_iot.MenuBarFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:layout_gravity="center_horizontal|bottom"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:layout="@layout/menu_bar_fragment" />
+
+            </LinearLayout>
+
+
 
             <!--<LinearLayout
                 android:layout_width="match_parent"
