@@ -9,13 +9,14 @@ import android.widget.LinearLayout;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.proyecto_final_iot.R;
 
 public class NuevoReporteActivity extends AppCompatActivity {
 
-    private LinearLayout atras;
-    private LinearLayout Guardar;
+    private ConstraintLayout atras;
+    private ConstraintLayout Guardar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,7 @@ public class NuevoReporteActivity extends AppCompatActivity {
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(NuevoReporteActivity.this,OpcionesActivity.class));
+                startActivity(new Intent(NuevoReporteActivity.this,EquiposSupervisorActivity.class));
             }
         });
 
@@ -34,7 +35,6 @@ public class NuevoReporteActivity extends AppCompatActivity {
         Guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //startActivity(new Intent(NuevoReporteActivity.this,OpcionesActivity.class));
                 ConfirmacionPopup();
             }
         });
@@ -49,8 +49,7 @@ public class NuevoReporteActivity extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(NuevoReporteActivity.this, HistorialSupervisorActivity.class);
-                ConfirmacionPopup();
+                startActivity(new Intent(NuevoReporteActivity.this,EquiposSupervisorActivity.class));
                 dialog.dismiss();
             }
         });

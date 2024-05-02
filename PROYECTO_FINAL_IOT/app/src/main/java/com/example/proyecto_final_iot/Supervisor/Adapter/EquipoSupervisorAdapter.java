@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,16 @@ import java.util.List;
 
 public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervisorAdapter.ViewHolder> {
     private List<EquipoData> equipoList;
+
+    public interface OnItemClickListener {
+        void onReportButtonClick(int position);
+    }
+    private OnItemClickListener mListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
+
 
     public EquipoSupervisorAdapter(List<EquipoData> equipoList) {
         this.equipoList = equipoList;
@@ -34,6 +45,15 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
         EquipoData equipoData = equipoList.get(position);
         holder.equipmentNameTextView.setText(equipoData.getEquipmentName());
         holder.eqTypeTextView.setText(equipoData.getTypeEq());
+
+        holder.imageButtonReport.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mListener != null) {
+                    mListener.onReportButtonClick(position);
+                }
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,11 +74,13 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView equipmentNameTextView;
         TextView eqTypeTextView;
+        ImageButton imageButtonReport;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             equipmentNameTextView = itemView.findViewById(R.id.item_equipment_name);
             eqTypeTextView = itemView.findViewById(R.id.item_type);
+            imageButtonReport = itemView.findViewById(R.id.imageButtonReport);
         }
     }
 }

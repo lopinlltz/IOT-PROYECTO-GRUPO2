@@ -21,7 +21,7 @@ public class ChatContactoListaActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.chat_contacto_lista);
 
-        recyclerView = findViewById(R.id.recycler_view_contactoChat);
+        recyclerView = findViewById(R.id.recycler_view_contacto);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<ChatContactoData> dataList = new ArrayList<>();

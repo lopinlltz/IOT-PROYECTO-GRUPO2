@@ -23,6 +23,9 @@
             android:name=".Administrador.Admin_lista_usuario"
             android:exported="false" />
         <activity
+            android:name=".Administrador.Admin_lista_Sitio"
+            android:exported="false" />
+        <activity
             android:name=".Administrador.Admin_supervisor"
             android:exported="false" />
         <activity
@@ -45,9 +48,6 @@
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_nuevo_administrador"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".detalles"
@@ -80,7 +80,7 @@
             android:name=".Supervisor.Activity.EquipoDetalleActivity"
             android:exported="false" />
         <activity
-            android:name=".Supervisor.Activity.NuevoEquipoActivity"
+            android:name=".Supervisor.Activity.EquipoNuevoActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquipoEditarActivity"
@@ -97,8 +97,18 @@
         <activity
             android:name=".Administrador.UploadActivity"
             android:exported="false" />
+
+        <activity android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
+            android:exported="true" />
+
+        <activity android:name=".ChatContactoListaActivity"
+            android:exported="true" />
         <activity
-            android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
+            android:name=".ChatMensajeriaActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".MainActivity"
             android:exported="true" >
 
             <intent-filter>

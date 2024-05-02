@@ -57,9 +57,10 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_view_contactoChat"
+                    android:id="@+id/recycler_view_contacto"
                     android:layout_width="match_parent"
                     android:layout_height="500dp" />
+
             </LinearLayout>
         </ScrollView>
 
