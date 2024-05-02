@@ -36,6 +36,13 @@ public class ChatActivity extends AppCompatActivity {
         chatList.add(new ChatData("Creación de equipo", "Hola" ,"18:04"));
         chatList.add(new ChatData("Edición de equipo", "Hola" ,"14:18"));
         chatList.add(new ChatData("Edición de equipo", "Hola","09:20"));
+        chatList.add(new ChatData("Joselin", "Hola", "13:28"));
+        chatList.add(new ChatData("Edición de equipo", "Hola", "10:25"));
+        chatList.add(new ChatData("Fin en sitio x", "Hola" ,"15:30"));
+        chatList.add(new ChatData("Borrado de equipo", "Hola" ,"11:09"));
+        chatList.add(new ChatData("Creación de equipo", "Hola" ,"18:04"));
+        chatList.add(new ChatData("Edición de equipo", "Hola" ,"14:18"));
+        chatList.add(new ChatData("Edición de equipo", "Hola","09:20"));
 
         adapter = new ChatAdapter(chatList);
         recyclerView.setAdapter(adapter);
