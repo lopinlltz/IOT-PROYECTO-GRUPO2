@@ -51,7 +51,7 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         btnUserProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Superadmin_vista_principal1.this, UserProfileActivity.class);
+                Intent intent = new Intent(Superadmin_vista_principal1.this, PerfilSuperadmin.class);
                 startActivity(intent);
             }
         });

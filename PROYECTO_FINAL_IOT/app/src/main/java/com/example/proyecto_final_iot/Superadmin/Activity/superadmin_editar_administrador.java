@@ -57,7 +57,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         btnUserProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(superadmin_editar_administrador.this, UserProfileActivity.class);
+                Intent intent = new Intent(superadmin_editar_administrador.this, PerfilSuperadmin.class);
                 startActivity(intent);
             }
         });

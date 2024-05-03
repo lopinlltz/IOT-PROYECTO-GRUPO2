@@ -48,7 +48,7 @@ public class superadmin_logs extends AppCompatActivity {
         btnUserProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(superadmin_logs.this, UserProfileActivity.class);
+                Intent intent = new Intent(superadmin_logs.this, PerfilSuperadmin.class);
                 startActivity(intent);
             }
         });
