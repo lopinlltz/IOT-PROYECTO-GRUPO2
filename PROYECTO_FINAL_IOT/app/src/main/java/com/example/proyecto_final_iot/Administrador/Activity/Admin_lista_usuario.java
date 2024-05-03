@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -61,6 +62,24 @@ public class Admin_lista_usuario extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        /*ImageProfileAdmin = findViewById(R.id.imageProfileAdmin);
+        imageProfileAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin_lista_Usuario.this, Admin_perfil.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView imageChateAdmin = findViewById(R.id.imageChateAdmin);
+        imageChateAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin_lista_Sitio.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });*/
     }
 
 

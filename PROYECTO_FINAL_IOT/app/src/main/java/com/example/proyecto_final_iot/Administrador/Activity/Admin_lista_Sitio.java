@@ -29,7 +29,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_sitio_lista);
 
-        recyclerView = findViewById(R.id.recyclerView_lista_sitio);
+        recyclerView = findViewById(R.id.recyclerView_lista_sitios);
 
         List<Sitio_Data> data_List = new ArrayList<>();
         data_List.add(new Sitio_Data("Nombre de sitio 1"));
@@ -44,7 +44,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         recyclerView.setAdapter(adapter);
 
 
-        fab = findViewById(R.id.fab);
+        fab = findViewById(R.id.fab_user);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,9 +70,9 @@ public class Admin_lista_Sitio extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        TextView titlelistaSitio = findViewById(R.id.title_listaSitio_admin);
+        //TextView titlelistaSitio = findViewById(R.id.title_listaSitio_admin);
 
-        titlelistaSitio.setText("Bienvenido @Admin_1!");
+
 
 /*
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) ImageView iconoDetalles = findViewById(R.id.boton_edit);
