@@ -11,7 +11,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.proyecto_final_iot.Administrador.Admin_lista_Sitio;
+import com.example.proyecto_final_iot.Administrador.Activity.Admin_lista_Sitio;
+import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
 import com.example.proyecto_final_iot.Superadmin.Activity.Superadmin_vista_principal1;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Admin_sitio_detalles.this, UserProfileActivity.class);
                 startActivity(intent);
             }
-        });*/
+        });
 
         Button boton_Registrar;
         boton_Registrar = findViewById(R.id.login_button);
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, Admin_lista_Sitio.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
 
         //ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

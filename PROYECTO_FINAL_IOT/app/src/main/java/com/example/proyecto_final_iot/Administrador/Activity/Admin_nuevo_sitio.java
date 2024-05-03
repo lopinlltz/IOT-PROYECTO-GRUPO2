@@ -1,13 +1,17 @@
-package com.example.proyecto_final_iot.Administrador;
+package com.example.proyecto_final_iot.Administrador.Activity;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -25,16 +29,13 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
     private Spinner sitioSpinner;
     private ArrayAdapter<CharSequence> sitioAdapter;
 
+    Button Atras_new_sitio;
+    Button Guardar_new_sitio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_nuevo_sitio);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+
         /*-------- Tipo de Zona--------------*/
         zonaSpinner = findViewById(R.id.spinner_tipoDeZona);
         zonaAdapter = ArrayAdapter.createFromResource(this, R.array.array_zona, R.layout.spinner_layout);
@@ -103,8 +104,48 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
 
         });
 
+        Atras_new_sitio = findViewById(R.id.Atras_new_sitio);
+        Atras_new_sitio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_lista_Sitio.class);
+                startActivity(intent);
+            }
+        });
+
+        Guardar_new_sitio = findViewById(R.id.Guardar_new_sitio);
+        Guardar_new_sitio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_lista_Sitio.class);
+                startActivity(intent);
+                ConfirmacionPopup();
+            }
+        });
+
+    }
+    private void ConfirmacionPopup() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿Estas seguro de guardar los cambios?");
 
 
+        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_sitio_detalles.class);
+                startActivity(intent);
+                dialog.dismiss();
+            }
+        });
 
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

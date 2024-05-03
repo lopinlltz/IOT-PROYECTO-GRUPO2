@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -19,30 +25,37 @@
         tools:targetApi="31">
         <activity
             android:name=".Superadmin.Activity.PerfilSuperadmin"
+            android:exported="false"
+            />
+        <activity
+            android:name=".Administrador.Activity.Admin_sitio_editar"
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_logs"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_lista_usuario"
+            android:name=".Administrador.Activity.Admin_lista_usuario"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_lista_Sitio"
+            android:name=".Administrador.Activity.Admin_lista_Sitio"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_supervisor"
+            android:name=".Administrador.Activity.Admin_supervisor"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_sitio_detalles"
+            android:name=".Administrador.Activity.Admin_sitio_detalles"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_nuevo_sitio"
+            android:name=".Administrador.Activity.Admin_nuevo_sitio"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_perfil"
+            android:name=".Administrador.Activity.Admin_perfil"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Admin_chat"
+            android:name=".Administrador.Activity.ChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Activity.Admin_nuevo_usuario"
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_editar_administrador"
@@ -99,7 +112,7 @@
             android:name=".Superadmin.Activity.Superadmin_vista_principal1"
             android:exported="false" />
         <activity
-            android:name=".Administrador.UploadActivity"
+            android:name=".Administrador.Activity.UploadActivity"
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_vista_supervisor2"

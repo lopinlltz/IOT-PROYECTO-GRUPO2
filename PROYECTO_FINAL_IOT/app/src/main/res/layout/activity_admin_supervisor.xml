@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Administrador.Admin_supervisor">
+    tools:context=".Administrador.Activity.Admin_supervisor">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,11 +30,22 @@
 
 
     </RelativeLayout>
-    <ListView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/black"
-        android:dividerHeight="2dp"
-        android:id="@+id/lista_supervisor"
-       android:layout_below="@id/myToolBar" />
+        android:layout_below="@+id/myToolBar"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="157dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_lista_supervisor"
+            android:layout_width="match_parent"
+            android:layout_height="478dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="13dp" />
+    </LinearLayout>
 </RelativeLayout>
