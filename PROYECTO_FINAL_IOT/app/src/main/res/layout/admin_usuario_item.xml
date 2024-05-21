@@ -41,14 +41,14 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <Switch
                 android:id="@+id/idSwitch"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentStart="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="80dp"
-                android:onClick="onclick" />
+                 />
 
             <TextView
                 android:id="@+id/etiSeleccion"

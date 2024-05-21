@@ -73,26 +73,6 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         //TextView titlelistaSitio = findViewById(R.id.title_listaSitio_admin);
 
 
-
-/*
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) ImageView iconoDetalles = findViewById(R.id.boton_edit);
-        iconoDetalles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Admin_lista_Sitio.this, Admin_sitio_editar.class);
-                startActivity(intent);
-            }
-        });
-
-
-        adapter.setOnItemClickListener(new EquipoSupervisorAdapter.OnItemClickListener() {
-            @Override
-            public void onReportButtonClick(int position) {
-                Intent intent = new Intent(EquiposSupervisorActivity.this, HistorialSupervisorActivity.class);
-                startActivity(intent);
-            }
-        });
-*/
         adapter.setOnItemClickListener(new SitioAdminAdapter.OnItemClickListener() {
             @Override
             public void onReportButtonClick(int position) {

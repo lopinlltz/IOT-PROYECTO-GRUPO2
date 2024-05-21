@@ -6,7 +6,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
 android:id="@+id/main"
-tools:context=".Administrador.Activity.Admin_lista_Usuarios">
+tools:context=".Administrador.Activity.Admin_lista_usuario">
 
 
 <RelativeLayout
@@ -53,11 +53,11 @@ tools:context=".Administrador.Activity.Admin_lista_Usuarios">
     app:searchIcon="@drawable/baseline_search_24" />
 <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="398dp"
     android:layout_alignParentTop="true"
     android:layout_alignParentBottom="true"
-    android:layout_marginTop="120dp"
-    android:layout_marginBottom="110dp">
+    android:layout_marginTop="144dp"
+    android:layout_marginBottom="169dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,11 +68,9 @@ tools:context=".Administrador.Activity.Admin_lista_Usuarios">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_lista_usuarios"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="420dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="13dp"
-
-            android:layout_marginBottom="250dp" />
+            android:layout_marginTop="13dp" />
 
     </LinearLayout>
 </ScrollView>
