@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
+import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
 import com.example.proyecto_final_iot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -23,15 +26,32 @@ public class Admin_lista_Sitio extends AppCompatActivity{
     FloatingActionButton fab;
     private SitioAdminAdapter adapter;
     private RecyclerView recyclerView;
+    private SearchView searchView_sitio;
+    List<Sitio_Data> data_List = new ArrayList<>();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_sitio_lista);
 
+        searchView_sitio = findViewById(R.id.search_sitio);
+        searchView_sitio.clearFocus();
+        searchView_sitio.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText_sitio) {
+                filterList_sitio(newText_sitio);
+                return true;
+            }
+        });
+
         recyclerView = findViewById(R.id.recyclerView_lista_sitios);
 
-        List<Sitio_Data> data_List = new ArrayList<>();
         data_List.add(new Sitio_Data("Nombre de sitio 1"));
         data_List.add(new Sitio_Data("Nombre de sitio 2"));
         data_List.add(new Sitio_Data("Nombre de sitio 3"));
@@ -89,6 +109,23 @@ public class Admin_lista_Sitio extends AppCompatActivity{
                 startActivity(intent);
             }
         });
+
+
+    }
+
+    private void filterList_sitio(String text_sitio) {
+        List<Sitio_Data> filteredList_sitio = new ArrayList<>();
+        for(Sitio_Data item_sitio : data_List ){
+            if (item_sitio.getNombreSitio().toLowerCase().contains(text_sitio.toLowerCase())){
+                filteredList_sitio.add(item_sitio);
+            }
+        }
+
+        if (filteredList_sitio.isEmpty()){
+            Toast.makeText(this, "Sitio no encontrado" , Toast.LENGTH_SHORT).show();
+        }else{
+            adapter.setFilteredList_sitio(filteredList_sitio);
+        }
 
 
     }

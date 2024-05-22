@@ -384,47 +384,18 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!--<FrameLayout
-                android:id="@+id/fragmentContainerMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom" />-->
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fragmentContainerView"
-                android:name="com.example.proyecto_final_iot.MenuBarFragment"
+                android:id="@+id/fragmentContainerView_Admin"
+                android:name="com.example.proyecto_final_iot.Administrador.Activity.MenuBarFragmentAdministrador"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="-7dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:layout="@layout/menu_bar_fragment" />
+                tools:layout="@layout/menu_bar_fragment_admin" />
 
-            <!--<LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:orientation="horizontal">
-
-                 espacio para la barra de menu dependiendo el rol
-                <LinearLayout
-                    android:layout_width="102dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="101dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="102dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-            </LinearLayout>-->
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

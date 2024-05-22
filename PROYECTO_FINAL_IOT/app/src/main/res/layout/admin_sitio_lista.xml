@@ -51,7 +51,7 @@
 
 
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search"
+        android:id="@+id/search_sitio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -95,8 +95,8 @@
         android:layout_height="398dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="144dp"
-        android:layout_marginBottom="169dp">
+        android:layout_marginTop="140dp"
+        android:layout_marginBottom="100dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,10 +107,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_lista_sitios"
                 android:layout_width="match_parent"
-                android:layout_height="420dp"
+                android:layout_height="500dp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="13dp"
-
                 />
 
         </LinearLayout>

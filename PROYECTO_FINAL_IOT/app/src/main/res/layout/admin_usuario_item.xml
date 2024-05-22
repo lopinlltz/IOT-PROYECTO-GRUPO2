@@ -42,7 +42,7 @@
             android:orientation="horizontal">
 
             <Switch
-                android:id="@+id/idSwitch"
+                android:id="@+id/idSwitch_usuario_admin"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_alignParentStart="true"

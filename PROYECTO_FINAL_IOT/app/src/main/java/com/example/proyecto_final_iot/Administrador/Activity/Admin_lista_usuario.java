@@ -6,9 +6,11 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -33,22 +35,37 @@ public class Admin_lista_usuario extends AppCompatActivity {
     private UsuarioListAdapter adapter;
     private RecyclerView recyclerView;
     FloatingActionButton fab_user;
+    private SearchView searchView;
 
+    List<Usuario_data> data_List_user = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_lista_usuarios);
 
+        searchView = findViewById(R.id.search_usuario);
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filterList(newText);
+                return true;
+            }
+        });
 
         recyclerView = findViewById(R.id.recyclerView_lista_usuarios);
-        List<Usuario_data> data_List_user = new ArrayList<>();
-        data_List_user.add(new Usuario_data("Nombre de Usuario 1"));
-        data_List_user.add(new Usuario_data("Nombre de Usuario 2"));
-        data_List_user.add(new Usuario_data("Nombre de Usuario 3"));
-        data_List_user.add(new Usuario_data("Nombre de Usuario 4"));
-        data_List_user.add(new Usuario_data("Nombre de Usuario 5"));
-        data_List_user.add(new Usuario_data("Nombre de Usuario 6"));
+         data_List_user.add(new Usuario_data("maricielo supervisor 1"));
+        data_List_user.add(new Usuario_data("Yoselin supervisor 2"));
+        data_List_user.add(new Usuario_data("samantha supervisor 3"));
+        data_List_user.add(new Usuario_data("Andrea supervisor 4"));
+        data_List_user.add(new Usuario_data("Jose supervisor 5"));
+        data_List_user.add(new Usuario_data("Andres supervisor 6"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new UsuarioListAdapter(data_List_user);
@@ -80,6 +97,23 @@ public class Admin_lista_usuario extends AppCompatActivity {
                 startActivity(intent);
             }
         });*/
+    }
+
+    private void filterList(String text) {
+        List<Usuario_data> filteredList = new ArrayList<>();
+        for(Usuario_data item : data_List_user ){
+            if (item.getNombreUsuarioAdmin().toLowerCase().contains(text.toLowerCase())){
+                filteredList.add(item);
+            }
+        }
+
+        if (filteredList.isEmpty()){
+            Toast.makeText(this, "Supervisor no encontrado" , Toast.LENGTH_SHORT).show();
+        }else{
+            adapter.setFilteredList(filteredList);
+        }
+
+
     }
 
 

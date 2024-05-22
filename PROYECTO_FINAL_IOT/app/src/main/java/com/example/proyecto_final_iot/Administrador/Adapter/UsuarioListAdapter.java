@@ -21,6 +21,11 @@ public class UsuarioListAdapter extends RecyclerView.Adapter<UsuarioListAdapter.
 
     private List<Usuario_data> usuario_dataList;
 
+    public void setFilteredList(List<Usuario_data> filteredList){
+        this.usuario_dataList = filteredList;
+        notifyDataSetChanged();
+    }
+
     public UsuarioListAdapter(List<Usuario_data> usuario_dataList) {
         this.usuario_dataList = usuario_dataList;
     }

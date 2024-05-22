@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
+import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
 import com.example.proyecto_final_iot.R;
 
 import java.util.List;
@@ -22,6 +23,10 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     private OnItemClickListener mListenerlistenerAdmin;
     private OnItemClickListener2 mListenerlistenerAdmin2;
 
+    public void setFilteredList_sitio(List<Sitio_Data> filteredList_sitio){
+        this.sitio_dataList = filteredList_sitio;
+        notifyDataSetChanged();
+    }
 
     public interface OnItemClickListener {
         void onReportButtonClick(int position);

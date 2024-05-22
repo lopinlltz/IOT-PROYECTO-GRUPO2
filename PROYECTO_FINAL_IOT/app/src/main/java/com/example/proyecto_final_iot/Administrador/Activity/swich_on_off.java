@@ -22,12 +22,13 @@ public class swich_on_off extends AppCompatActivity {
 
     TextView txtEti;
     SwitchCompat  switchCompat;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.admin_usuario_item);
         txtEti = findViewById(R.id.etiSeleccion);
-        switchCompat = findViewById(R.id.idSwitch);
+        switchCompat = findViewById(R.id.idSwitch_usuario_admin);
 
         switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
