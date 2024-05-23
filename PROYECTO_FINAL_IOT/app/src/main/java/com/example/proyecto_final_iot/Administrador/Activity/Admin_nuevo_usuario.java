@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -15,10 +16,17 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
+import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoSitioBinding;
+import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoUsuarioBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class Admin_nuevo_usuario extends AppCompatActivity {
 
@@ -26,6 +34,15 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     Button saveButton_user;
     FloatingActionButton fab_user;
     @SuppressLint("CutPasteId")
+
+    //---------Firebase------------
+    ListenerRegistration snapshotListener;
+    ActivityAdminNuevoUsuarioBinding binding_new_supervisor;
+    FirebaseFirestore db_nuevo_supervisor;
+
+    DatabaseReference mDatabase_super;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +58,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
             }
         });
 
-        saveButton_user = findViewById(R.id.saveButton_user);
+        /*saveButton_user = findViewById(R.id.saveButton_user);
         saveButton_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,9 +66,44 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                 startActivity(intent);
                 ConfirmacionPopup();
             }
+        });*/
+
+        binding_new_supervisor = ActivityAdminNuevoUsuarioBinding.inflate(getLayoutInflater());
+        setContentView(binding_new_supervisor.getRoot());
+
+        db_nuevo_supervisor = FirebaseFirestore.getInstance();
+        binding_new_supervisor.saveButtonUser.setOnClickListener(view -> {
+            String nombre = binding_new_supervisor.idNombreUser.getText().toString();
+            String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
+            int dni = Integer.parseInt(binding_new_supervisor.idDniUSer.getText().toString());
+            String correo = binding_new_supervisor.idCorreoUser.getText().toString();
+            int telefono = Integer.parseInt(binding_new_supervisor.idTelefonoUser.getText().toString());
+            String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
+            //String foto = binding_new_supervisor.idfoto.getText().toString();
+
+
+
+            Supervisor_nuevo_Data supervisorNuevoData = new Supervisor_nuevo_Data();
+            supervisorNuevoData.setNombre(nombre);
+            supervisorNuevoData.setApellido(apellido);
+            supervisorNuevoData.setDni(dni);
+            supervisorNuevoData.setCorreo(correo);
+            supervisorNuevoData.setTelefono(telefono);
+            supervisorNuevoData.setDomicilio(Domicilio);
+            //supervisorNuevoData.setFoto(foto);
+
+
+
+            db_nuevo_supervisor.collection("supervisorAdmin")
+                    .document(nombre)
+                    .set(supervisorNuevoData)
+                    .addOnSuccessListener(unused -> {
+                        Toast.makeText(this, "Supervisor grabado", Toast.LENGTH_SHORT).show();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
+                    });
         });
-
-
 
     }
 
@@ -78,5 +130,12 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (snapshotListener != null)
+            snapshotListener.remove();
     }
 }

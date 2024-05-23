@@ -28,7 +28,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nuevo Usuario"
+                android:text="Nuevo Supervisor"
                 android:textAlignment="center"
                 android:textColor="@color/color_admin"
                 android:textSize="30sp"
@@ -108,11 +108,20 @@
                 android:textColor="@color/color_admin"
                 android:textSize="16sp" />
 
-            <ImageButton
-                android:id="@+id/imageButton_usuario"
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/subir_imagen_usuario"
                 android:layout_width="match_parent"
-                android:layout_height="154dp"
-                app:srcCompat="@drawable/baseline_add_a_photo_24" />
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/baseline_add_a_photo_24">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/baseline_add_a_photo_24">
+
+                </ImageView>
+
+            </com.google.android.material.card.MaterialCardView>
 
 
             <Button
