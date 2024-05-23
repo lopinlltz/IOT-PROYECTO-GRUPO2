@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="72dp"
-                android:background="#5C1E67"
+                android:background="#A6A0D8"
                 android:orientation="horizontal">
                 <!-- espacio para que en las vistas que lo requieran
                 poner el chat-->
@@ -82,7 +82,7 @@
                     android:layout_height="180dp"
                     android:layout_gravity="center"
                     android:src="@drawable/nanapic"
-                    app:civ_border_color="#6A496C"
+                    app:civ_border_color="#A6A0D8"
                     app:civ_border_width="10dp" />
 
             </LinearLayout>
@@ -98,7 +98,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="57dp"
-                    android:background="@drawable/rounded_background"
+                    android:background="@drawable/rounded_background1"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -358,7 +358,7 @@
                         android:layout_width="139dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/background_button_logout"
+                        android:background="@drawable/rounded_background1"
                         android:gravity="center"
                         android:text="Editar"
                         android:textAllCaps="false"
@@ -377,7 +377,7 @@
                         android:layout_width="156dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:background="@drawable/background_button_logout"
+                        android:background="@drawable/rounded_background1"
                         android:gravity="center"
                         android:text="Cerrar sesión"
                         android:textAllCaps="false"
@@ -406,51 +406,63 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
                 app:layout_constraintVertical_bias="0.92">
-
                 <LinearLayout
-                    android:layout_width="86dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="111dp"
-                    android:layout_height="match_parent"
+                    android:id="@+id/linearLayoutHome_SuperAdmin"
+                    android:layout_width="6dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <ImageButton
-                        android:id="@+id/imageButtonhome"
-                        android:layout_width="72dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#00FFFFFF"
-                        android:contentDescription="mm"
-                        app:srcCompat="@drawable/addresspic" />
-                </LinearLayout>
+                        android:id="@+id/buttonhomesuper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="46dp"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:scaleX="0.9"
+                        android:scaleY="0.9"
+                        android:src="@drawable/addresspic" />
 
-                <LinearLayout
-                    android:layout_width="54dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="102dp"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageButton
-                        android:id="@+id/imagenhistorial"
+                    <TextView
+                        android:id="@+id/textViewSitio_admin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="#00FFFFFF"
-                        android:contentDescription="mmmm"
-                        app:srcCompat="@drawable/historialpic" />
+                        android:text="@string/sitio_admin"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:id="@+id/layoutHistorial_superadmin"
+                    android:layout_width="4dp"
+                    android:layout_height="70dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageButton
+                        android:id="@+id/buttonhistorialsuper"
+                        android:layout_width="wrap_content"
+                        android:layout_height="44dp"
+                        android:background="@null"
+                        android:scaleType="fitCenter"
+                        android:scaleX="0.9"
+                        android:scaleY="0.9"
+                        android:src="@drawable/historialpic" />
+
+                    <TextView
+                        android:id="@+id/textViewUsuario_Admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/usuario_admin"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </LinearLayout>
             </LinearLayout>
 
 
