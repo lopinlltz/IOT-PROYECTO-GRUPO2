@@ -26,6 +26,7 @@
 
     </string-array>
     <string name="filtro_prompt">Filtro</string>
+    <string name="search_hint">Buscar...</string>
     <string-array name="roles_array">
         <item>Filtro</item>
         <item>Administrador</item>

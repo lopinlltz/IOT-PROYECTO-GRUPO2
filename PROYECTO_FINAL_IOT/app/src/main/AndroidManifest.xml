@@ -110,6 +110,7 @@
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.Superadmin_vista_principal1"
+            android:windowSoftInputMode="adjustPan|adjustResize"
             android:exported="false" />
         <activity
             android:name=".Administrador.Activity.UploadActivity"

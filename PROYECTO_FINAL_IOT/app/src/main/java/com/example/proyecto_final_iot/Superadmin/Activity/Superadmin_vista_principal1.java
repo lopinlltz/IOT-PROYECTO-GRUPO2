@@ -7,6 +7,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Superadmin_vista_principal1 extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -37,7 +39,6 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
 
         // Establecer el valor por defecto "Filtro"
         spinner.setSelection(0);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
