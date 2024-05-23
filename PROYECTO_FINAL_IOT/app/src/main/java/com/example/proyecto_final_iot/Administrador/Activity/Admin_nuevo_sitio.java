@@ -136,24 +136,24 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
     }
 
     private void guardarSitio() {
-        String codigo = binding_new_sitio.idCodigodeSitio.getText().toString();
-        String departamento = binding_new_sitio.idDepartamento.getText().toString();
-        String geolocalizacion = binding_new_sitio.idUbigeo.getText().toString();
-        String provincia = binding_new_sitio.idProvincia.getText().toString();
+        String id_codigodeSitio = binding_new_sitio.idCodigodeSitio.getText().toString();
+        String id_departamento = binding_new_sitio.idDepartamento.getText().toString();
+        String id_latitud_long = binding_new_sitio.idUbigeo.getText().toString();
+        String id_provincia = binding_new_sitio.idProvincia.getText().toString();
         String tipoDeSitio = binding_new_sitio.spinnerTipoDeSitio.getContext().toString();
         String tipoDeZona = binding_new_sitio.spinnerTipoDeZona.getContext().toString();
-        String ubigeo = binding_new_sitio.idUbigeo.getText().toString();
+        String id_ubigeo = binding_new_sitio.idUbigeo.getText().toString();
 
         Sitio_nuevo_Data sitioNuevoData = new Sitio_nuevo_Data();
-        sitioNuevoData.setCodigo(codigo);
-        sitioNuevoData.setDepartamento(departamento);
-        sitioNuevoData.setGeolocalizacion(geolocalizacion);
-        sitioNuevoData.setProvincia(provincia);
-        sitioNuevoData.setTipoDeSitio(tipoDeSitio);
-        sitioNuevoData.setTipoDeZona(tipoDeZona);
-        sitioNuevoData.setUbigeo(ubigeo);
+        sitioNuevoData.setId_codigodeSitio(id_codigodeSitio);
+        sitioNuevoData.setId_departamento(id_departamento);
+        sitioNuevoData.setId_latitud_long(id_latitud_long);
+        sitioNuevoData.setId_provincia(id_provincia);
+        sitioNuevoData.setId_tipo_de_sitio(tipoDeSitio);
+        sitioNuevoData.setId_tipo_de_zona(tipoDeZona);
+        sitioNuevoData.setId_ubigeo(id_ubigeo);
         db_nuevo_sitio.collection("sitio")
-                .document(codigo)
+                .document(id_codigodeSitio)
                 .set(sitioNuevoData)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(Admin_nuevo_sitio.this, "Sitio grabado", Toast.LENGTH_SHORT).show();

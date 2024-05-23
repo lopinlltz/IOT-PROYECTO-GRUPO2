@@ -1,72 +1,100 @@
 package com.example.proyecto_final_iot.Administrador.Data;
 
 public class Sitio_nuevo_Data {
-    String codigo;
-    String departamento;
-    String geolocalizacion;
-    String provincia;
-    String tipoDeSitio;
-    String tipoDeZona;
-    String ubigeo;
+    private String id_codigodeSitio;
+    private int buttom_supervisor;
+    private int buttom_info;
 
-    public String getCodigo() {
-        return codigo;
+    private String id_departamento;
+    private String id_provincia;
+    private String id_distrito;
+    private String id_ubigeo;
+    private String id_tipo_de_zona;
+    private String id_tipo_de_sitio;
+    private String id_latitud_long;
+
+    public String getId_codigodeSitio() {
+        return id_codigodeSitio;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public String getId_departamento() {
+        return id_departamento;
     }
 
-    public String getDepartamento() {
-        return departamento;
+    public String getId_provincia() {
+        return id_provincia;
     }
 
-    public void setDepartamento(String departamento) {
-        this.departamento = departamento;
+    public String getId_distrito() {
+        return id_distrito;
     }
 
-    public String getGeolocalizacion() {
-        return geolocalizacion;
+    public String getId_ubigeo() {
+        return id_ubigeo;
     }
 
-    public void setGeolocalizacion(String geolocalizacion) {
-        this.geolocalizacion = geolocalizacion;
+    public String getId_tipo_de_zona() {
+        return id_tipo_de_zona;
     }
 
-    public String getProvincia() {
-        return provincia;
+    public String getId_tipo_de_sitio() {
+        return id_tipo_de_sitio;
     }
 
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
+    public void setId_tipo_de_zona(String id_tipo_de_zona) {
+        this.id_tipo_de_zona = id_tipo_de_zona;
     }
 
-    public String getTipoDeSitio() {
-        return tipoDeSitio;
+    public void setId_tipo_de_sitio(String id_tipo_de_sitio) {
+        this.id_tipo_de_sitio = id_tipo_de_sitio;
     }
 
-    public void setTipoDeSitio(String tipoDeSitio) {
-        this.tipoDeSitio = tipoDeSitio;
+    public String getId_latitud_long() {
+        return id_latitud_long;
     }
 
-    public String getTipoDeZona() {
-        return tipoDeZona;
+/*
+    public int getButtom_supervisor() {
+        return buttom_supervisor;
     }
 
-    public void setTipoDeZona(String tipoDeZona) {
-        this.tipoDeZona = tipoDeZona;
+    public int getButtom_info() {
+        return buttom_info;
     }
 
-    public String getUbigeo() {
-        return ubigeo;
+    public Sitio_Data(String nombreSitio) {
+        this.nombreSitio = nombreSitio;
+    }*/
+
+    public void setId_codigodeSitio(String id_codigodeSitio) {
+        this.id_codigodeSitio = id_codigodeSitio;
     }
 
-    public void setUbigeo(String ubigeo) {
-        this.ubigeo = ubigeo;
+    public void setButtom_supervisor(int buttom_supervisor) {
+        this.buttom_supervisor = buttom_supervisor;
     }
 
-    @Override
-    public String toString() {
-        return tipoDeSitio ;
+    public void setButtom_info(int buttom_info) {
+        this.buttom_info = buttom_info;
+    }
+
+    public void setId_departamento(String id_departamento) {
+        this.id_departamento = id_departamento;
+    }
+
+    public void setId_provincia(String id_provincia) {
+        this.id_provincia = id_provincia;
+    }
+
+    public void setId_distrito(String id_distrito) {
+        this.id_distrito = id_distrito;
+    }
+
+    public void setId_ubigeo(String id_ubigeo) {
+        this.id_ubigeo = id_ubigeo;
+    }
+
+    public void setId_latitud_long(String id_latitud_long) {
+        this.id_latitud_long = id_latitud_long;
     }
 }
