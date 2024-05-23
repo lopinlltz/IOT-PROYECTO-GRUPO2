@@ -9,9 +9,9 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.proyecto_final_iot" />
-                  <option name="mobileSdkAppId" value="1:115165806108:android:cec56da18a56062ef9a9d9" />
-                  <option name="projectId" value="proyecto-final-iot-eb3e6" />
-                  <option name="projectNumber" value="115165806108" />
+                  <option name="mobileSdkAppId" value="1:90836444361:android:2b87ad2c194018b6445918" />
+                  <option name="projectId" value="prueba-proyecto-final-af1f3" />
+                  <option name="projectNumber" value="90836444361" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

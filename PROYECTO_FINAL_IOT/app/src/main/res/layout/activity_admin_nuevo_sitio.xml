@@ -142,14 +142,7 @@
                 android:layout_marginTop="-90dp"
                 android:text="Guardar"
                  />
-            <Button
-                android:id="@+id/Atras_new_sitio"
-                android:layout_width="115dp"
-                android:layout_height="35dp"
-                android:background="@drawable/circular_borde_morado_admin"
-                android:layout_marginStart="190dp"
-                android:layout_marginTop="10dp"
-                android:text="Atrás"/>
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
