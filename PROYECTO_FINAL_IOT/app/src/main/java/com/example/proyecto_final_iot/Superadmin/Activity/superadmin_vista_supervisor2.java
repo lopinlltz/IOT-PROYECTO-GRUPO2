@@ -27,7 +27,8 @@ public class superadmin_vista_supervisor2 extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superadmin_vista_supervisor2);
-        Spinner spinner = findViewById(R.id.spinner1);
+
+        /*Spinner spinner = findViewById(R.id.spinner1);
         ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,
                 R.array.roles_array, android.R.layout.simple_spinner_item);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -50,7 +51,7 @@ public class superadmin_vista_supervisor2 extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // No hacer nada
             }
-        });
+        }); */
 
         recyclerView = findViewById(R.id.recycler_view_supervisor124);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
