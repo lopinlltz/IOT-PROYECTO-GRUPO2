@@ -20,23 +20,26 @@ import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivit
 import com.example.proyecto_final_iot.Supervisor.Activity.TipoEquipoSupervisorActivity;
 
 public class BarraSuperior extends Fragment {
-
+    private boolean isNotifSelected = false;
     private boolean isChatSelected = false;
     private boolean isPerfilSelected = false;
 
-    private ImageButton imageButtonChat, imageButtonPerfil;
-    private TextView textViewChat, textViewPerfil;
-    private LinearLayout layoutChat, layoutPerfil;
+    private ImageButton imageButtonNotif, imageButtonChat, imageButtonPerfil;
+    private TextView textViewNotif, textViewChat, textViewPerfil;
+    private LinearLayout layoutNotif, layoutChat, layoutPerfil;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.barra_superior, container, false);
 
+        layoutNotif = view.findViewById(R.id.layoutNotif);
         layoutChat = view.findViewById(R.id.layoutChat);
         layoutPerfil = view.findViewById(R.id.layoutPerfil);
 
+        imageButtonNotif = view.findViewById(R.id.imageNotification);
         imageButtonChat = view.findViewById(R.id.imageButtonChat);
         imageButtonPerfil = view.findViewById(R.id.imageButtonPerfil);
 
+        textViewNotif = view.findViewById(R.id.textViewNotif);
         textViewChat = view.findViewById(R.id.textViewChat);
         textViewPerfil = view.findViewById(R.id.textViewPerfil);
 
@@ -46,28 +49,45 @@ public class BarraSuperior extends Fragment {
     }
 
     private void configurarListeners() {
+        imageButtonNotif.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                handleOptionClick(true, false, false);
+            }
+        });
         imageButtonChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleOptionClick(true, false);
+                handleOptionClick(false, true, false);
             }
         });
 
         imageButtonPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleOptionClick(false, true);
+                handleOptionClick(false, false, true);
             }
         });
 
     }
 
-    private void handleOptionClick(boolean isChat, boolean isPerfil) {
+    private void handleOptionClick(boolean isNotif, boolean isChat, boolean isPerfil) {
         resetOtherOptions();
+
+        if (isNotif) {
+            isNotifSelected = true;
+            //layoutNotif.setBackgroundColor(Color.parseColor("#3F2D40"));
+            imageButtonNotif.setScaleX(0.8f);
+            imageButtonNotif.setScaleY(0.8f);
+            textViewNotif.setVisibility(View.VISIBLE);
+
+            Intent intent = new Intent(getActivity(), NotificacionActivity.class);
+            startActivity(intent);
+        }
 
         if (isChat) {
             isChatSelected = true;
-            layoutChat.setBackgroundColor(Color.parseColor("#3F2D40"));
+            //layoutChat.setBackgroundColor(Color.parseColor("#3F2D40"));
             imageButtonChat.setScaleX(0.8f);
             imageButtonChat.setScaleY(0.8f);
             textViewChat.setVisibility(View.VISIBLE);
@@ -78,7 +98,7 @@ public class BarraSuperior extends Fragment {
 
         if (isPerfil) {
             isPerfilSelected = true;
-            layoutPerfil.setBackgroundColor(Color.parseColor("#3F2D40"));
+            //layoutPerfil.setBackgroundColor(Color.parseColor("#3F2D40"));
             imageButtonPerfil.setScaleX(0.8f);
             imageButtonPerfil.setScaleY(0.8f);
             textViewPerfil.setVisibility(View.VISIBLE);

@@ -10,7 +10,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -118,6 +119,9 @@
         <activity
             android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
             android:exported="true" />
+        <activity
+            android:name=".NotificacionActivity"
+            android:exported="false" />
         <activity
             android:name=".ChatContactoListaActivity"
             android:exported="true" />

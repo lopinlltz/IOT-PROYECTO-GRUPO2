@@ -11,6 +11,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.proyecto_final_iot.MainActivity;
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 
 public class EquipoEditarActivity extends AppCompatActivity {
@@ -55,6 +57,9 @@ public class EquipoEditarActivity extends AppCompatActivity {
                 Intent intent = new Intent(EquipoEditarActivity.this, EquiposSupervisorActivity.class);
                 startActivity(intent);
                 dialog.dismiss();
+
+                NotificationHelper.createNotificationChannel(EquipoEditarActivity.this);
+                NotificationHelper.sendNotification(EquipoEditarActivity.this, "Equipos", "equipo editado");
             }
         });
 

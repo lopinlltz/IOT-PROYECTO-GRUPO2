@@ -86,6 +86,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
 
 
 
+
             db_nuevo_sitio.collection("sitio")
                     .document(codigo)
                     .set(sitioNuevoData)
@@ -96,6 +97,9 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
                         Toast.makeText(this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
                     });
         });
+
+
+
 
     }
 

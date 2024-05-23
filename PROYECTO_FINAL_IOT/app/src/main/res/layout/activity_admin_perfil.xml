@@ -23,7 +23,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:background="#5C1E67"
+                android:background="@color/color_admin"
                 android:orientation="horizontal">
                 <!-- espacio para que en las vistas que lo requieran
                 poner el chat-->

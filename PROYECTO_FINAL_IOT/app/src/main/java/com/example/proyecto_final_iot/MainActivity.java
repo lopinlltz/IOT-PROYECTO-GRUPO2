@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Superadmin_vista_principal1.class);
                 startActivity(intent);
+                NotificationHelper.createNotificationChannel(MainActivity.this);
+                NotificationHelper.sendNotification(MainActivity.this, "Inicio de sesión", "Bienvenido, superadmin");
             }
         });
 
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Admin_lista_Sitio.class);
                 startActivity(intent);
+                NotificationHelper.createNotificationChannel(MainActivity.this);
+                NotificationHelper.sendNotification(MainActivity.this, "Inicio de sesión", "Bienvenido, admin");
             }
         });
 
@@ -83,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SitioSupervisorActivity.class);
                 startActivity(intent);
+                NotificationHelper.createNotificationChannel(MainActivity.this);
+                NotificationHelper.sendNotification(MainActivity.this, "Inicio de sesión", "Bienvenido, supervisor");
             }
         });
     }
