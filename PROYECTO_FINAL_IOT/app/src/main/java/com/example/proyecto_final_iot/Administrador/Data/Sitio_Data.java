@@ -10,7 +10,7 @@ public class Sitio_Data {
     public String getNombreSitio() {
         return nombreSitio;
     }
-
+/*
     public int getButtom_supervisor() {
         return buttom_supervisor;
     }
@@ -21,5 +21,5 @@ public class Sitio_Data {
 
     public Sitio_Data(String nombreSitio) {
         this.nombreSitio = nombreSitio;
-    }
+    }*/
 }

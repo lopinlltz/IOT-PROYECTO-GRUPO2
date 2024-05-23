@@ -1,5 +1,7 @@
 package com.example.proyecto_final_iot.Administrador.Adapter;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,9 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     private OnItemClickListener mListenerlistenerAdmin;
     private OnItemClickListener2 mListenerlistenerAdmin2;
 
+    Context context;
+
+
     public void setFilteredList_sitio(List<Sitio_Data> filteredList_sitio){
         this.sitio_dataList = filteredList_sitio;
         notifyDataSetChanged();
@@ -45,6 +50,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
 
     public SitioAdminAdapter(List<Sitio_Data> sitio_dataList ) {
         this.sitio_dataList = sitio_dataList;
+
 
     }
 

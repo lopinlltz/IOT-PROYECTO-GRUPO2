@@ -5,13 +5,12 @@ package com.example.proyecto_final_iot.Administrador.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
 import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
 import com.example.proyecto_final_iot.R;
 
@@ -19,14 +18,14 @@ import java.util.List;
 
 public class UsuarioListAdapter extends RecyclerView.Adapter<UsuarioListAdapter.ViewHolder> {
 
-    private List<Usuario_data> usuario_dataList;
+    private List<Supervisor_nuevo_Data> usuario_dataList;
 
-    public void setFilteredList(List<Usuario_data> filteredList){
+    public void setFilteredList(List<Supervisor_nuevo_Data> filteredList){
         this.usuario_dataList = filteredList;
         notifyDataSetChanged();
     }
 
-    public UsuarioListAdapter(List<Usuario_data> usuario_dataList) {
+    public UsuarioListAdapter(List<Supervisor_nuevo_Data> usuario_dataList) {
         this.usuario_dataList = usuario_dataList;
     }
 
@@ -39,8 +38,8 @@ public class UsuarioListAdapter extends RecyclerView.Adapter<UsuarioListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull UsuarioListAdapter.ViewHolder holder, int position) {
-        Usuario_data usuario_data = usuario_dataList.get(position);
-        holder.NombreUsuario_admin.setText(usuario_data.getNombreUsuarioAdmin());
+        Supervisor_nuevo_Data usuario_data = usuario_dataList.get(position);
+        holder.NombreUsuario_admin.setText(usuario_data.getNombre());
     }
 
     @Override
