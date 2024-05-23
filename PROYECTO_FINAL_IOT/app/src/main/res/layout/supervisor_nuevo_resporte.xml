@@ -150,7 +150,7 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <EditText
-                        android:id="@+id/descripción"
+                        android:id="@+id/descripcion"
                         android:layout_width="271dp"
                         android:layout_height="290dp"
                         android:background="@drawable/circular_border"
