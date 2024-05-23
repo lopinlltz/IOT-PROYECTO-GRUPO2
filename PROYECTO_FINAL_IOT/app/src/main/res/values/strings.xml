@@ -17,12 +17,19 @@
         <item>Rural</item>
 
     </string-array>
+
     <string-array name="array_sitio">
 
         <item>Tipo de Sitio</item>
         <item>Móvil</item>
         <item>Fijo</item>
 
+    </string-array>
+    <string name="filtro_prompt">Filtro</string>
+    <string-array name="roles_array">
+        <item>Filtro</item>
+        <item>Administrador</item>
+        <item>Supervisor</item>
     </string-array>
 
 </resources>

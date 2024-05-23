@@ -10,8 +10,13 @@
     <LinearLayout
         android:layout_width="392dp"
         android:layout_height="783dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="2dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="-2dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/linearLayout3"
@@ -69,31 +74,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="315dp"
-                    android:layout_height="56dp"
-                    android:layout_gravity="center"
+                <SearchView
+                    android:id="@+id/search_view"
+                    android:layout_width="299dp"
+                    android:layout_height="match_parent"
                     android:background="@drawable/list_morado_border_superadmin"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.SearchView
-                        android:id="@+id/search_usuario"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginStart="12dp"
-                        android:layout_marginTop="79dp"
-                        android:layout_marginEnd="12dp"
-                        android:background="@drawable/list_morado_border"
-                        android:focusable="false"
-                        app:closeIcon="@drawable/baseline_clear_24"
-                        app:iconifiedByDefault="false"
-                        app:queryHint="Buscar..."
-                        app:searchHintIcon="@null"
-                        app:searchIcon="@drawable/baseline_search_24" />
-
-                </LinearLayout>
-
+                    android:queryHint="Buscar..." />
             </LinearLayout>
         </LinearLayout>
 
@@ -113,27 +99,20 @@
                 android:background="@drawable/recto_background"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/textView54"
-                    android:layout_width="284dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Filtro" />
-
                 <LinearLayout
                     android:layout_width="76dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:prompt="@string/filtro_prompt" />
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView18"
-                    android:layout_width="73dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/baseline_add_24" />
             </LinearLayout>
 
         </LinearLayout>
@@ -148,26 +127,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"></LinearLayout>
 
-            <LinearLayout
-                android:layout_width="346dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/recto_background"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView55"
-                    android:layout_width="227dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Administrador" />
-
-                <LinearLayout
-                    android:layout_width="82dp"
-                    android:layout_height="17dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"></LinearLayout>
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -180,21 +139,6 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"></LinearLayout>
 
-            <LinearLayout
-                android:layout_width="342dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/recto_background"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/textView56"
-                    android:layout_width="486dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Supervisor" />
-
-            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -216,7 +160,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/rounded_background1"
                 android:text="Crear nuevo administrador"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white" />
 
             <LinearLayout
                 android:layout_width="302dp"
