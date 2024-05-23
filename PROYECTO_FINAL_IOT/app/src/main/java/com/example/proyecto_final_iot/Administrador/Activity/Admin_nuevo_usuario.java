@@ -73,37 +73,9 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
 
         db_nuevo_supervisor = FirebaseFirestore.getInstance();
         binding_new_supervisor.saveButtonUser.setOnClickListener(view -> {
-            String nombre = binding_new_supervisor.idNombreUser.getText().toString();
-            String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
-            int dni = Integer.parseInt(binding_new_supervisor.idDniUSer.getText().toString());
-            String correo = binding_new_supervisor.idCorreoUser.getText().toString();
-            int telefono = Integer.parseInt(binding_new_supervisor.idTelefonoUser.getText().toString());
-            String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
-            //String foto = binding_new_supervisor.idfoto.getText().toString();
-
-
-
-            Supervisor_nuevo_Data supervisorNuevoData = new Supervisor_nuevo_Data();
-            supervisorNuevoData.setNombre(nombre);
-            supervisorNuevoData.setApellido(apellido);
-            supervisorNuevoData.setDni(dni);
-            supervisorNuevoData.setCorreo(correo);
-            supervisorNuevoData.setTelefono(telefono);
-            supervisorNuevoData.setDomicilio(Domicilio);
-            //supervisorNuevoData.setFoto(foto);
-
-
-
-            db_nuevo_supervisor.collection("supervisorAdmin")
-                    .document(nombre)
-                    .set(supervisorNuevoData)
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Supervisor grabado", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
-                    });
+            ConfirmacionPopup();
         });
+
 
     }
 
@@ -115,8 +87,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
-                startActivity(intent);
+                guardarSupervisor();
                 dialog.dismiss();
             }
         });
@@ -138,4 +109,41 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         if (snapshotListener != null)
             snapshotListener.remove();
     }
+
+    private void guardarSupervisor() {
+        String nombre = binding_new_supervisor.idNombreUser.getText().toString();
+        String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
+        int dni = Integer.parseInt(binding_new_supervisor.idDniUSer.getText().toString());
+        String correo = binding_new_supervisor.idCorreoUser.getText().toString();
+        int telefono = Integer.parseInt(binding_new_supervisor.idTelefonoUser.getText().toString());
+        String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
+        //String foto = binding_new_supervisor.idfoto.getText().toString();
+
+
+
+        Supervisor_nuevo_Data supervisorNuevoData = new Supervisor_nuevo_Data();
+        supervisorNuevoData.setNombre(nombre);
+        supervisorNuevoData.setApellido(apellido);
+        supervisorNuevoData.setDni(dni);
+        supervisorNuevoData.setCorreo(correo);
+        supervisorNuevoData.setTelefono(telefono);
+        supervisorNuevoData.setDomicilio(Domicilio);
+        //supervisorNuevoData.setFoto(foto);
+
+
+
+        db_nuevo_supervisor.collection("supervisorAdmin")
+                .document(nombre)
+                .set(supervisorNuevoData)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(Admin_nuevo_usuario.this, "Supervisor grabado", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
+                    startActivity(intent);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(Admin_nuevo_usuario.this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 }

@@ -21,6 +21,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Reporte;
+import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.NuevoReporteActivity;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoSitioBinding;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -67,35 +70,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
 
         db_nuevo_sitio = FirebaseFirestore.getInstance();
         binding_new_sitio.GuardarNewSitio.setOnClickListener(view -> {
-            String codigo = binding_new_sitio.idCodigodeSitio.getText().toString();
-            String departamento = binding_new_sitio.idDepartamento.getText().toString();
-            String geolocalizacion = binding_new_sitio.idUbigeo.getText().toString();
-            String provincia = binding_new_sitio.idProvincia.getText().toString();
-            String tipoDeSitio = binding_new_sitio.spinnerTipoDeSitio.getContext().toString();
-            String tipoDeZona = binding_new_sitio.spinnerTipoDeZona.getContext().toString();
-            String ubigeo = binding_new_sitio.idUbigeo.getText().toString();
-
-            Sitio_nuevo_Data sitioNuevoData = new Sitio_nuevo_Data();
-            sitioNuevoData.setCodigo(codigo);
-            sitioNuevoData.setDepartamento(departamento);
-            sitioNuevoData.setGeolocalizacion(geolocalizacion);
-            sitioNuevoData.setProvincia(provincia);
-            sitioNuevoData.setTipoDeSitio(tipoDeSitio);
-            sitioNuevoData.setTipoDeZona(tipoDeZona);
-            sitioNuevoData.setUbigeo(ubigeo);
-
-
-
-
-            db_nuevo_sitio.collection("sitio")
-                    .document(codigo)
-                    .set(sitioNuevoData)
-                    .addOnSuccessListener(unused -> {
-                        Toast.makeText(this, "Sitio grabado", Toast.LENGTH_SHORT).show();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
-                    });
+            ConfirmacionPopup();
         });
 
 
@@ -144,8 +119,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_sitio_detalles.class);
-                startActivity(intent);
+                guardarSitio();
                 dialog.dismiss();
             }
         });
@@ -160,4 +134,36 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
+
+    private void guardarSitio() {
+        String codigo = binding_new_sitio.idCodigodeSitio.getText().toString();
+        String departamento = binding_new_sitio.idDepartamento.getText().toString();
+        String geolocalizacion = binding_new_sitio.idUbigeo.getText().toString();
+        String provincia = binding_new_sitio.idProvincia.getText().toString();
+        String tipoDeSitio = binding_new_sitio.spinnerTipoDeSitio.getContext().toString();
+        String tipoDeZona = binding_new_sitio.spinnerTipoDeZona.getContext().toString();
+        String ubigeo = binding_new_sitio.idUbigeo.getText().toString();
+
+        Sitio_nuevo_Data sitioNuevoData = new Sitio_nuevo_Data();
+        sitioNuevoData.setCodigo(codigo);
+        sitioNuevoData.setDepartamento(departamento);
+        sitioNuevoData.setGeolocalizacion(geolocalizacion);
+        sitioNuevoData.setProvincia(provincia);
+        sitioNuevoData.setTipoDeSitio(tipoDeSitio);
+        sitioNuevoData.setTipoDeZona(tipoDeZona);
+        sitioNuevoData.setUbigeo(ubigeo);
+        db_nuevo_sitio.collection("sitio")
+                .document(codigo)
+                .set(sitioNuevoData)
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(Admin_nuevo_sitio.this, "Sitio grabado", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_lista_Sitio.class);
+                    startActivity(intent);
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(Admin_nuevo_sitio.this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 }
