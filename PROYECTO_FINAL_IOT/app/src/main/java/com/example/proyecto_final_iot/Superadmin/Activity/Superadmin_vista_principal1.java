@@ -28,8 +28,8 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         setContentView(R.layout.activity_superadmin_vista_principal1);
 
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
-        ImageButton btnHome = findViewById(R.id.imageButton3);
-        ImageButton btnHistory = findViewById(R.id.imageButton4);
+        ImageButton btnHome = findViewById(R.id.buttonhomesuper);
+        ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button button3 = findViewById(R.id.button3);
 
         button3.setOnClickListener(new View.OnClickListener() {
