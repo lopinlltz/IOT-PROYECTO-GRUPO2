@@ -52,9 +52,14 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="68dp"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="407dp"
@@ -62,7 +67,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="10dp"
+                    android:layout_width="17dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
 
@@ -70,7 +75,7 @@
                     android:layout_width="352dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/rounded_background1"
+                    android:background="@drawable/list_morado_border_superadmin"
                     android:orientation="horizontal">
 
                     <EditText
@@ -79,7 +84,11 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:text="  BUSCAR"
+                        android:background="@null"
+                        android:hint="Buscar..."
+                        android:inputType="text"
+                        android:padding="10dp"
+                        android:singleLine="true"
                         android:textSize="20sp" />
 
                     <ImageView
@@ -98,7 +107,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="505dp">
+            android:layout_height="485dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,6 +121,11 @@
                     android:layout_height="500dp" />
             </LinearLayout>
         </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:orientation="horizontal"></LinearLayout>
 
         <LinearLayout
             android:layout_width="417dp"
@@ -128,49 +142,62 @@
             app:layout_constraintVertical_bias="0.92">
 
             <LinearLayout
-                android:layout_width="86dp"
+                android:id="@+id/linearLayoutHome_SuperAdmin"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="111dp"
-                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="72dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:contentDescription="mm"
-                    app:srcCompat="@drawable/addresspic" />
-            </LinearLayout>
+                    android:id="@+id/buttonhomesuper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:src="@drawable/addresspic" />
 
-            <LinearLayout
-                android:layout_width="54dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
-
-            <LinearLayout
-                android:layout_width="102dp"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <ImageButton
-                    android:id="@+id/imageButton4"
+                <TextView
+                    android:id="@+id/textViewSitio_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="#00FFFFFF"
-                    android:contentDescription="mmmm"
-                    app:srcCompat="@drawable/historialpic" />
+                    android:text="@string/sitio_admin"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutHistorial_superadmin"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"></LinearLayout>
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/buttonhistorialsuper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:src="@drawable/historialpic" />
+
+                <TextView
+                    android:id="@+id/textViewUsuario_Admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usuario_admin"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

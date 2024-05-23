@@ -26,8 +26,8 @@ public class superadmin_logs extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_superadmin_logs);
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
-        ImageButton btnHome = findViewById(R.id.imageButton3);
-        ImageButton btnHistory = findViewById(R.id.imageButton4);
+        ImageButton btnHome = findViewById(R.id.buttonhomesuper);
+        ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
 
 
         btnHistory.setOnClickListener(new View.OnClickListener() {
