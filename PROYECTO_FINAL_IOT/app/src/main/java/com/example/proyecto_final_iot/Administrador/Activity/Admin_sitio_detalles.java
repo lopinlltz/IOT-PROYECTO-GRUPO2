@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.proyecto_final_iot.databinding.ActivityAdminSitioDetallesBinding;
 import com.github.clans.fab.FloatingActionButton;
 import com.example.proyecto_final_iot.R;
 
@@ -17,6 +19,7 @@ public class Admin_sitio_detalles extends AppCompatActivity {
 
     FloatingActionButton boton_delete;
     FloatingActionButton boton_edit;
+    ActivityAdminSitioDetallesBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +44,12 @@ public class Admin_sitio_detalles extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        binding = ActivityAdminSitioDetallesBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
+        String id_codigodeSitio = getIntent().getStringExtra("codigo");
+        binding.idCodigodeSitio.setText(id_codigodeSitio);
+
     }
 
 
