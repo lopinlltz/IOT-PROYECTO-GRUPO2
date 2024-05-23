@@ -44,7 +44,7 @@
 
                 <ImageButton
                     android:id="@+id/imageButton6"
-                    android:layout_width="140dp"
+                    android:layout_width="208dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="#00FFFFFF"
@@ -65,7 +65,7 @@
                 android:orientation="horizontal"></LinearLayout>
 
             <LinearLayout
-                android:layout_width="407dp"
+                android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:orientation="horizontal">
 
@@ -73,6 +73,7 @@
                     android:layout_width="17dp"
                     android:layout_height="match_parent"
                     android:orientation="vertical"></LinearLayout>
+
                 <LinearLayout
                     android:layout_width="352dp"
                     android:layout_height="56dp"
@@ -86,12 +87,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
-                        android:textSize="20sp"
                         android:background="@null"
                         android:hint="Buscar..."
+                        android:inputType="text"
                         android:padding="10dp"
                         android:singleLine="true"
-                        android:inputType="text" />
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/imageView17"
@@ -118,24 +119,7 @@
             <LinearLayout
                 android:layout_width="342dp"
                 android:layout_height="match_parent"
-                android:background="@drawable/recto_background"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="76dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:prompt="@string/filtro_prompt" />
-                </LinearLayout>
-
-            </LinearLayout>
+                android:orientation="horizontal"/>
 
         </LinearLayout>
 

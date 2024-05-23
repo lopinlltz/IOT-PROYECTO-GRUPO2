@@ -118,6 +118,7 @@
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_vista_supervisor2"
+            android:windowSoftInputMode="adjustPan|adjustResize"
             android:exported="true" />
         <activity
             android:name=".NotificacionActivity"
