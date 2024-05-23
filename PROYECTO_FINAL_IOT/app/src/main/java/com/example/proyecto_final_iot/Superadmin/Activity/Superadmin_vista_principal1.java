@@ -14,9 +14,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
+import com.example.proyecto_final_iot.Equipo;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Adapter.AdminAdapter;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
+import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +30,7 @@ import java.util.stream.Collectors;
 public class Superadmin_vista_principal1 extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdminAdapter adapter;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,16 +104,29 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Admin> dataList = new ArrayList<>();
-        dataList.add(new Admin("13:10", "Maricielo"));
-        dataList.add(new Admin("13:10", "Joselin"));
-        dataList.add(new Admin("13:10", "Samantha"));
-        dataList.add(new Admin("13:10", "Massiel"));
-        dataList.add(new Admin("13:10", "Ricardo"));
-        dataList.add(new Admin("13:10", "Diego"));
-        dataList.add(new Admin("13:10", "Pablo"));
-        dataList.add(new Admin("13:10", "Nana"));
 
         adapter = new AdminAdapter(this, dataList);
         recyclerView.setAdapter(adapter);
+
+        //BD
+
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("administrador")
+                .addSnapshotListener(  (snapshot, error) -> {
+                    if (error!= null) {
+                        return;
+                    }
+
+                    for (QueryDocumentSnapshot document : snapshot){
+                        Supervisor_nuevo_Data supervisorNuevoData = document.toObject(Supervisor_nuevo_Data.class);
+                        dataList.add(new Admin(supervisorNuevoData.getApellido() ,supervisorNuevoData.getNombre()));
+
+                    }
+
+                    adapter.notifyDataSetChanged();
+
+                }) ;
+
     }
 }

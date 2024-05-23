@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Supervisor.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -10,12 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
+import com.example.proyecto_final_iot.Equipo;
 import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.Superadmin.Activity.Superadmin_vista_principal1;
+import com.example.proyecto_final_iot.Supervisor.Adapter.SitioSupervisorAdapter;
 import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Adapter.EquipoSupervisorAdapter;
+import com.example.proyecto_final_iot.Supervisor.Entity.SitioData;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +31,7 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private EquipoSupervisorAdapter adapter;
     private FloatingActionButton fab;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,17 +42,29 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<EquipoData> equipoList = new ArrayList<>();
-        equipoList.add(new EquipoData("EquipoPrueba", "Router uwu"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo", "TIPO DE EQUIPO"));
-
         adapter = new EquipoSupervisorAdapter(equipoList);
         recyclerView.setAdapter(adapter);
+
+        //BD
+
+        db = FirebaseFirestore.getInstance();
+
+        db.collection("equipo")
+                .addSnapshotListener(  (snapshot, error) -> {
+                    if (error!= null) {
+                        return;
+                    }
+
+                    for (QueryDocumentSnapshot document : snapshot){
+
+                        Equipo equipo = document.toObject(Equipo.class);
+                        equipoList.add(new EquipoData(equipo.getMarca(), equipo.getSerie()));
+
+                    }
+
+                    adapter.notifyDataSetChanged();
+
+                }) ;
 
         fab =  findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

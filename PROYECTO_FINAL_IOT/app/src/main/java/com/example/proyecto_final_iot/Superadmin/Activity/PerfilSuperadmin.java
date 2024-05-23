@@ -12,6 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.UserProfileActivity;
 
@@ -26,17 +27,17 @@ public class PerfilSuperadmin extends AppCompatActivity {
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button buttonEditar = findViewById(R.id.buttonEditar);
         Button buttonCerrarSesion = findViewById(R.id.buttonCerrarSesion);
-        buttonEditar.setOnClickListener(new View.OnClickListener() {
+        /*buttonEditar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PerfilSuperadmin.this, Superadmin_vista_principal1.class);
                 startActivity(intent);
             }
-        });
+        }); */
         buttonCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PerfilSuperadmin.this, Superadmin_vista_principal1.class);
+                Intent intent = new Intent(PerfilSuperadmin.this, MainActivity.class);
                 startActivity(intent);
             }
         });
