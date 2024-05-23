@@ -42,6 +42,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
 
     DatabaseReference mDatabase_super;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

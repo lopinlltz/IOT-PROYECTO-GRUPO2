@@ -38,6 +38,12 @@ public class Admin_supervisor extends AppCompatActivity implements Serializable,
         data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 4"));
         data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 5"));
         data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 6"));
+        data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 7"));
+        data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 8"));
+        data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 9"));
+        data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 10"));
+        data_ListSupervisor.add(new Supervisor_Data("Nombre de Supervisor 11"));
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SupervisorListAdminAdapter(data_ListSupervisor, this);
