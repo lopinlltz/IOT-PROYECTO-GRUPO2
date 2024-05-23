@@ -36,7 +36,7 @@ public class SupervisorNuevoAdapter extends RecyclerView.Adapter<SupervisorNuevo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            recImage = itemView.findViewById(R.id.subir_imagen_usuario);
+
 
         }
     }

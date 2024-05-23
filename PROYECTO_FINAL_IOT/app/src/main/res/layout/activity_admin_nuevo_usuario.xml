@@ -108,20 +108,16 @@
                 android:textColor="@color/color_admin"
                 android:textSize="16sp" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/subir_imagen_usuario"
-                android:layout_width="match_parent"
-                android:layout_height="130dp"
-                android:layout_gravity="center"
-                app:srcCompat="@drawable/baseline_add_a_photo_24">
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="100dp"
+                    android:layout_marginVertical="10dp"
                     android:src="@drawable/baseline_add_a_photo_24">
 
                 </ImageView>
 
-            </com.google.android.material.card.MaterialCardView>
+
 
 
             <Button
