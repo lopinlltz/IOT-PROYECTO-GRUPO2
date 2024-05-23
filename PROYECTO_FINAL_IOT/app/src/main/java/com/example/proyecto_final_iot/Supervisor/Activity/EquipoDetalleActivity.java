@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 
 public class EquipoDetalleActivity extends AppCompatActivity {
@@ -65,6 +66,9 @@ public class EquipoDetalleActivity extends AppCompatActivity {
                 //ConfirmacionPopup();
                 startActivity(intent);
                 dialog.dismiss();
+
+                NotificationHelper.createNotificationChannel(EquipoDetalleActivity.this);
+                NotificationHelper.sendNotification(EquipoDetalleActivity.this, "Equipos", "equipo borrado");
             }
         });
 

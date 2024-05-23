@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.proyecto_final_iot.Equipo;
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Reporte;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -68,6 +69,9 @@ public class NuevoReporteActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 guardarEquipo();
                 dialog.dismiss();
+
+                NotificationHelper.createNotificationChannel(NuevoReporteActivity.this);
+                NotificationHelper.sendNotification(NuevoReporteActivity.this, "Reporte", "Nuevo reporte creado");
             }
         });
 
