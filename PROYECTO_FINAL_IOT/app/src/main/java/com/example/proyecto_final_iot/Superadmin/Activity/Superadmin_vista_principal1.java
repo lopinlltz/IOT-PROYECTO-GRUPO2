@@ -31,7 +31,7 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superadmin_vista_principal1);
 
-        Spinner spinner = findViewById(R.id.spinner);
+        /*Spinner spinner = findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,
                 R.array.roles_array, android.R.layout.simple_spinner_item);
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,7 +56,7 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parentView) {
                 // No hacer nada
             }
-        });
+        });*/
 
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);

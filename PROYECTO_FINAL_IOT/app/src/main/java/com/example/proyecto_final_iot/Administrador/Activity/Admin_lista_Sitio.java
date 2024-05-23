@@ -16,10 +16,15 @@ import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
 import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.databinding.AdminSitioListaBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Admin_lista_Sitio extends AppCompatActivity{
 
@@ -29,10 +34,16 @@ public class Admin_lista_Sitio extends AppCompatActivity{
     private SearchView searchView_sitio;
     List<Sitio_Data> data_List = new ArrayList<>();
 
+    FirebaseFirestore firestore_lista;
+
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.admin_sitio_lista);
 
         searchView_sitio = findViewById(R.id.search_sitio);
@@ -50,19 +61,13 @@ public class Admin_lista_Sitio extends AppCompatActivity{
             }
         });
 
+//--------------Firestore--------------
+        firestore_lista = FirebaseFirestore.getInstance();
+        data_List = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView_lista_sitios);
-
-        data_List.add(new Sitio_Data("Nombre de sitio 1"));
-        data_List.add(new Sitio_Data("Nombre de sitio 2"));
-        data_List.add(new Sitio_Data("Nombre de sitio 3"));
-        data_List.add(new Sitio_Data("Nombre de sitio 4"));
-        data_List.add(new Sitio_Data("Nombre de sitio 5"));
-        data_List.add(new Sitio_Data("Nombre de sitio 6"));
-
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new SitioAdminAdapter(data_List);
         recyclerView.setAdapter(adapter);
-
 
         fab = findViewById(R.id.fab_user);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +95,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-        //TextView titlelistaSitio = findViewById(R.id.title_listaSitio_admin);
+
 
 
         adapter.setOnItemClickListener(new SitioAdminAdapter.OnItemClickListener() {
@@ -111,6 +116,30 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         });
 
 
+       /*cargar datos de la Firebase a recycler*/
+        CargarDatos_lista_sitio();
+        
+    }
+
+    private void CargarDatos_lista_sitio() {
+        data_List.clear();
+        firestore_lista.collection("sitio").orderBy("nombreSitio", Query.Direction.ASCENDING)
+                .addSnapshotListener((value, error) -> {
+
+                    if (error != null){
+                        Toast.makeText(this, "Lista de Sitios Cargando" , Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()){
+
+                        if (dc.getType() == DocumentChange.Type.ADDED){
+                            data_List.add(dc.getDocument().toObject(Sitio_Data.class));
+                        }
+
+                        adapter.notifyDataSetChanged();
+                    }
+
+                });
     }
 
     private void filterList_sitio(String text_sitio) {
