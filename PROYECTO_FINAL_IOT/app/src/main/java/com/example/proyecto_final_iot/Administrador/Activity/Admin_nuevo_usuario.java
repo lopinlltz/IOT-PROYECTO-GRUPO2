@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
@@ -74,7 +75,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         db_nuevo_supervisor = FirebaseFirestore.getInstance();
         binding_new_supervisor.saveButtonUser.setOnClickListener(view -> {
             ConfirmacionPopup();
-        });
+            });
 
 
     }
@@ -89,6 +90,9 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 guardarSupervisor();
                 dialog.dismiss();
+                NotificationHelper.createNotificationChannel(Admin_nuevo_usuario.this);
+                NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado ");
+
             }
         });
 

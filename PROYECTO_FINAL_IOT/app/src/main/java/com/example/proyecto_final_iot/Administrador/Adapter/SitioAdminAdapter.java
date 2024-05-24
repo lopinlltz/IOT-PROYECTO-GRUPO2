@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Administrador.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,6 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     public SitioAdminAdapter(List<Sitio_Data> sitio_dataList) {
         this.sitio_dataList = sitio_dataList;
 
-
     }
 
 
@@ -69,6 +69,10 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     public void onBindViewHolder(@NonNull SitioAdminAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Sitio_Data sitio_data = sitio_dataList.get(position);
         holder.codigo.setText(sitio_data.getId_codigodeSitio());
+
+
+
+
 
         holder.imageButton_info.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +95,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
         holder.itemView.setOnClickListener(v -> {
 
             Intent intent = new Intent(context, Admin_sitio_detalles.class);
+            Log.d("msg-pruebaID", sitio_data.getId_codigodeSitio() );
             intent.putExtra("id_codigodeSitio", sitio_data.getId_codigodeSitio());
             intent.putExtra("id_departamento", sitio_data.getId_departamento());
             intent.putExtra("id_provincia", sitio_data.getId_provincia());
@@ -112,6 +117,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
             TextView codigo;
             ImageButton imageButton_info;
             ImageButton imageButton_supervisor;
+
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);

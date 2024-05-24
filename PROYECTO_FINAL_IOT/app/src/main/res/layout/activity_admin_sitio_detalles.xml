@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".Administrador.Activity.Admin_sitio_detalles"
-        android:id="@+id/main"    >
+          >
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:background="@drawable/list_morado_border"
                     android:elegantTextHeight="false"
                     android:gravity="start|center_vertical"
-                    android:hint="Código o ID de Sitio"
+                    android:hint="Codigo"
                     android:padding="10dp"
                     android:textAlignment="viewStart"
                     android:textColor="@color/color_admin"
