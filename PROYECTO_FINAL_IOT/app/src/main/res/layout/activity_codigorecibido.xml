@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContrasenaOlvidada">
-
+    tools:context=".Codigorecibido">
     <LinearLayout
         android:layout_width="391dp"
         android:layout_height="783dp"
@@ -59,7 +58,7 @@
                     android:id="@+id/textView37"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Ingrese un correo para recuperar la contraseña: "
+                    android:text="Ingrese código"
                     android:gravity="center"/>
             </LinearLayout>
 
@@ -79,7 +78,7 @@
                     android:layout_width="295dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:hint="Correo electrónico" />
+                    android:hint="Código" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -107,7 +106,7 @@
                         android:id="@+id/enviarcodigo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Enviar código"
+                        android:text="Cambiar contraseña"
                         android:background="@drawable/rounded_background1"/>
                 </LinearLayout>
 

@@ -11,31 +11,28 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.proyecto_final_iot.Superadmin.Activity.Superadmin_vista_principal1;
-
-public class ContrasenaOlvidada extends AppCompatActivity {
+public class Codigorecibido extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_contrasena_olvidada);
+        setContentView(R.layout.activity_codigorecibido);
         Button buttonenviarCodigo = findViewById(R.id.enviarcodigo);
         Button buttonatras = findViewById(R.id.atras);
         buttonenviarCodigo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ContrasenaOlvidada.this, Codigorecibido.class);
+                Intent intent = new Intent(Codigorecibido.this, Codigorecibido.class);
                 startActivity(intent);
             }
         });
         buttonatras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ContrasenaOlvidada.this, Codigorecibido.class);
+                Intent intent = new Intent(Codigorecibido.this, Codigorecibido.class);
                 startActivity(intent);
             }
         });
-
     }
 }
