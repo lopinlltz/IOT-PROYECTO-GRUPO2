@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Reporte;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
@@ -71,6 +72,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
         db_nuevo_sitio = FirebaseFirestore.getInstance();
         binding_new_sitio.GuardarNewSitio.setOnClickListener(view -> {
             ConfirmacionPopup();
+
         });
 
 
@@ -121,6 +123,8 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 guardarSitio();
                 dialog.dismiss();
+                NotificationHelper.createNotificationChannel(Admin_nuevo_sitio.this);
+                NotificationHelper.sendNotification(Admin_nuevo_sitio.this, "Sitio", "Sitio guardado");
             }
         });
 

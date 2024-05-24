@@ -12,15 +12,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.R;
 
 public class DetalleAdapter extends RecyclerView.Adapter<DetalleAdapter.ViewHolder> {
+
     @NonNull
     @Override
     public DetalleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_admin_sitio_editar,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_admin_sitio_detalles,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull DetalleAdapter.ViewHolder holder, int position) {
+
 
     }
 
@@ -50,8 +52,8 @@ public class DetalleAdapter extends RecyclerView.Adapter<DetalleAdapter.ViewHold
             id_provincia = itemView.findViewById(R.id.id_provincia);
             id_distrito = itemView.findViewById(R.id.id_distrito);
             id_ubigeo = itemView.findViewById(R.id.id_ubigeo);
-            id_tipo_de_zona = itemView.findViewById(R.id.id_tipo_de_zona);
-            id_tipo_de_sitio = itemView.findViewById(R.id.id_tipo_de_sitio);
+            //id_tipo_de_zona = itemView.findViewById(R.id.id_tipo_de_zona);
+            //id_tipo_de_sitio = itemView.findViewById(R.id.id_tipo_de_sitio);
             id_latitud_long = itemView.findViewById(R.id.id_latitud_long);
         }
     }
