@@ -6,266 +6,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Superadmin.Activity.superadmin_detalles_administrador">
+
     <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="411dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="1dp"
-        android:background="@drawable/recto_background"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="311dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
+            android:id="@+id/linearLayout3"
+            android:layout_width="411dp"
+            android:layout_height="80dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/recto_background"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            <LinearLayout
+                android:layout_width="311dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
 
-            <ImageButton
-                android:id="@+id/imageButton6"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:contentDescription="hhh"
-                app:srcCompat="@drawable/image_profile_white" />
-        </LinearLayout>
-    </LinearLayout>
+                android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="407dp"
-        android:layout_height="422dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="3dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
+                <ImageButton
+                    android:id="@+id/imageButton6"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#00FFFFFF"
+                    android:contentDescription="hhh"
+                    app:srcCompat="@drawable/image_profile_white" />
+            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:background="@drawable/rounded_background1"
-            android:orientation="vertical">
+            android:id="@+id/linearLayout31"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout4"
+            android:layout_width="407dp"
+            android:layout_height="422dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="3dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="47dp"
-                android:background="@drawable/borde_negro1"
-                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="@drawable/rounded_background1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView36"
-                    android:layout_width="314dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="start"
-                    android:text="  Nombre del Administrador"
-                    android:textSize="19sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="39dp"
-                android:orientation="horizontal">
-
                 <LinearLayout
-                    android:layout_width="78dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:background="@drawable/borde_negro1"
                     android:gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/textView45"
-                        android:layout_width="40dp"
+                        android:id="@+id/textView36"
+                        android:layout_width="314dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="  Nombre" />
+                        android:gravity="start"
+                        android:text="  Nombre del Administrador"
+                        android:textSize="19sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView58"
-                        android:layout_width="238dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="78dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView48"
-                        android:layout_width="31dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="  Apellido" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView59"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="41dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="78dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView49"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="  DNI" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView61"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="78dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView50"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="  Correo" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView60"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="37dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="78dp"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView51"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="  Telefono" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/borde_negro"
-                    android:gravity="center"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView62"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="TextView" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="39dp"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -276,11 +109,11 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView57"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/textView45"
+                            android:layout_width="40dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="  Domicilio" />
+                            android:text="  Nombre" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -291,176 +124,370 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textView63"
+                            android:id="@+id/textView58"
+                            android:layout_width="238dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="TextView" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="78dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView48"
+                            android:layout_width="31dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="  Apellido" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView59"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="TextView" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="41dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="78dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView49"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="  DNI" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView61"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="TextView" />
                     </LinearLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="78dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView50"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="  Correo" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView60"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="TextView" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="37dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="78dp"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView51"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="  Telefono" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/borde_negro"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/textView62"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="TextView" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="42dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="78dp"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/borde_negro"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView57"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="  Domicilio" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/borde_negro"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/textView63"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="TextView" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/borde_negro2">
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="319dp"
+                        android:layout_height="match_parent"
+                        app:srcCompat="@drawable/image_profile_white" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"></LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="397dp"
+            android:layout_height="37dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="4dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout4"></LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="401dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+            <LinearLayout
+                android:layout_width="47dp"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="129dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_morado_border_superadmin"
+                    android:text="Atrás" />
+
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="44dp"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal"></LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="319dp"
-                    android:layout_height="match_parent"
-                    app:srcCompat="@drawable/image_profile_white" />
+            <LinearLayout
+                android:layout_width="132dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/list_morado_border_superadmin"
+                    android:text="EDITAR" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"></LinearLayout>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout5"
-        android:layout_width="397dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="4dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"></LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="401dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="1dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
-
-        <LinearLayout
-            android:layout_width="47dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="129dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@drawable/background_button_logout1"
-                android:text="Atrás" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="44dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="132dp"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:background="@drawable/background_button_logout1"
-                android:text="EDITAR" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="61dp"
             android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="417dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginBottom="-5dp"
+            android:background="@drawable/recto_background"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
+            app:layout_constraintVertical_bias="0.92">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutHome_SuperAdmin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/buttonhomesuper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:src="@drawable/addresspic" />
+
+                <TextView
+                    android:id="@+id/textViewSitio_admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sitio_admin"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutHistorial_superadmin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/buttonhistorialsuper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:src="@drawable/historialpic" />
+
+                <TextView
+                    android:id="@+id/textViewUsuario_Admin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/usuario_admin"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout7"
-        android:layout_width="409dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginBottom="87dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="417dp"
-        android:layout_height="84dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="-5dp"
-        android:background="@drawable/recto_background"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout7"
-        app:layout_constraintVertical_bias="0.92">
-
-        <LinearLayout
-            android:layout_width="86dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="111dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="72dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:contentDescription="mm"
-                app:srcCompat="@drawable/addresspic" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="54dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
-
-        <LinearLayout
-            android:layout_width="102dp"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageButton
-                android:id="@+id/imageButton4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="#00FFFFFF"
-                android:contentDescription="mmmm"
-                app:srcCompat="@drawable/historialpic" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"></LinearLayout>
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

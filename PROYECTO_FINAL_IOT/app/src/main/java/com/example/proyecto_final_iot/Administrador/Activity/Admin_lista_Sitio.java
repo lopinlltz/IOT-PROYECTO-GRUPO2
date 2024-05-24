@@ -123,7 +123,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
 
     private void CargarDatos_lista_sitio() {
         data_List.clear();
-        firestore_lista.collection("sitio").orderBy("nombreSitio", Query.Direction.ASCENDING)
+        firestore_lista.collection("sitio")
                 .addSnapshotListener((value, error) -> {
 
                     if (error != null){
@@ -144,8 +144,9 @@ public class Admin_lista_Sitio extends AppCompatActivity{
 
     private void filterList_sitio(String text_sitio) {
         List<Sitio_Data> filteredList_sitio = new ArrayList<>();
+
         for(Sitio_Data item_sitio : data_List ){
-            if (item_sitio.getNombreSitio().toLowerCase().contains(text_sitio.toLowerCase())){
+            if (String.valueOf(item_sitio.getId_codigodeSitio()).toLowerCase().contains(text_sitio.toLowerCase())){
                 filteredList_sitio.add(item_sitio);
             }
         }

@@ -24,15 +24,15 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/NombreSitio_admin"
+                android:id="@+id/CodigoSitio_admin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nombre de Sitio "
-                android:layout_marginStart="10dp"
-                android:padding="8dp"
-                android:elevation="3dp"
+                android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
-                android:layout_alignParentBottom="true"/>
+                android:layout_marginStart="10dp"
+                android:elevation="3dp"
+                android:padding="8dp"
+                android:text="Nombre de Sitio " />
 
         </LinearLayout>
 
