@@ -11,6 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyecto_final_iot.MainActivity;
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 
 public class superadmin_editar_administrador extends AppCompatActivity {
@@ -75,6 +77,9 @@ public class superadmin_editar_administrador extends AppCompatActivity {
                 Toast.makeText(superadmin_editar_administrador.this, "Datos guardados", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(superadmin_editar_administrador.this, Superadmin_vista_principal1.class);
                 startActivity(intent);
+
+                NotificationHelper.createNotificationChannel(superadmin_editar_administrador.this);
+                NotificationHelper.sendNotification(superadmin_editar_administrador.this, "Usuarios", "Administrador editado");
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

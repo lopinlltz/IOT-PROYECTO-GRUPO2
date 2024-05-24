@@ -32,6 +32,9 @@ public class UserEditProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(UserEditProfileActivity.this, UserProfileActivity.class);
                 startActivity(intent);
+
+                NotificationHelper.createNotificationChannel(UserEditProfileActivity.this);
+                NotificationHelper.sendNotification(UserEditProfileActivity.this, "Perfil", "Se ha editado el perfil");
             }
         });
 

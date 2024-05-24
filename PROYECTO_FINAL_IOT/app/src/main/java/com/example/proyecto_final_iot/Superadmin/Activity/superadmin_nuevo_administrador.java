@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
 import com.example.proyecto_final_iot.Equipo;
+import com.example.proyecto_final_iot.MainActivity;
+import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquipoNuevoActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
@@ -97,6 +99,8 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 guardarAdministrador();
                 dialog.dismiss();
+                NotificationHelper.createNotificationChannel(superadmin_nuevo_administrador.this);
+                NotificationHelper.sendNotification(superadmin_nuevo_administrador.this, "Usuarios", "Nuevo administrador creado");
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {

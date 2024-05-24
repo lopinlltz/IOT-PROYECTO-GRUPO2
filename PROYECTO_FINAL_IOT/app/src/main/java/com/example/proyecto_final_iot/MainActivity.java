@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
                 .setSmallIcon(R.drawable.notifpic)
                 .setContentTitle("Notificación PRUEBA")
-                .setContentText("Funciona ?")
+                .setContentText("Sí funciona uwu")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true);
