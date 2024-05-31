@@ -20,7 +20,6 @@ public class Admin_sitio_detalles extends AppCompatActivity {
 
     FloatingActionButton boton_delete;
     FloatingActionButton boton_edit;
-    ActivityAdminSitioDetallesBinding binding;
     TextView id_codigodeSitio, id_departamento, id_provincia, id_distrito, id_ubigeo,
             id_tipo_de_zona_det, id_tipo_de_sitio_det, id_latitud_long;
 

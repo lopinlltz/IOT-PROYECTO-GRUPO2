@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
-import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.databinding.AdminSitioListaBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +40,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.admin_sitio_lista);
+        setContentView(R.layout.activity_admin_sitio_lista);
 
         searchView_sitio = findViewById(R.id.search_sitio);
         searchView_sitio.clearFocus();
@@ -96,18 +92,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
             }
         });
 
-
-
         adapter.setOnItemClickListener(new SitioAdminAdapter.OnItemClickListener() {
-            @Override
-            public void onReportButtonClick(int position) {
-                Intent intent = new Intent(Admin_lista_Sitio.this, Admin_sitio_detalles.class);
-                startActivity(intent);
-            }
-        });
-
-
-        adapter.setOnItemClickListener(new SitioAdminAdapter.OnItemClickListener2() {
             @Override
             public void onReportButtonClick(int position) {
                 Intent intent = new Intent(Admin_lista_Sitio.this, Admin_supervisor.class);

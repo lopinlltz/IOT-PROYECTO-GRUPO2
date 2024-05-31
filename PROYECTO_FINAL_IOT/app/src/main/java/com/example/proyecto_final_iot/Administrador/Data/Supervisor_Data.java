@@ -1,13 +1,58 @@
 package com.example.proyecto_final_iot.Administrador.Data;
 
 public class Supervisor_Data {
-    private String nombreSupervisorAdmin;
+    private String id_nombreUser;
+    private String id_apellidoUser;
+    private String id_dniUSer;
+    private String id_correoUser;
+    private String id_telefonoUser;
+    private String id_domicilioUser;
 
-    public String getNombreSupervisorAdmin() {
-        return nombreSupervisorAdmin;
+    public String getId_nombreUser() {
+        return id_nombreUser;
     }
 
-    public Supervisor_Data(String nombreSupervisorAdmin) {
-        this.nombreSupervisorAdmin = nombreSupervisorAdmin;
+    public void setId_nombreUser(String id_nombreUser) {
+        this.id_nombreUser = id_nombreUser;
+    }
+
+    public String getId_apellidoUser() {
+        return id_apellidoUser;
+    }
+
+    public void setId_apellidoUser(String id_apellidoUser) {
+        this.id_apellidoUser = id_apellidoUser;
+    }
+
+    public String getId_dniUSer() {
+        return id_dniUSer;
+    }
+
+    public void setId_dniUSer(String id_dniUSer) {
+        this.id_dniUSer = id_dniUSer;
+    }
+
+    public String getId_correoUser() {
+        return id_correoUser;
+    }
+
+    public void setId_correoUser(String id_correoUser) {
+        this.id_correoUser = id_correoUser;
+    }
+
+    public String getId_telefonoUser() {
+        return id_telefonoUser;
+    }
+
+    public void setId_telefonoUser(String id_telefonoUser) {
+        this.id_telefonoUser = id_telefonoUser;
+    }
+
+    public String getId_domicilioUser() {
+        return id_domicilioUser;
+    }
+
+    public void setId_domicilioUser(String id_domicilioUser) {
+        this.id_domicilioUser = id_domicilioUser;
     }
 }

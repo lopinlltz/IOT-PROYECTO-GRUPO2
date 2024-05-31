@@ -4,25 +4,17 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
+import android.util.Log;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
-import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoSitioBinding;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoUsuarioBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -48,26 +40,6 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_nuevo_usuario);
-
-
-        backButton_user = findViewById(R.id.backButton_user);
-        backButton_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
-                startActivity(intent);
-            }
-        });
-
-        /*saveButton_user = findViewById(R.id.saveButton_user);
-        saveButton_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
-                startActivity(intent);
-                ConfirmacionPopup();
-            }
-        });*/
 
         binding_new_supervisor = ActivityAdminNuevoUsuarioBinding.inflate(getLayoutInflater());
         setContentView(binding_new_supervisor.getRoot());
@@ -117,21 +89,21 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     private void guardarSupervisor() {
         String nombre = binding_new_supervisor.idNombreUser.getText().toString();
         String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
-        int dni = Integer.parseInt(binding_new_supervisor.idDniUSer.getText().toString());
+        String dni = binding_new_supervisor.idDniUSer.getText().toString();
         String correo = binding_new_supervisor.idCorreoUser.getText().toString();
-        int telefono = Integer.parseInt(binding_new_supervisor.idTelefonoUser.getText().toString());
+        String telefono = binding_new_supervisor.idTelefonoUser.getText().toString();
         String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
         //String foto = binding_new_supervisor.idfoto.getText().toString();
 
 
 
-        Supervisor_nuevo_Data supervisorNuevoData = new Supervisor_nuevo_Data();
-        supervisorNuevoData.setNombre(nombre);
-        supervisorNuevoData.setApellido(apellido);
-        supervisorNuevoData.setDni(dni);
-        supervisorNuevoData.setCorreo(correo);
-        supervisorNuevoData.setTelefono(telefono);
-        supervisorNuevoData.setDomicilio(Domicilio);
+        Supervisor_Data supervisorNuevoData = new Supervisor_Data();
+        supervisorNuevoData.setId_nombreUser(nombre);
+        supervisorNuevoData.setId_apellidoUser(apellido);
+        supervisorNuevoData.setId_dniUSer(dni);
+        supervisorNuevoData.setId_correoUser(correo);
+        supervisorNuevoData.setId_telefonoUser(telefono);
+        supervisorNuevoData.setId_domicilioUser(Domicilio);
         //supervisorNuevoData.setFoto(foto);
 
 

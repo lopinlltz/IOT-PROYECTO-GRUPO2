@@ -3,32 +3,19 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
-import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdapter;
-import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
-import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
+import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdapter;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +24,12 @@ import java.util.Objects;
 public class Admin_lista_usuario extends AppCompatActivity {
 
 
-    private UsuarioListAdapter adapter;
+    private UsuarioListAdminAdapter adapter;
     private RecyclerView recyclerView;
     FloatingActionButton fab_user;
     private SearchView searchView;
 
-    List<Supervisor_nuevo_Data> data_List_user = new ArrayList<>();
+    List<Supervisor_Data> data_List_user = new ArrayList<>();
 
     FirebaseFirestore firestore_lista_usuario;
 
@@ -72,7 +59,7 @@ public class Admin_lista_usuario extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView_lista_usuarios);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UsuarioListAdapter(data_List_user);
+        adapter = new UsuarioListAdminAdapter(data_List_user);
         recyclerView.setAdapter(adapter);
 
         fab_user = findViewById(R.id.fab_user);
@@ -87,21 +74,29 @@ public class Admin_lista_usuario extends AppCompatActivity {
         /*cargar datos de la Firebase a recycler*/
         CargarDatos_lista_usuario();
 
+        adapter.setOnItemClickListener(new UsuarioListAdminAdapter.OnItemClickListener() {
+            @Override
+            public void onReportButtonClick(int position) {
+                Intent intent = new Intent(Admin_lista_usuario.this, Admin_usuario_detalles.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void CargarDatos_lista_usuario() {
         data_List_user.clear();
-        firestore_lista_usuario.collection("supervisorAdmin").orderBy("nombre", Query.Direction.ASCENDING)
+        firestore_lista_usuario.collection("supervisorAdmin")
                 .addSnapshotListener((value, error) -> {
 
                     if (error != null){
-                        Toast.makeText(this, "Lista de Sitios Cargando" , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Lista de Supervisor Cargando" , Toast.LENGTH_SHORT).show();
                         return;
                     }
                     for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()){
 
                         if (dc.getType() == DocumentChange.Type.ADDED){
-                            data_List_user.add(dc.getDocument().toObject(Supervisor_nuevo_Data.class));
+                            data_List_user.add(dc.getDocument().toObject(Supervisor_Data.class));
                         }
 
                         adapter.notifyDataSetChanged();
@@ -112,9 +107,9 @@ public class Admin_lista_usuario extends AppCompatActivity {
     }
 
     private void filterList(String text) {
-        List<Supervisor_nuevo_Data> filteredList = new ArrayList<>();
-        for(Supervisor_nuevo_Data item : data_List_user ){
-            if (item.getNombre().toLowerCase().contains(text.toLowerCase())){
+        List<Supervisor_Data> filteredList = new ArrayList<>();
+        for(Supervisor_Data item : data_List_user ){
+            if (item.getId_nombreUser().toLowerCase().contains(text.toLowerCase())){
                 filteredList.add(item);
             }
         }

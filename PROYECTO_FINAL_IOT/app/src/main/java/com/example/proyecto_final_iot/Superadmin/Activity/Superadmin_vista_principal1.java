@@ -3,29 +3,22 @@ package com.example.proyecto_final_iot.Superadmin.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.SearchView;
-import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
-import com.example.proyecto_final_iot.Equipo;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Adapter.AdminAdapter;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
-import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Superadmin_vista_principal1 extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -119,8 +112,8 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
                     }
 
                     for (QueryDocumentSnapshot document : snapshot){
-                        Supervisor_nuevo_Data supervisorNuevoData = document.toObject(Supervisor_nuevo_Data.class);
-                        dataList.add(new Admin(supervisorNuevoData.getApellido() ,supervisorNuevoData.getNombre()));
+                        Supervisor_Data supervisorNuevoData = document.toObject(Supervisor_Data.class);
+                        dataList.add(new Admin(supervisorNuevoData.getId_apellidoUser() ,supervisorNuevoData.getId_nombreUser()));
 
                     }
 
