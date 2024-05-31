@@ -1,5 +1,7 @@
 package com.example.proyecto_final_iot.Administrador.Adapter;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -13,10 +15,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyecto_final_iot.Administrador.Activity.Admin_lista_Sitio;
+import com.example.proyecto_final_iot.Administrador.Activity.Admin_select_supervisor;
 import com.example.proyecto_final_iot.Administrador.Activity.Admin_sitio_detalles;
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
-import com.example.proyecto_final_iot.Administrador.Data.Usuario_data;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Adapter.EquipoSupervisorAdapter;
 
 import java.util.List;
 
@@ -25,7 +29,6 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
 
     private List<Sitio_Data> sitio_dataList;
     private OnItemClickListener mListenerlistenerAdmin;
-    private OnItemClickListener2 mListenerlistenerAdmin2;
 
     Context context;
 
@@ -39,17 +42,10 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
         void onReportButtonClick(int position);
     }
 
-    public interface OnItemClickListener2 {
-        void onReportButtonClick(int position);
-    }
-
     public void setOnItemClickListener(OnItemClickListener listenerAdmin) {
         mListenerlistenerAdmin = listenerAdmin;
     }
 
-    public void setOnItemClickListener(OnItemClickListener2 listenerAdmin2) {
-        mListenerlistenerAdmin2 = listenerAdmin2;
-    }
 
     public SitioAdminAdapter(List<Sitio_Data> sitio_dataList) {
         this.sitio_dataList = sitio_dataList;
@@ -71,10 +67,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
         holder.codigo.setText(sitio_data.getId_codigodeSitio());
 
 
-
-
-
-        holder.imageButton_info.setOnClickListener(new View.OnClickListener() {
+        holder.imageButton_supervisor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListenerlistenerAdmin != null) {
@@ -83,29 +76,27 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
             }
         });
 
-        holder.imageButton_supervisor.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mListenerlistenerAdmin2 != null) {
-                    mListenerlistenerAdmin2.onReportButtonClick(position);
-                }
+                Intent intent = new Intent(v.getContext(), Admin_sitio_detalles.class);
+                Log.d("msg-pruebaID",sitio_data.getId_codigodeSitio());
+                intent.putExtra("id_codigodeSitio",sitio_data.getId_codigodeSitio());
+                intent.putExtra("id_departamento",sitio_data.getId_departamento());
+                intent.putExtra("id_provincia",sitio_data.getId_provincia());
+                intent.putExtra("id_distrito",sitio_data.getId_distrito());
+                intent.putExtra("id_ubigeo",sitio_data.getId_ubigeo());
+                intent.putExtra("id_latitud_long",sitio_data.getId_latitud_long());
+                intent.putExtra("Key",sitio_data.getKey());
+
+                v.getContext().startActivity(intent);
             }
+/*
+
+        }*/
         });
 
-        holder.itemView.setOnClickListener(v -> {
 
-            Intent intent = new Intent(context, Admin_sitio_detalles.class);
-            Log.d("msg-pruebaID", sitio_data.getId_codigodeSitio() );
-            intent.putExtra("id_codigodeSitio", sitio_data.getId_codigodeSitio());
-            intent.putExtra("id_departamento", sitio_data.getId_departamento());
-            intent.putExtra("id_provincia", sitio_data.getId_provincia());
-            intent.putExtra("id_distrito", sitio_data.getId_distrito());
-            intent.putExtra("id_ubigeo", sitio_data.getId_ubigeo());
-            intent.putExtra("id_latitud_long", sitio_data.getId_latitud_long());
-
-            context.startActivity(intent);
-
-        });
     }
 
         @Override
@@ -115,14 +106,13 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
             TextView codigo;
-            ImageButton imageButton_info;
             ImageButton imageButton_supervisor;
 
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
-                codigo = itemView.findViewById(R.id.CodigoSitio_admin);
-                imageButton_info = itemView.findViewById(R.id.bottom_lista_info);
+                codigo = itemView.findViewById(R.id.item_CodigoSitio_admin);
+
                 imageButton_supervisor = itemView.findViewById(R.id.bottom_admin_supervisor);
 
             }

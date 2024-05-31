@@ -12,14 +12,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
-import com.example.proyecto_final_iot.Equipo;
-import com.example.proyecto_final_iot.MainActivity;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoNuevoActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
-import com.example.proyecto_final_iot.UserProfileActivity;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class superadmin_nuevo_administrador extends AppCompatActivity {
@@ -131,15 +126,15 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
 
         domicilio = findViewById(R.id.domicilio);
         String domicilioString = domicilio.getText().toString().trim();
+/*
+        Supervisor_Data administrador = new Supervisor_Data();
 
-        Supervisor_nuevo_Data administrador = new Supervisor_nuevo_Data();
-
-        administrador.setNombre(nombreString);
-        administrador.setApellido(apellidoString);
-        administrador.setDni(dniint);
-        administrador.setCorreo(correoString);
-        administrador.setTelefono(telefeonoInt);
-        administrador.setDomicilio(domicilioString);
+        administrador.setId_nombreUser(nombreString);
+        administrador.setId_apellidoUser(apellidoString);
+        administrador.setId_dniUSer(String.valueOf(dniint));
+        administrador.setId_correoUser(correoString);
+        administrador.setId_telefonoUser(String.valueOf(telefeonoInt));
+        administrador.setId_domicilioUser(domicilioString);
 
 
         db.collection("administrador")
@@ -153,7 +148,7 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     // Error
                     Toast.makeText(superadmin_nuevo_administrador.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
-                });
+                });*/
     }
 
 }

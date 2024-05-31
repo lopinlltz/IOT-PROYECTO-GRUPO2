@@ -50,7 +50,7 @@
             android:name=".Administrador.Activity.Admin_lista_Sitio"
             android:exported="false" />
         <activity
-            android:name=".Administrador.Activity.Admin_supervisor"
+            android:name=".Administrador.Activity.Admin_select_supervisor"
             android:exported="false" />
         <activity
             android:name=".Administrador.Activity.Admin_sitio_detalles"

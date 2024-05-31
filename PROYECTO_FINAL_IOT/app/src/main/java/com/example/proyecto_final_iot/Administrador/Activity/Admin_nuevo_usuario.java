@@ -1,48 +1,85 @@
 package com.example.proyecto_final_iot.Administrador.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.util.Log;
 
-import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
-import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_nuevo_Data;
+import com.bumptech.glide.Glide;
+import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdapter;
+import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
-import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoSitioBinding;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoUsuarioBinding;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+
+import javax.microedition.khronos.opengles.GL;
 
 public class Admin_nuevo_usuario extends AppCompatActivity {
 
-    Button backButton_user;
-    Button saveButton_user;
-    FloatingActionButton fab_user;
-    @SuppressLint("CutPasteId")
 
+    Button uploadImagen, selecImage;
+    ImageView imageView;
+    String imagenURL;
+    Uri image;
+    private List<Supervisor_Data> dataList;
+    private static final int PICK_IMAGE_REQUEST = 1;
+    UsuarioListAdminAdapter adapter;
+
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null) {
+                    image = result.getData().getData();
+                    uploadImagen.setEnabled(true);
+                    Glide.with(getApplicationContext()).load(image).into(imageView);
+                }
+            }else{
+                Toast.makeText(Admin_nuevo_usuario.this, "Selecciona una imagen, porfavor", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    });
+
+    @SuppressLint("CutPasteId")
     //---------Firebase------------
     ListenerRegistration snapshotListener;
     ActivityAdminNuevoUsuarioBinding binding_new_supervisor;
     FirebaseFirestore db_nuevo_supervisor;
 
     DatabaseReference mDatabase_super;
-
+    StorageReference storageReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,24 +87,8 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         setContentView(R.layout.activity_admin_nuevo_usuario);
 
 
-        backButton_user = findViewById(R.id.backButton_user);
-        backButton_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
-                startActivity(intent);
-            }
-        });
+        db_nuevo_supervisor = FirebaseFirestore.getInstance();
 
-        /*saveButton_user = findViewById(R.id.saveButton_user);
-        saveButton_user.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
-                startActivity(intent);
-                ConfirmacionPopup();
-            }
-        });*/
 
         binding_new_supervisor = ActivityAdminNuevoUsuarioBinding.inflate(getLayoutInflater());
         setContentView(binding_new_supervisor.getRoot());
@@ -75,20 +96,64 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         db_nuevo_supervisor = FirebaseFirestore.getInstance();
         binding_new_supervisor.saveButtonUser.setOnClickListener(view -> {
             ConfirmacionPopup();
-            });
+        });
+
+        FirebaseApp.initializeApp(Admin_nuevo_usuario.this);
+        storageReference = FirebaseStorage.getInstance().getReference();
+
+        imageView = findViewById(R.id.imagenview);
+        selecImage = findViewById(R.id.selecImage);
+        uploadImagen = findViewById(R.id.saveButton_user);
+
+        selecImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                activityResultLauncher.launch(intent);
+            }
+        });
 
 
     }
+
+    private void uploadImagen(Uri image){
+        StorageReference reference = storageReference.child("FotosdeSupervisores/" + UUID.randomUUID().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(Admin_nuevo_usuario.this);
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uriTask.isComplete());
+                Uri urlImage = uriTask.getResult();
+                imagenURL = urlImage.toString();
+                dialog.dismiss();
+                guardarSupervisor();
+                Toast.makeText(Admin_nuevo_usuario.this, "Imagen subido exitosamente", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Admin_nuevo_usuario.this, "Error al subir la iamgen", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void ConfirmacionPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
 
-
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 guardarSupervisor();
+                uploadImagen(image);
                 dialog.dismiss();
                 NotificationHelper.createNotificationChannel(Admin_nuevo_usuario.this);
                 NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado ");
@@ -115,24 +180,26 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     }
 
     private void guardarSupervisor() {
+
         String nombre = binding_new_supervisor.idNombreUser.getText().toString();
         String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
-        int dni = Integer.parseInt(binding_new_supervisor.idDniUSer.getText().toString());
+        String dni = binding_new_supervisor.idDniUSer.getText().toString();
         String correo = binding_new_supervisor.idCorreoUser.getText().toString();
-        int telefono = Integer.parseInt(binding_new_supervisor.idTelefonoUser.getText().toString());
+        String telefono = binding_new_supervisor.idTelefonoUser.getText().toString();
         String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
-        //String foto = binding_new_supervisor.idfoto.getText().toString();
+        String imagen_User = String.valueOf(binding_new_supervisor.imagenview.getBackground());
 
 
 
-        Supervisor_nuevo_Data supervisorNuevoData = new Supervisor_nuevo_Data();
-        supervisorNuevoData.setNombre(nombre);
-        supervisorNuevoData.setApellido(apellido);
-        supervisorNuevoData.setDni(dni);
-        supervisorNuevoData.setCorreo(correo);
-        supervisorNuevoData.setTelefono(telefono);
-        supervisorNuevoData.setDomicilio(Domicilio);
-        //supervisorNuevoData.setFoto(foto);
+        Supervisor_Data supervisorNuevoData = new Supervisor_Data(nombre, apellido,dni, correo, telefono,Domicilio, imagenURL);
+        supervisorNuevoData.setId_nombreUser(nombre);
+        supervisorNuevoData.setId_apellidoUser(apellido);
+        supervisorNuevoData.setId_dniUSer(dni);
+        supervisorNuevoData.setId_correoUser(correo);
+        supervisorNuevoData.setId_telefonoUser(telefono);
+        supervisorNuevoData.setId_domicilioUser(Domicilio);
+        supervisorNuevoData.setDataImage(imagenURL);
+
 
 
 
