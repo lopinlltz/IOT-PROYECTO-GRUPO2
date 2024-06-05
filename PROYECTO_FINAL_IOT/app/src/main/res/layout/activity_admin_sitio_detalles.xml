@@ -98,7 +98,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/id_tipo_de_zona"
+                    android:id="@+id/id_tipoDeZona_det"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"
@@ -110,7 +110,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/id_tipo_de_sitio"
+                    android:id="@+id/id_tipoDeSitio_det"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_marginTop="20dp"

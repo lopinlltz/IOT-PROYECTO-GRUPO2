@@ -97,21 +97,32 @@
                     android:textColor="@color/color_admin"
                     android:textSize="16sp" />
 
-                <Spinner
-                    android:id="@+id/spinner_tipoDeZona"
+                <EditText
+                    android:id="@+id/id_tipoDeZona"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_marginTop="10dp"
+                    android:background="@drawable/edittext_bkg"
+                    android:gravity="start|center_vertical"
+                    android:hint="Tipo de Zona (Urbana o Rural)"
                     android:layout_below="@id/id_ubigeo"
-                    tools:ignore="MissingConstraints" />
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
 
-                <Spinner
-                    android:id="@+id/spinner_tipoDeSitio"
+                <EditText
+                    android:id="@+id/id_tipoDeSitio"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:layout_marginTop="10dp"
-                    android:layout_below="@id/spinner_tipoDeZona"
-                    tools:ignore="MissingConstraints" />
+                    android:background="@drawable/edittext_bkg"
+                    android:gravity="start|center_vertical"
+                    android:hint="Tipo de Sitio (Movil o Fijo)"
+                    android:layout_below="@id/id_ubigeo"
+                    android:padding="10dp"
+                    android:textColor="@color/color_admin"
+                    android:textSize="16sp" />
+
                 <EditText
                     android:id="@+id/id_latitud_long"
                     android:layout_width="match_parent"

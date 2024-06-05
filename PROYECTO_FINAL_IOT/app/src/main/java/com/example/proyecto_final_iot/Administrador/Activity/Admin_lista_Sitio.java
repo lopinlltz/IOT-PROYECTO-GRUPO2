@@ -34,7 +34,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
     List<Sitio_Data> data_List = new ArrayList<>();
     List<Supervisor_Data> supervisor_SelectdataList = new ArrayList<>();
     FirebaseFirestore firestore_lista;
-    SearchView searchView;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -100,9 +100,6 @@ public class Admin_lista_Sitio extends AppCompatActivity{
                 startActivity(intent);
             }
         });
-
-
-
 
                 /*cargar datos de la Firebase a recycler*/
                 CargarDatos_lista_sitio();

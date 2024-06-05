@@ -2,15 +2,12 @@ package com.example.proyecto_final_iot.Administrador.Data;
 
 public class Sitio_Data {
     private String id_codigodeSitio;
-    private int buttom_supervisor;
-    private int buttom_info;
-
     private String id_departamento;
     private String id_provincia;
     private String id_distrito;
     private String id_ubigeo;
-    //private String id_tipo_de_zona;
-    //private String id_tipo_de_sitio;
+    private String id_tipo_de_zona;
+    private String id_tipo_de_sitio;
     private String id_latitud_long;
     private String key;
 
@@ -34,13 +31,13 @@ public class Sitio_Data {
         return id_ubigeo;
     }
 
-    /*public String getId_tipo_de_zona() {
+    public String getId_tipo_de_zona() {
         return id_tipo_de_zona;
     }
 
     public String getId_tipo_de_sitio() {
         return id_tipo_de_sitio;
-    }*/
+    }
 
     public String getId_latitud_long() {
         return id_latitud_long;

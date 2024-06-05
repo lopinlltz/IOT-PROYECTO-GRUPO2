@@ -86,6 +86,8 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
                 intent.putExtra("id_provincia",sitio_data.getId_provincia());
                 intent.putExtra("id_distrito",sitio_data.getId_distrito());
                 intent.putExtra("id_ubigeo",sitio_data.getId_ubigeo());
+                intent.putExtra("id_tipo_de_zona", sitio_data.getId_tipo_de_zona());
+                intent.putExtra("id_tipo_de_sitio", sitio_data.getId_tipo_de_sitio());
                 intent.putExtra("id_latitud_long",sitio_data.getId_latitud_long());
                 intent.putExtra("Key",sitio_data.getKey());
 

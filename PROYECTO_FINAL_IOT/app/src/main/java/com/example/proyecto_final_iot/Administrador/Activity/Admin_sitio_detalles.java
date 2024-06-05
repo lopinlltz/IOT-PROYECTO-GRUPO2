@@ -32,7 +32,7 @@ public class Admin_sitio_detalles extends AppCompatActivity {
     FloatingActionButton boton_delete;
     FloatingActionButton boton_edit;
     TextView id_codigodeSitio, id_departamento, id_provincia, id_distrito, id_ubigeo,
-            id_tipo_de_zona_det, id_tipo_de_sitio_det, id_latitud_long;
+            id_tipo_de_zona, id_tipo_de_sitio, id_latitud_long;
     String key="";
 
     private DatabaseReference databaseReference;
@@ -48,8 +48,8 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         id_provincia = findViewById(R.id.id_provincia);
         id_distrito = findViewById(R.id.id_distrito);
         id_ubigeo = findViewById(R.id.id_ubigeo);
-        //id_tipo_de_zona = findViewById(R.id.id_tipo_de_zona);
-        //id_tipo_de_sitio = findViewById(R.id.id_tipo_de_sitio);
+        id_tipo_de_zona = findViewById(R.id.id_tipoDeZona_det);
+        id_tipo_de_sitio = findViewById(R.id.id_tipoDeSitio_det);
         id_latitud_long = findViewById(R.id.id_latitud_long);
 
 
@@ -60,8 +60,8 @@ public class Admin_sitio_detalles extends AppCompatActivity {
             id_provincia.setText(bundle.getString("id_provincia"));
             id_distrito.setText(bundle.getString("id_distrito"));
             id_ubigeo.setText(bundle.getString("id_ubigeo"));
-            //id_tipo_de_zona_det.setText(bundle.getString("Codigo"));
-            //id_tipo_de_sitio_det.setText(bundle.getString("Codigo"));
+            id_tipo_de_zona.setText(bundle.getString("id_tipo_de_zona"));
+            id_tipo_de_sitio.setText(bundle.getString("id_tipo_de_sitio"));
             id_latitud_long.setText(bundle.getString("id_latitud_long"));
             key= bundle.getString("key");
 

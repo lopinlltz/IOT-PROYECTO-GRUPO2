@@ -2,8 +2,6 @@ package com.example.proyecto_final_iot.Administrador.Data;
 
 public class Sitio_nuevo_Data {
     private String id_codigodeSitio;
-    private int buttom_supervisor;
-    private int buttom_info;
 
     private String id_departamento;
     private String id_provincia;
@@ -41,41 +39,14 @@ public class Sitio_nuevo_Data {
         return id_tipo_de_sitio;
     }
 
-    public void setId_tipo_de_zona(String id_tipo_de_zona) {
-        this.id_tipo_de_zona = id_tipo_de_zona;
-    }
-
-    public void setId_tipo_de_sitio(String id_tipo_de_sitio) {
-        this.id_tipo_de_sitio = id_tipo_de_sitio;
-    }
 
     public String getId_latitud_long() {
         return id_latitud_long;
     }
 
-/*
-    public int getButtom_supervisor() {
-        return buttom_supervisor;
-    }
-
-    public int getButtom_info() {
-        return buttom_info;
-    }
-
-    public Sitio_Data(String nombreSitio) {
-        this.nombreSitio = nombreSitio;
-    }*/
 
     public void setId_codigodeSitio(String id_codigodeSitio) {
         this.id_codigodeSitio = id_codigodeSitio;
-    }
-
-    public void setButtom_supervisor(int buttom_supervisor) {
-        this.buttom_supervisor = buttom_supervisor;
-    }
-
-    public void setButtom_info(int buttom_info) {
-        this.buttom_info = buttom_info;
     }
 
     public void setId_departamento(String id_departamento) {
@@ -96,5 +67,13 @@ public class Sitio_nuevo_Data {
 
     public void setId_latitud_long(String id_latitud_long) {
         this.id_latitud_long = id_latitud_long;
+    }
+
+    public void setId_tipo_de_zona(String id_tipo_de_zona) {
+        this.id_tipo_de_zona = id_tipo_de_zona;
+    }
+
+    public void setId_tipo_de_sitio(String id_tipo_de_sitio) {
+        this.id_tipo_de_sitio = id_tipo_de_sitio;
     }
 }
