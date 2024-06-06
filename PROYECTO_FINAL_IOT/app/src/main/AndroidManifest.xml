@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
@@ -42,6 +43,9 @@
             android:exported="false" />
         <activity
             android:name=".Superadmin.Activity.superadmin_logs"
+            android:exported="false" />
+        <activity
+            android:name=".Administrador.Activity.Admin_usuario_editar"
             android:exported="false" />
         <activity
             android:name=".Administrador.Activity.Admin_lista_usuario"
@@ -108,6 +112,12 @@
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquipoNuevoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.QRCodePreviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Supervisor.Activity.QRScannerActivity"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.EquipoEditarActivity"

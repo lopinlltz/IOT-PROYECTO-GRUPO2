@@ -2,29 +2,37 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
 import com.example.proyecto_final_iot.databinding.ActivityAdminSitioDetallesBinding;
 import com.github.clans.fab.FloatingActionButton;
 import com.example.proyecto_final_iot.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Admin_sitio_detalles extends AppCompatActivity {
@@ -33,9 +41,11 @@ public class Admin_sitio_detalles extends AppCompatActivity {
     FloatingActionButton boton_edit;
     TextView id_codigodeSitio, id_departamento, id_provincia, id_distrito, id_ubigeo,
             id_tipo_de_zona, id_tipo_de_sitio, id_latitud_long;
-    String key="";
+    String id_Documento;
+
 
     private DatabaseReference databaseReference;
+
 
 
     @Override
@@ -53,6 +63,7 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         id_latitud_long = findViewById(R.id.id_latitud_long);
 
 
+
         Bundle bundle = getIntent().getExtras();
         if(bundle != null){
             id_codigodeSitio.setText(bundle.getString("id_codigodeSitio"));
@@ -63,29 +74,43 @@ public class Admin_sitio_detalles extends AppCompatActivity {
             id_tipo_de_zona.setText(bundle.getString("id_tipo_de_zona"));
             id_tipo_de_sitio.setText(bundle.getString("id_tipo_de_sitio"));
             id_latitud_long.setText(bundle.getString("id_latitud_long"));
-            key= bundle.getString("key");
-
+            id_Documento= bundle.getString("documentoID");
         }
-        //key = getIntent().getStringExtra("itemKey");
+
 
 
         boton_delete = (FloatingActionButton) findViewById(R.id.boton_delete);
         boton_edit = findViewById(R.id.boton_edit);
 
         boton_delete.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-               FirebaseFirestore.getInstance().collection("sitio").document("codigo 1").delete()
-                       .addOnSuccessListener(new OnSuccessListener<Void>() {
-                   @Override
-                   public void onSuccess(Void unused) {
-                       Toast.makeText(Admin_sitio_detalles.this, "Elemento eliminado" , Toast.LENGTH_SHORT).show();
-                   }
-               });
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                String documentId = "test"; // Reemplaza con el ID del documento que deseas eliminar
+                db.collection("sitio").document(documentId).delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                // Manejar el éxito de la eliminación
+
+                                Toast.makeText(Admin_sitio_detalles.this, "Deleted", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(getApplicationContext(), Admin_lista_Sitio.class));
+                                finish();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Manejar el fallo en la eliminación
+                                Toast.makeText(Admin_sitio_detalles.this, "Error al eliminar el documento", Toast.LENGTH_SHORT).show();
+                            }
+                        });
             }
-
         });
+
+
 
         boton_edit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,6 +119,9 @@ public class Admin_sitio_detalles extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
+
+
 
 }

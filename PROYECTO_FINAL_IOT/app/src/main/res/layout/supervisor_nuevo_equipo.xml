@@ -177,6 +177,36 @@
                     app:layout_constraintVertical_bias="0.0">
 
                     <EditText
+                        android:id="@+id/sitio"
+                        android:layout_width="276dp"
+                        android:layout_height="33dp"
+                        android:background="@drawable/circular_border"
+                        android:ems="10"
+                        android:hint="Sitio"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:textAlignment="center"
+                        android:textSize="14sp"
+                        android:textStyle="italic"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="244dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <EditText
                         android:id="@+id/marca"
                         android:layout_width="276dp"
                         android:layout_height="33dp"
@@ -199,7 +229,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="244dp"
+                    android:layout_marginTop="296dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -231,7 +261,7 @@
                     android:id="@+id/constraintLayout13"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="296dp"
+                    android:layout_marginTop="348dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -263,7 +293,7 @@
                     android:id="@+id/constraintLayout2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="348dp"
+                    android:layout_marginTop="400dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -293,7 +323,7 @@
                     android:id="@+id/imageButton"
                     android:layout_width="177dp"
                     android:layout_height="121dp"
-                    android:layout_marginTop="400dp"
+                    android:layout_marginTop="452dp"
                     android:layout_marginBottom="24dp"
                     android:src="@drawable/baseline_add_a_photo_24"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -79,9 +80,12 @@ public class Admin_lista_usuario extends AppCompatActivity {
             @Override
             public void onReportButtonClick(int position) {
                 Intent intent = new Intent(Admin_lista_usuario.this, Admin_usuario_detalles.class);
+                intent.putExtra("dataImage", data_List_user.get(0).getDataImage());
                 startActivity(intent);
             }
         });
+
+
 
     }
 

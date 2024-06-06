@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
+import com.example.proyecto_final_iot.Supervisor.Entity.SitioData;
 
 import java.util.List;
 
@@ -20,15 +21,19 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
     private List<EquipoData> equipoList;
 
     public interface OnItemClickListener {
-        void onReportButtonClick(int position);
+        void onReportButtonClick(int position, EquipoData equipo);
     }
+
     private OnItemClickListener mListener;
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         mListener = listener;
     }
 
-
+    public void setFilteredList_sitio(List<EquipoData> filteredList_sitio) {
+        this.equipoList = filteredList_sitio;
+        notifyDataSetChanged();
+    }
     public EquipoSupervisorAdapter(List<EquipoData> equipoList) {
         this.equipoList = equipoList;
     }
@@ -43,24 +48,29 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         EquipoData equipoData = equipoList.get(position);
-        holder.equipmentNameTextView.setText(equipoData.getEquipmentName());
-        holder.eqTypeTextView.setText(equipoData.getTypeEq());
+        holder.equipmentNameTextView.setText(equipoData.getModelo());
+        holder.eqTypeTextView.setText(equipoData.getMarca());
 
         holder.imageButtonReport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mListener != null) {
-                    mListener.onReportButtonClick(position);
+                    mListener.onReportButtonClick(position, equipoData);
                 }
             }
         });
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EquipoDetalleActivity.class);
-                intent.putExtra("equipment_name", equipoData.getEquipmentName());
-                intent.putExtra("type_eq", equipoData.getTypeEq());
+                intent.putExtra("modelo", equipoData.getModelo());
+                intent.putExtra("marca", equipoData.getMarca());
+                intent.putExtra("sku", equipoData.getSku());
+                intent.putExtra("serie", equipoData.getSerie());
+                intent.putExtra("descripcion", equipoData.getDescripcion());
+                intent.putExtra("fecha", equipoData.getFechaRegistro());
                 v.getContext().startActivity(intent);
             }
         });

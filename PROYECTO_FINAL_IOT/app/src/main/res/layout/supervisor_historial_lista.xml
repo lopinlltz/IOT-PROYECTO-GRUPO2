@@ -28,52 +28,12 @@
             android:layout_width="match_parent"
             android:layout_height="6dp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="82dp"
-            android:paddingStart="5dp"
-            android:paddingEnd="5dp"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:background="@drawable/background_supervisor_searchbar">
-
-                <EditText
-                    android:id="@+id/idSearchBar"
-                    android:layout_width="307dp"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:hint="Buscar"
-                    android:inputType="text"
-                    android:background="@null"
-                    android:paddingStart="15dp"
-                    android:textSize="14sp"
-                    android:textStyle="italic" />
-
-                <ImageButton
-                    android:id="@+id/imageButtonSearch"
-                    android:layout_width="54dp"
-                    android:layout_height="46dp"
-                    android:background="@null"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    android:src="@drawable/lupasearchpic" />
-
-            </LinearLayout>
-
-        </LinearLayout>
 
 
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="527dp">
+            android:layout_height="609dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -84,7 +44,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_historial"
                     android:layout_width="match_parent"
-                    android:layout_height="500dp" />
+                    android:layout_height="600dp" />
             </LinearLayout>
         </ScrollView>
 

@@ -26,7 +26,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="76dp"
+            android:layout_height="57dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -40,26 +40,20 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewTipoEquipo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Tipo de equipo"
-                android:textSize="16dp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="214dp"
+            android:layout_height="155dp"
             android:gravity="center"
             android:orientation="vertical">
 
 
             <ImageView
                 android:id="@+id/imageView15"
-                android:layout_width="217dp"
-                android:layout_height="182dp"
+                android:layout_width="157dp"
+                android:layout_height="112dp"
                 app:srcCompat="@drawable/routerimage" />
         </LinearLayout>
 
@@ -242,10 +236,28 @@
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:orientation="horizontal">
+
+            <!--<ImageView
+                android:id="@+id/qr_code_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/save_qr_code_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Guardar QR Code"
+                android:visibility="gone" />-->
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="87dp"
+            android:layout_height="71dp"
             android:gravity="center"
             android:orientation="horizontal">
 
