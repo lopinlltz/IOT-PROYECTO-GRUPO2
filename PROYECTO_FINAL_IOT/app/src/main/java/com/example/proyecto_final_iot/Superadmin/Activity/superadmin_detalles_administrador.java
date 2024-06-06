@@ -124,3 +124,4 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
         dialog.show();
     }
 }
+

@@ -128,7 +128,11 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
         Admin administrador = new Admin();
         administrador.setNombreUser(nombreString);
         administrador.setApellidoUser(apellidoString);
-        // Otros campos pueden ser añadidos si son necesarios
+        administrador.setDniUser(dniint);
+        administrador.setCorreoUser(correoString);
+        administrador.setTelefonoUser(telefeonoInt);
+        administrador.setDomicilioUser(domicilioString);
+
 
         db.collection("administrador")
                 .add(administrador)

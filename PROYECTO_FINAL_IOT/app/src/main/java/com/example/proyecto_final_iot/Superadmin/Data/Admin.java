@@ -4,9 +4,9 @@ public class Admin {
     private String id;
     private String nombreUser;
     private String apellidoUser;
-    private String dniUser;
+    private int dniUser;
     private String correoUser;
-    private String telefonoUser;
+    private int telefonoUser;
     private String domicilioUser;
     private String hora;
 
@@ -14,7 +14,7 @@ public class Admin {
         // Constructor vacío requerido por Firebase Firestore
     }
 
-    public Admin(String id, String nombreUser, String apellidoUser, String dniUser, String correoUser, String telefonoUser, String domicilioUser, String hora) {
+    public Admin(String id, String nombreUser, String apellidoUser, int dniUser, String correoUser, int telefonoUser, String domicilioUser, String hora) {
         this.id = id;
         this.nombreUser = nombreUser;
         this.apellidoUser = apellidoUser;
@@ -49,11 +49,11 @@ public class Admin {
         this.apellidoUser = apellidoUser;
     }
 
-    public String getDniUser() {
+    public int getDniUser() {
         return dniUser;
     }
 
-    public void setDniUser(String dniUser) {
+    public void setDniUser(int dniUser) {
         this.dniUser = dniUser;
     }
 
@@ -65,11 +65,11 @@ public class Admin {
         this.correoUser = correoUser;
     }
 
-    public String getTelefonoUser() {
+    public int getTelefonoUser() {
         return telefonoUser;
     }
 
-    public void setTelefonoUser(String telefonoUser) {
+    public void setTelefonoUser(int telefonoUser) {
         this.telefonoUser = telefonoUser;
     }
 
