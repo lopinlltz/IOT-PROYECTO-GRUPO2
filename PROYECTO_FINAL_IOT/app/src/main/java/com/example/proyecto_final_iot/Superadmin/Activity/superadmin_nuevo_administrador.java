@@ -12,17 +12,17 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
+import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class superadmin_nuevo_administrador extends AppCompatActivity {
 
-    //CONEXIÓN BD
+    // CONEXIÓN BD
     FirebaseFirestore db;
 
-    // Guaradar:
+    // Guardar:
     private EditText nombre;
     private EditText apellido;
     private EditText dni;
@@ -72,8 +72,7 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
             }
         });
 
-        //BD
-
+        // BD
         db = FirebaseFirestore.getInstance();
 
         registrar.setOnClickListener(new View.OnClickListener() {
@@ -82,7 +81,6 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 showConfirmationDialog();
             }
         });
-
     }
 
     private void showConfirmationDialog() {
@@ -126,29 +124,21 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
 
         domicilio = findViewById(R.id.domicilio);
         String domicilioString = domicilio.getText().toString().trim();
-/*
-        Supervisor_Data administrador = new Supervisor_Data();
 
-        administrador.setId_nombreUser(nombreString);
-        administrador.setId_apellidoUser(apellidoString);
-        administrador.setId_dniUSer(String.valueOf(dniint));
-        administrador.setId_correoUser(correoString);
-        administrador.setId_telefonoUser(String.valueOf(telefeonoInt));
-        administrador.setId_domicilioUser(domicilioString);
-
+        Admin administrador = new Admin();
+        administrador.setNombreUser(nombreString);
+        administrador.setApellidoUser(apellidoString);
+        // Otros campos pueden ser añadidos si son necesarios
 
         db.collection("administrador")
                 .add(administrador)
-                .addOnSuccessListener(unused -> {
-                    // Correcto
-                    Toast.makeText(superadmin_nuevo_administrador.this, "Supervisor creado correctamente", Toast.LENGTH_SHORT).show();
+                .addOnSuccessListener(documentReference -> {
+                    Toast.makeText(superadmin_nuevo_administrador.this, "Administrador creado correctamente", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(superadmin_nuevo_administrador.this, Superadmin_vista_principal1.class);
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    // Error
-                    Toast.makeText(superadmin_nuevo_administrador.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
-                });*/
+                    Toast.makeText(superadmin_nuevo_administrador.this, "No se creó el administrador", Toast.LENGTH_SHORT).show();
+                });
     }
-
 }
