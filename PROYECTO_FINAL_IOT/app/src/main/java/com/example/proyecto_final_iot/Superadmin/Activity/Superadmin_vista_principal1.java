@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Adapter.AdminAdapter;
+import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -89,6 +89,10 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
                                 document.getId(),  // Obtener el ID del documento
                                 adminData.getNombreUser(),  // Obtener nombre
                                 adminData.getApellidoUser(),  // Obtener apellido
+                                adminData.getDniUser(),  // Obtener DNI
+                                adminData.getCorreoUser(),  // Obtener correo
+                                adminData.getTelefonoUser(),  // Obtener teléfono
+                                adminData.getDomicilioUser(),  // Obtener domicilio
                                 "Hora placeholder"  // Ajustar según tus necesidades
                         ));
                     }
