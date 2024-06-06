@@ -1,19 +1,65 @@
 package com.example.proyecto_final_iot.Supervisor.Entity;
 
 public class EquipoData {
-    private String equipmentName;
-    private String typeEq;
+    private String sku;
+    private String serie;
+    private String marca;
+    private String modelo;
+    private  String descripcion;
+    private String fechaRegistro;
 
-    public EquipoData(String equipmentName, String typeEq) {
-        this.equipmentName = equipmentName;
-        this.typeEq = typeEq;
+    /*public EquipoData(String sku, String serie, String marca, String modelo, String descripcion, String fechaRegistro) {
+        this.sku = sku;
+        this.serie = serie;
+        this.marca = marca;
+        this.modelo = modelo;
+        this.descripcion = descripcion;
+        this.fechaRegistro = fechaRegistro;
+    }*/
+
+    public String getSku() {
+        return sku;
     }
 
-    public String getEquipmentName() {
-        return equipmentName;
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
-    public String getTypeEq() {
-        return typeEq;
+    public String getSerie() {
+        return serie;
+    }
+
+    public void setSerie(String serie) {
+        this.serie = serie;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public String getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(String modelo) {
+        this.modelo = modelo;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public String getFechaRegistro() {
+        return fechaRegistro;
+    }
+    public void setFechaRegistro(String fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
     }
 }

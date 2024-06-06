@@ -40,13 +40,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewTipoEquipo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Tipo de equipo"
-                android:textSize="16dp" />
+
         </LinearLayout>
 
         <LinearLayout

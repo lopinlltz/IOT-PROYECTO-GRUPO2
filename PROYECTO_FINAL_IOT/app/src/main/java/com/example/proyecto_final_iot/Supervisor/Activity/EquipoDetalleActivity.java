@@ -14,8 +14,14 @@ import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 
 public class EquipoDetalleActivity extends AppCompatActivity {
+     TextView textViewSku;
+    TextView textViewNroSerie;
+    TextView textViewMarca;
+    TextView textViewModelo;
+    TextView textViewDescripcion;
+    TextView textViewFecha;
     TextView textViewNombreEquipo;
-    TextView textViewTipoEquipo;
+
     Button buttonBorrarEq;
     Button buttonEditarEq;
 
@@ -25,14 +31,28 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         setContentView(R.layout.supervisor_detalles_equipo);
 
         Intent intent = getIntent();
-        String nombreEquipo = intent.getStringExtra("equipment_name");
-        String tipoEquipo = intent.getStringExtra("type_eq");
+        String sku = intent.getStringExtra("sku");
+        String serie = intent.getStringExtra("serie");
+        String marca = intent.getStringExtra("marca");
+        String modelo =  intent.getStringExtra("modelo");
+        String descripcion =  intent.getStringExtra("descripcion");
+        String fecha =  intent.getStringExtra("fecha");
 
         textViewNombreEquipo = findViewById(R.id.textViewNombreEquipo);
-        textViewTipoEquipo = findViewById(R.id.textViewTipoEquipo);
+        textViewSku = findViewById(R.id.textViewSku);
+        textViewNroSerie = findViewById(R.id.textViewNroSerie);
+        textViewMarca = findViewById(R.id.textViewMarca);
+        textViewModelo = findViewById(R.id.textViewModelo);
+        textViewDescripcion = findViewById(R.id.textViewDescripcion);
+        textViewFecha = findViewById(R.id.textViewFecha);
 
-        textViewNombreEquipo.setText(nombreEquipo);
-        textViewTipoEquipo.setText(tipoEquipo);
+        textViewNombreEquipo.setText(sku);
+        textViewSku.setText(sku);
+        textViewNroSerie.setText(serie);
+        textViewMarca.setText(marca);
+        textViewModelo.setText(modelo);
+        textViewDescripcion.setText(descripcion);
+        textViewFecha.setText(fecha);
 
         buttonBorrarEq =  findViewById(R.id.buttonBorrarEq);
         buttonBorrarEq.setOnClickListener(new View.OnClickListener() {

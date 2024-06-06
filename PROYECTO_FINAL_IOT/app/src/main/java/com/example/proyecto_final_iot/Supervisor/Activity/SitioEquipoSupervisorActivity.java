@@ -26,11 +26,7 @@ public class SitioEquipoSupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<EquipoData> equipoList = new ArrayList<>();
-        equipoList.add(new EquipoData("EquipoTest", "Switch uwu"));
-        equipoList.add(new EquipoData("Equipo2", "Antena"));
-        equipoList.add(new EquipoData("Equipo3", "Router"));
-        equipoList.add(new EquipoData("Equipo4", "TIPO DE EQUIPO"));
-        equipoList.add(new EquipoData("Equipo5", "TIPO DE EQUIPO"));
+
 
         adapter = new EquipoSupervisorAdapter(equipoList);
         recyclerView.setAdapter(adapter);

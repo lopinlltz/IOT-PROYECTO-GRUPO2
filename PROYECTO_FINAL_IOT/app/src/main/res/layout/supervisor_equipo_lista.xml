@@ -42,27 +42,15 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/idSearchBar"
-                    android:layout_width="224dp"
-                    android:layout_height="50dp"
-                    android:background="@null"
-                    android:ems="10"
-                    android:hint="Buscar"
-                    android:inputType="text"
-                    android:paddingStart="15dp"
-                    android:textSize="14sp"
-                    android:textStyle="italic" />
-
-                <ImageButton
-                    android:id="@+id/imageButtonCamera"
-                    android:layout_width="64dp"
-                    android:layout_height="46dp"
-                    android:background="@null"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.9"
-                    android:scaleY="0.9"
-                    android:src="@drawable/camerasearchbar" />
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_sitio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:focusable="false"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Buscar..."
+                    app:searchHintIcon="@null"/>
 
 
             </LinearLayout>

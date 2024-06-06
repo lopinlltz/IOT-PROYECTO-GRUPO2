@@ -111,27 +111,52 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         fechaRegistro = findViewById(R.id.fecha_de_registro);
         String fechaRegistroString = fechaRegistro.getText().toString().trim();
 
-        Equipo equipo = new Equipo();
 
-        equipo.setSku(skuString);
-        equipo.setSerie(serieString);
-        equipo.setMarca(marcaString);
-        equipo.setModelo(modeloString);
-        equipo.setDescripcion(descripcionString);
-        equipo.setFechaRegistro(fechaRegistroString);
+        if (skuString.isEmpty() || serieString.isEmpty() || marcaString.isEmpty() ||
+                modeloString.isEmpty() || descripcionString.isEmpty() || fechaRegistroString.isEmpty()) {
+            Toast.makeText(EquipoNuevoActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
+        // Validar que el SKU no exista en la base de datos
         db.collection("equipo")
-                .add(equipo)
-                .addOnSuccessListener(unused -> {
-                    // Correcto
-                    Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
-                    startActivity(intent);
-                })
-                .addOnFailureListener(e -> {
-                    // Error
-                    Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
+                .whereEqualTo("sku", skuString)
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        if (task.getResult().isEmpty()) {
+                            // El SKU no existe, podemos guardar el equipo
+                            Equipo equipo = new Equipo();
+
+                            equipo.setSku(skuString);
+                            equipo.setSerie(serieString);
+                            equipo.setMarca(marcaString);
+                            equipo.setModelo(modeloString);
+                            equipo.setDescripcion(descripcionString);
+                            equipo.setFechaRegistro(fechaRegistroString);
+
+                            db.collection("equipo")
+                                    .add(equipo)
+                                    .addOnSuccessListener(unused -> {
+                                        // Correcto
+                                        Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
+                                        Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
+                                        startActivity(intent);
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        // Error
+                                        Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
+                                    });
+                        } else {
+                            // El SKU ya existe
+                            Toast.makeText(EquipoNuevoActivity.this, "El SKU ya existe, por favor ingrese un SKU diferente", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        // Error al consultar Firebase
+                        Toast.makeText(EquipoNuevoActivity.this, "Error al verificar el SKU en Firebase", Toast.LENGTH_SHORT).show();
+                    }
                 });
+
     }
 
 }

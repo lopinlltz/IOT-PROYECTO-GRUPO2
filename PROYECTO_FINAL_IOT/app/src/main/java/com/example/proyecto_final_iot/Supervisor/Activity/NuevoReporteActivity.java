@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Supervisor.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -36,6 +37,11 @@ public class NuevoReporteActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.supervisor_nuevo_resporte);
 
+        Intent intent = getIntent();
+        String equipoSku = intent.getStringExtra("equipo_sku");
+
+        Log.d("mensajeConfirmacion", equipoSku);
+
         atras =  findViewById(R.id.atras);
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,13 +59,13 @@ public class NuevoReporteActivity extends AppCompatActivity {
         Guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConfirmacionPopup();
+                ConfirmacionPopup( equipoSku);
             }
         });
 
     }
 
-    private void ConfirmacionPopup() {
+    private void ConfirmacionPopup(String equipoSku) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de enviar el reporte?");
 
@@ -67,7 +73,7 @@ public class NuevoReporteActivity extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                guardarEquipo();
+                guardarEquipo( equipoSku);
                 dialog.dismiss();
 
                 NotificationHelper.createNotificationChannel(NuevoReporteActivity.this);
@@ -86,16 +92,23 @@ public class NuevoReporteActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void guardarEquipo() {
+    private void guardarEquipo(String equipoSku) {
         nombre = findViewById(R.id.nombre);
         String nombreString = nombre.getText().toString().trim();
 
         descripcion = findViewById(R.id.descripcion);
         String descripcionString = descripcion.getText().toString().trim();
 
+        // Verificar que los campos no estén vacíos
+        if (nombreString.isEmpty() || descripcionString.isEmpty()) {
+            Toast.makeText(NuevoReporteActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         Reporte reporte =  new Reporte();
         reporte.setNombre(nombreString);
         reporte.setDescripcion(descripcionString);
+        reporte.setidEquipo(equipoSku);
 
         db.collection("reportes")
                 .add(reporte)

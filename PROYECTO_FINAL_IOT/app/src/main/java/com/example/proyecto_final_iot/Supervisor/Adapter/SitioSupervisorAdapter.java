@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Entity.SitioData;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioDetalleActivity;
@@ -22,6 +23,11 @@ public class SitioSupervisorAdapter extends RecyclerView.Adapter<SitioSupervisor
         this.sitioList = sitioList;
     }
 
+    public void setFilteredList_sitio(List<SitioData> filteredList_sitio) {
+        this.sitioList = filteredList_sitio;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -32,15 +38,22 @@ public class SitioSupervisorAdapter extends RecyclerView.Adapter<SitioSupervisor
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         SitioData sitioData = sitioList.get(position);
-        holder.siteNameTextView.setText(sitioData.getSiteName());
-        holder.locationTextView.setText(sitioData.getLocation());
+        holder.siteNameTextView.setText(sitioData.getId_codigodeSitio());
+        holder.locationTextView.setText(sitioData.getId_provincia());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SitioDetalleActivity.class);
-                intent.putExtra("site_name", sitioData.getSiteName());
-                intent.putExtra("location", sitioData.getLocation());
+                intent.putExtra("site_name", sitioData.getId_codigodeSitio());
+                intent.putExtra("ubicacion", sitioData.getId_provincia());
+                intent.putExtra("departamento", sitioData.getId_departamento());
+                intent.putExtra("provincia", sitioData.getId_provincia());
+                intent.putExtra("distrito", sitioData.getId_distrito());
+                intent.putExtra("ubigeo", sitioData.getId_ubigeo());
+                intent.putExtra("latitud_longitud", sitioData.getId_latitud_long());
+                //intent.putExtra("tipo_zona", sitioData.getId_tipo_de_zona());
+                //intent.putExtra("tipo_sitio", sitioData.getId_tipo_de_sitio());
                 v.getContext().startActivity(intent);
             }
         });

@@ -43,27 +43,15 @@
                 android:orientation="horizontal"
                 android:background="@drawable/background_supervisor_searchbar">
 
-                <EditText
-                    android:id="@+id/idSearchBar"
-                    android:layout_width="307dp"
-                    android:layout_height="50dp"
-                    android:ems="10"
-                    android:hint="Buscar"
-                    android:inputType="text"
-                    android:background="@null"
-                    android:paddingStart="15dp"
-                    android:textSize="14sp"
-                    android:textStyle="italic" />
-
-                <ImageButton
-                    android:id="@+id/imageButtonSearch"
-                    android:layout_width="54dp"
-                    android:layout_height="46dp"
-                    android:background="@null"
-                    android:scaleType="fitCenter"
-                    android:scaleX="0.8"
-                    android:scaleY="0.8"
-                    android:src="@drawable/lupasearchpic" />
+                <androidx.appcompat.widget.SearchView
+                    android:id="@+id/search_sitio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:focusable="false"
+                    app:iconifiedByDefault="false"
+                    app:queryHint="Buscar..."
+                    app:searchHintIcon="@null"/>
 
             </LinearLayout>
 
