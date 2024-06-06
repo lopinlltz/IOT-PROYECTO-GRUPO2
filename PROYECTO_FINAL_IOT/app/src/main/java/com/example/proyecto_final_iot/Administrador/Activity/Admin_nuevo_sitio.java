@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -109,6 +110,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
         String id_latitud_long = binding_new_sitio.idLatitudLong.getText().toString();
         String id_provincia = binding_new_sitio.idProvincia.getText().toString();
         String id_tipo_de_sitio = binding_new_sitio.idTipoDeSitio.getText().toString();
+        Log.d("Debug", "id_tipo_de_sitio: " + binding_new_sitio.idTipoDeSitio.getText().toString());
         String id_tipo_de_zona = binding_new_sitio.idTipoDeZona.getText().toString();
         String id_ubigeo = binding_new_sitio.idUbigeo.getText().toString();
 

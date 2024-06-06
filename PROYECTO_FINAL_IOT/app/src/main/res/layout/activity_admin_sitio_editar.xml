@@ -35,7 +35,7 @@
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/id_codigodeSitio"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -101,11 +101,11 @@
                     android:id="@+id/id_tipoDeZona"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:layout_below="@id/id_ubigeo"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_bkg"
                     android:gravity="start|center_vertical"
                     android:hint="Tipo de Zona (Urbana o Rural)"
-                    android:layout_below="@id/id_ubigeo"
                     android:padding="10dp"
                     android:textColor="@color/color_admin"
                     android:textSize="16sp" />
@@ -114,11 +114,11 @@
                     android:id="@+id/id_tipoDeSitio"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
+                    android:layout_below="@id/id_ubigeo"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_bkg"
                     android:gravity="start|center_vertical"
                     android:hint="Tipo de Sitio (Movil o Fijo)"
-                    android:layout_below="@id/id_ubigeo"
                     android:padding="10dp"
                     android:textColor="@color/color_admin"
                     android:textSize="16sp" />
@@ -137,12 +137,55 @@
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="293dp"
-                    android:layout_height="139dp"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="50dp"
                     android:layout_marginTop="20dp"
                     android:src="@drawable/image_mapa" />
 
-
             </LinearLayout>
+
+                <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.github.clans.fab.FloatingActionMenu
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginRight="10dp"
+                    app:menu_fab_size="mini"
+                    android:layout_marginBottom="2dp"
+                    app:menu_colorPressed="@color/color_admin"
+                    app:menu_colorNormal="@color/color_admin"
+                    app:menu_icon="@drawable/baseline_format_list_bulleted_24"
+                    app:menu_openDirection="up"
+                    app:menu_showShadow="true">
+
+                    <com.github.clans.fab.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/boton_save_sitio"
+                        android:src="@drawable/baseline_save_24_admin"
+                        app:fab_showShadow="true"
+                        app:fab_colorNormal="@color/green"
+                        app:fab_size="mini"/>
+                    <com.github.clans.fab.FloatingActionButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/boton_back_sitio"
+                        android:src="@drawable/baseline_arrow_back_24"
+                        app:fab_showShadow="true"
+                        app:fab_colorNormal="@color/red"
+                        app:fab_size="mini"/>
+
+                </com.github.clans.fab.FloatingActionMenu>
+
+
+            </RelativeLayout>
+
+
+
         </androidx.cardview.widget.CardView>
     </ScrollView>
