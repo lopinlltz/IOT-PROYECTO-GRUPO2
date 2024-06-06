@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,6 +35,7 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button button3 = findViewById(R.id.button3);
+        SearchView searchAdmin = findViewById(R.id.search_admin);
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,5 +101,19 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
 
                     adapter.notifyDataSetChanged();
                 });
+
+        searchAdmin.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                adapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 }

@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,15 +17,18 @@ import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Activity.superadmin_detalles_administrador;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> {
-    private List<Admin> adminLists;
-    private Context context; // Contexto para iniciar actividades
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> implements Filterable {
+    private List<Admin> adminList;
+    private List<Admin> adminListFull; // Lista completa para soporte de búsqueda
+    private Context context;
 
-    public AdminAdapter(Context context, List<Admin> adminLists) {
+    public AdminAdapter(Context context, List<Admin> adminList) {
         this.context = context;
-        this.adminLists = adminLists;
+        this.adminList = adminList;
+        adminListFull = new ArrayList<>(adminList); // Copia de la lista completa
     }
 
     @NonNull
@@ -35,32 +40,65 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Admin admin = adminLists.get(holder.getAdapterPosition());
+        Admin admin = adminList.get(holder.getAdapterPosition());
         holder.NombreAdmin.setText(admin.getNombreCompleto());
         holder.hora.setText(admin.getHora());
 
         holder.myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Llama al método para iniciar la actividad
                 performAction(holder.getAdapterPosition());
             }
         });
     }
 
     private void performAction(int position) {
-        // Inicia la actividad superadmin_detalles_administrador
         Intent intent = new Intent(context, superadmin_detalles_administrador.class);
-        // Pasa el ID del administrador seleccionado a la actividad de detalles
-        Admin selectedAdmin = adminLists.get(position);
+        Admin selectedAdmin = adminList.get(position);
         intent.putExtra("ADMIN_ID", selectedAdmin.getId());
         context.startActivity(intent);
     }
 
     @Override
     public int getItemCount() {
-        return adminLists.size();
+        return adminList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return adminFilter;
+    }
+
+    private Filter adminFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Admin> filteredList = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0) {
+                filteredList.addAll(adminListFull);
+            } else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for (Admin admin : adminListFull) {
+                    if (admin.getNombreUser().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(admin);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            adminList.clear();
+            adminList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView NombreAdmin;
