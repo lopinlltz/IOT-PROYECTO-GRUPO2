@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Adapter.AdminAdapter;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
@@ -24,38 +23,12 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdminAdapter adapter;
     FirebaseFirestore db;
+    private List<Admin> dataList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superadmin_vista_principal1);
-
-        /*Spinner spinner = findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapterSpinner = ArrayAdapter.createFromResource(this,
-                R.array.roles_array, android.R.layout.simple_spinner_item);
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapterSpinner);
-
-        // Establecer el valor por defecto "Filtro"
-        spinner.setSelection(0);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                String selectedRole = parentView.getItemAtPosition(position).toString();
-                if (selectedRole.equals("Administrador")) {
-                    Intent intent = new Intent(Superadmin_vista_principal1.this, Superadmin_vista_principal1.class);
-                    startActivity(intent);
-                } else if (selectedRole.equals("Supervisor")) {
-                    Intent intent = new Intent(Superadmin_vista_principal1.this, superadmin_vista_supervisor2.class);
-                    startActivity(intent);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // No hacer nada
-            }
-        });*/
 
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
@@ -96,30 +69,35 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_admin);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        List<Admin> dataList = new ArrayList<>();
+        dataList = new ArrayList<>();
 
         adapter = new AdminAdapter(this, dataList);
         recyclerView.setAdapter(adapter);
 
-        //BD
-
         db = FirebaseFirestore.getInstance();
 
         db.collection("administrador")
-                .addSnapshotListener(  (snapshot, error) -> {
-                    if (error!= null) {
+                .addSnapshotListener((snapshot, error) -> {
+                    if (error != null) {
                         return;
                     }
 
-                    for (QueryDocumentSnapshot document : snapshot){
-                        Supervisor_Data supervisorNuevoData = document.toObject(Supervisor_Data.class);
-                        dataList.add(new Admin(supervisorNuevoData.getId_apellidoUser() ,supervisorNuevoData.getId_nombreUser()));
-
+                    dataList.clear();
+                    for (QueryDocumentSnapshot document : snapshot) {
+                        Admin adminData = document.toObject(Admin.class);
+                        dataList.add(new Admin(
+                                document.getId(),  // Obtener el ID del documento
+                                adminData.getNombreUser(),  // Obtener nombre
+                                adminData.getApellidoUser(),  // Obtener apellido
+                                adminData.getDniUser(),  // Obtener DNI
+                                adminData.getCorreoUser(),  // Obtener correo
+                                adminData.getTelefonoUser(),  // Obtener teléfono
+                                adminData.getDomicilioUser(),  // Obtener domicilio
+                                "Hora placeholder"  // Ajustar según tus necesidades
+                        ));
                     }
 
                     adapter.notifyDataSetChanged();
-
-                }) ;
-
+                });
     }
 }

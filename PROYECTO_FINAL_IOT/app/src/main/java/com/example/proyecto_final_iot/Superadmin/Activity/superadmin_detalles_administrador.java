@@ -6,30 +6,67 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.example.proyecto_final_iot.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class superadmin_detalles_administrador extends AppCompatActivity {
+    private FirebaseFirestore db;
+    private TextView nombreTextView;
+    private TextView apellidoTextView;
+    private TextView dniTextView;
+    private TextView correoTextView;
+    private TextView telefonoTextView;
+    private TextView domicilioTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_superadmin_detalles_administrador);
+
+        nombreTextView = findViewById(R.id.nombre);
+        apellidoTextView = findViewById(R.id.apellido);
+        dniTextView = findViewById(R.id.dni);
+        correoTextView = findViewById(R.id.correo);
+        telefonoTextView = findViewById(R.id.telefono);
+        domicilioTextView = findViewById(R.id.domicilio);
+
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button atras = findViewById(R.id.button2);
         Button editar = findViewById(R.id.button5);
 
+        db = FirebaseFirestore.getInstance();
+
+        String adminId = getIntent().getStringExtra("ADMIN_ID");
+
+        db.collection("administrador").document(adminId)
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        Admin administrador = documentSnapshot.toObject(Admin.class);
+                        if (administrador != null) {
+                            nombreTextView.setText(administrador.getNombreUser());
+                            apellidoTextView.setText(administrador.getApellidoUser());
+                            dniTextView.setText(administrador.getDniUser());
+                            correoTextView.setText(administrador.getCorreoUser());
+                            telefonoTextView.setText(administrador.getTelefonoUser());
+                            domicilioTextView.setText(administrador.getDomicilioUser());
+                        }
+                    }
+                });
+
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(superadmin_detalles_administrador.this, Superadmin_vista_principal1.class);
-                startActivity(intent);
+                finish(); // Vuelve a la actividad anterior
             }
         });
 
@@ -37,14 +74,6 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showEditConfirmationDialog();
-            }
-        });
-
-        btnHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_logs.class);
-                startActivity(intent);
             }
         });
 
@@ -60,6 +89,14 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(superadmin_detalles_administrador.this, Superadmin_vista_principal1.class);
+                startActivity(intent);
+            }
+        });
+
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_logs.class);
                 startActivity(intent);
             }
         });
@@ -87,3 +124,4 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
         dialog.show();
     }
 }
+
