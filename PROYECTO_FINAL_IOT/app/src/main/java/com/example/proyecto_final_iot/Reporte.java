@@ -1,6 +1,6 @@
 package com.example.proyecto_final_iot;
 
-public class Reporte {
+public class    Reporte {
 
     private  String descripcion;
     private String nombre;
