@@ -8,7 +8,17 @@ public class Equipo {
     private String modelo;
     private  String descripcion;
     private String fechaRegistro;
+    private String id_codigodeSitio;
 
+    // Getter
+    public String getId_codigodeSitio() {
+        return id_codigodeSitio;
+    }
+
+    // Setter
+    public void setId_codigodeSitio(String id_codigodeSitio) {
+        this.id_codigodeSitio = id_codigodeSitio;
+    }
     public String getSku() {
         return sku;
     }

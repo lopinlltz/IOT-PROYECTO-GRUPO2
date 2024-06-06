@@ -8,6 +8,18 @@ public class EquipoData {
     private  String descripcion;
     private String fechaRegistro;
 
+    private String id_codigodeSitio;
+
+    // Getter
+    public String getId_codigodeSitio() {
+        return id_codigodeSitio;
+    }
+
+    // Setter
+    public void setId_codigodeSitio(String id_codigodeSitio) {
+        this.id_codigodeSitio = id_codigodeSitio;
+    }
+
     /*public EquipoData(String sku, String serie, String marca, String modelo, String descripcion, String fechaRegistro) {
         this.sku = sku;
         this.serie = serie;
