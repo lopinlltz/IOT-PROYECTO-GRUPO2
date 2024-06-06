@@ -21,7 +21,16 @@ public class Admin_usuario_editar extends AppCompatActivity {
         id_telefonoUser = findViewById(R.id.id_telefonoUser);
         id_domicilioUser = findViewById(R.id.id_domicilioUser);
 
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            id_nombreUser.setText(bundle.getString("id_nombreUser"));
+            id_apellidoUser.setText(bundle.getString("id_apellidoUser"));
+            id_dniUSer.setText(bundle.getString("id_dniUSer"));
+            id_correoUser.setText(bundle.getString("id_correoUser"));
+            id_telefonoUser.setText(bundle.getString("id_telefonoUser"));
+            id_domicilioUser.setText(bundle.getString("id_domicilioUser"));
 
     }
+}
 }
 

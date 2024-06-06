@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,10 @@ import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.NuevoReporteActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -34,6 +39,7 @@ public class Admin_lista_Sitio extends AppCompatActivity{
     List<Sitio_Data> data_List = new ArrayList<>();
     List<Supervisor_Data> supervisor_SelectdataList = new ArrayList<>();
     FirebaseFirestore firestore_lista;
+
 
 
     @SuppressLint("MissingInflatedId")
@@ -103,7 +109,9 @@ public class Admin_lista_Sitio extends AppCompatActivity{
 
                 /*cargar datos de la Firebase a recycler*/
                 CargarDatos_lista_sitio();
-        
+
+
+
     }
 
     private void CargarDatos_lista_sitio() {

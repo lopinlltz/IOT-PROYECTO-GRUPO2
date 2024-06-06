@@ -112,14 +112,15 @@
 
 
             <ImageView
+                android:id="@+id/imagenview"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_marginVertical="10dp"
                 android:layout_marginStart="10dp"
-                android:src="@drawable/baseline_person_24"
-                android:id="@+id/imagenview">
+                android:src="@drawable/baseline_person_24">
 
             </ImageView>
+
             <Button
                 android:id="@+id/selecImage"
                 android:layout_width="wrap_content"

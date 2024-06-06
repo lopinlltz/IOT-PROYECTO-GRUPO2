@@ -31,6 +31,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     private OnItemClickListener mListenerlistenerAdmin;
 
     Context context;
+    String idDocumento;
 
 
     public void setFilteredList_sitio(List<Sitio_Data> filteredList_sitio) {
@@ -65,6 +66,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     public void onBindViewHolder(@NonNull SitioAdminAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Sitio_Data sitio_data = sitio_dataList.get(position);
         holder.codigo.setText(sitio_data.getId_codigodeSitio());
+        idDocumento = sitio_data.getDocumentoID();
 
 
         holder.imageButton_supervisor.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +77,8 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
                 }
             }
         });
+
+
 
         holder.itemView.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -89,7 +93,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
                 intent.putExtra("id_tipo_de_zona", sitio_data.getId_tipo_de_zona());
                 intent.putExtra("id_tipo_de_sitio", sitio_data.getId_tipo_de_sitio());
                 intent.putExtra("id_latitud_long",sitio_data.getId_latitud_long());
-                intent.putExtra("Key",sitio_data.getKey());
+                intent.putExtra("documentoID",sitio_data.getDocumentoID());
 
                 v.getContext().startActivity(intent);
             }
@@ -110,14 +114,13 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
             TextView codigo;
             ImageButton imageButton_supervisor;
 
-
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 codigo = itemView.findViewById(R.id.item_CodigoSitio_admin);
-
                 imageButton_supervisor = itemView.findViewById(R.id.bottom_admin_supervisor);
 
             }
+
 
 
         }
