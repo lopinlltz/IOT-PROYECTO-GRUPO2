@@ -18,7 +18,13 @@ import com.example.proyecto_final_iot.Equipo;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Reporte;
+import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class NuevoReporteActivity extends AppCompatActivity {
 
@@ -116,6 +122,7 @@ public class NuevoReporteActivity extends AppCompatActivity {
                     // Correcto
                     Toast.makeText(NuevoReporteActivity.this, "Reporte creado correctamente", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(NuevoReporteActivity.this, EquiposSupervisorActivity.class);
+                    guardarHistorial();
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
@@ -123,5 +130,35 @@ public class NuevoReporteActivity extends AppCompatActivity {
                     Toast.makeText(NuevoReporteActivity.this, "No se creó el reporte", Toast.LENGTH_SHORT).show();
                 });
     }
+
+
+    private void guardarHistorial() {
+
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData();
+        historial.setActivityName("Guardate un nuevo reporte");
+        historial.setSupervisorName("Joselin");
+        historial.setDate(formattedDate);
+        historial.setHour(formattedHour);
+
+        db.collection("historial")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+
+                })
+                .addOnFailureListener(e -> {
+
+                });
+
+    }
+
 
 }

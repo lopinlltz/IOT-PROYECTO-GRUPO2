@@ -45,6 +45,9 @@
             android:name=".Superadmin.Activity.superadmin_logs"
             android:exported="false" />
         <activity
+            android:name=".Administrador.Activity.Admin_usuario_editar"
+            android:exported="false" />
+        <activity
             android:name=".Administrador.Activity.Admin_lista_usuario"
             android:exported="false" />
         <activity

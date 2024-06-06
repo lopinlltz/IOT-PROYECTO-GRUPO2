@@ -49,7 +49,7 @@
                     android:layout_alignParentTop="true"
                     android:focusable="false"
                     app:iconifiedByDefault="false"
-                    app:queryHint="Buscar..."
+                    app:queryHint="Ingrese el sku"
                     app:searchHintIcon="@null"/>
 
 
