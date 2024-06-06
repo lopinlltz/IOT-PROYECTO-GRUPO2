@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -32,6 +34,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class EquiposSupervisorActivity extends AppCompatActivity {
+    private static final int REQUEST_CODE_QR_SCAN = 101;
+    private Button qrSearchButton;
     private RecyclerView recyclerView;
     private EquipoSupervisorAdapter adapter;
     private FloatingActionButton fab;
@@ -58,6 +62,16 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText_sitio) {
                 filterList_sitio(newText_sitio);
                 return true;
+            }
+        });
+
+        qrSearchButton = findViewById(R.id.qr_search_button);
+        qrSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Iniciar la actividad de escaneo de QR
+                Intent intent = new Intent(EquiposSupervisorActivity.this, QRScannerActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_QR_SCAN);
             }
         });
 
@@ -139,5 +153,17 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
                     }
 
                 });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_QR_SCAN && resultCode == RESULT_OK) {
+            if (data != null && data.hasExtra("qr_result")) {
+                String qrResult = data.getStringExtra("qr_result");
+
+                Toast.makeText(this, "QR Code: " + qrResult, Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

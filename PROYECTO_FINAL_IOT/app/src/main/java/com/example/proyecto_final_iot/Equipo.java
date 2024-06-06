@@ -8,6 +8,7 @@ public class Equipo {
     private String modelo;
     private  String descripcion;
     private String fechaRegistro;
+    private String qrCode;
 
     public String getSku() {
         return sku;
@@ -55,4 +56,11 @@ public class Equipo {
         this.fechaRegistro = fechaRegistro;
     }
 
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
 }
