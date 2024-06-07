@@ -118,16 +118,26 @@
                 android:src="@drawable/baseline_add_a_photo_24">
 
             </ImageView>
-
-
             <Button
-                android:id="@+id/saveButton_user"
+                android:id="@+id/saveButton_back_edit"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="-40dp"
+                android:backgroundTint="#957698"
+                android:text="Atrás"
+                android:layout_marginStart="10dp"
+                android:layout_marginVertical="40dp"
+                android:textSize="16sp"
+                app:cornerRadius="20dp" />
+
+            <Button
+                android:id="@+id/saveButton_user_edit"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="-100dp"
                 android:backgroundTint="#957698"
                 android:text="Guardar"
-                android:layout_marginStart="85dp"
+                android:layout_marginStart="175dp"
                 android:textSize="16sp"
                 app:cornerRadius="20dp" />
 

@@ -3,29 +3,42 @@ package com.example.proyecto_final_iot.Supervisor.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.bumptech.glide.Glide;
+import com.example.proyecto_final_iot.Administrador.Activity.Admin_nuevo_usuario;
 import com.example.proyecto_final_iot.Equipo;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
 import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
 import com.example.proyecto_final_iot.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.journeyapps.barcodescanner.BarcodeEncoder;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 
 import java.io.ByteArrayOutputStream;
 
@@ -33,6 +46,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 
 public class EquipoNuevoActivity extends AppCompatActivity {
 
@@ -51,12 +65,47 @@ public class EquipoNuevoActivity extends AppCompatActivity {
     private EditText fechaRegistro;
     private EditText sitio;
 
+    Button boton_upload;
+    ImageView imagen_upload;
+    String imagenURL_equipo;
+    Uri image_equipo;
+    private  StorageReference storageReference;
+
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null) {
+                    image_equipo = result.getData().getData();
+                    boton_upload.setEnabled(true);
+                    Glide.with(getApplicationContext()).load(image_equipo).into(imagen_upload);
+                }
+            }else{
+                Toast.makeText(EquipoNuevoActivity.this, "Selecciona una imagen, porfavor", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.supervisor_nuevo_equipo);
+        imagen_upload = findViewById(R.id.imagen_upload);
+        boton_upload = findViewById(R.id.boton_upload);
+
+        boton_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                activityResultLauncher.launch(intent);
+            }
+        });
+
+
 
         atras =  findViewById(R.id.atras);
         atras.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +119,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         Guardar =  findViewById(R.id.Guardar);
         Guardar.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +131,32 @@ public class EquipoNuevoActivity extends AppCompatActivity {
 
     }
 
+    private void uploadImagenEquipo(Uri image){
+        StorageReference reference = storageReference.child("FotosdeEquipos/" + UUID.randomUUID().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(EquipoNuevoActivity.this);
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uriTask.isComplete());
+                Uri urlImage = uriTask.getResult();
+                imagenURL_equipo = urlImage.toString();
+                dialog.dismiss();
+                guardarEquipo();
+                Toast.makeText(EquipoNuevoActivity.this, "Imagen subido exitosamente", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(EquipoNuevoActivity.this, "Error al subir la iamgen", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void ConfirmacionPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -91,7 +167,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 guardarEquipo();
                 dialog.dismiss();
-
+                uploadImagenEquipo(image_equipo);
                 NotificationHelper.createNotificationChannel(EquipoNuevoActivity.this);
                 NotificationHelper.sendNotification(EquipoNuevoActivity.this, "Equipos", "equipo creado");
             }
@@ -130,6 +206,10 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         sitio = findViewById(R.id.sitio);
         String sitioString = sitio.getText().toString().trim();
 
+        imagen_upload = findViewById(R.id.imagen_upload);
+        String imagen_uploadString = sitio.getText().toString().trim();
+
+
 
         if (skuString.isEmpty() || serieString.isEmpty() || marcaString.isEmpty() ||
                 modeloString.isEmpty() || descripcionString.isEmpty() || sitioString.isEmpty() || fechaRegistroString.isEmpty()) {
@@ -161,12 +241,12 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                                                 equipo.setDescripcion(descripcionString);
                                                 equipo.setFechaRegistro(fechaRegistroString);
                                                 equipo.setId_codigodeSitio(sitioString); // Asegúrate de que el modelo Equipo tenga un campo sitio
-
+                                                equipo.setDataImage_equipo(imagen_uploadString);
 
 
                             // Generar QR code
                             String qrContent = "SKU: " + skuString + ", Serie: " + serieString;
-                            Bitmap qrCodeBitmap = generateQRCode(qrContent);
+                           /* Bitmap qrCodeBitmap = generateQRCode(qrContent);
 
                             if (qrCodeBitmap != null) {
                                 Log.d("CrearEquipo", "QR Code generado correctamente");
@@ -187,7 +267,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                                 Log.e("CrearEquipo", "Error al generar el QR Code");
                             }
 
-
+*/
 
                             /*db.collection("equipo")
                                     .add(equipo)
@@ -266,7 +346,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
 
     }
 
-
+/*
     private Bitmap generateQRCode(String content) {
         BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
         try {
@@ -277,7 +357,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
             e.printStackTrace();
             return null;
         }
-    }
+    }*/
 
     private String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

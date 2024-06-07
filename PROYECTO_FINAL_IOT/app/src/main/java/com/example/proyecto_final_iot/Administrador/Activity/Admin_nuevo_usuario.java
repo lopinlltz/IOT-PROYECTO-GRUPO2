@@ -78,7 +78,6 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     ActivityAdminNuevoUsuarioBinding binding_new_supervisor;
     FirebaseFirestore db_nuevo_supervisor;
 
-    DatabaseReference mDatabase_super;
     StorageReference storageReference;
 
     @Override
