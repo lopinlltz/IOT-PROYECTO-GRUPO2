@@ -12,8 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class superadmin_detalles_administrador extends AppCompatActivity {
@@ -37,12 +37,6 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
         telefonoTextView = findViewById(R.id.telefono);
         domicilioTextView = findViewById(R.id.domicilio);
 
-        ImageButton btnUserProfile = findViewById(R.id.imageButton6);
-        ImageButton btnHome = findViewById(R.id.buttonhomesuper);
-        ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
-        Button atras = findViewById(R.id.button2);
-        Button editar = findViewById(R.id.button5);
-
         db = FirebaseFirestore.getInstance();
 
         String adminId = getIntent().getStringExtra("ADMIN_ID");
@@ -55,13 +49,19 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
                         if (administrador != null) {
                             nombreTextView.setText(administrador.getNombreUser());
                             apellidoTextView.setText(administrador.getApellidoUser());
-                            dniTextView.setText(administrador.getDniUser());
+                            dniTextView.setText(String.valueOf(administrador.getDniUser()));
                             correoTextView.setText(administrador.getCorreoUser());
-                            telefonoTextView.setText(administrador.getTelefonoUser());
+                            telefonoTextView.setText(String.valueOf(administrador.getTelefonoUser()));
                             domicilioTextView.setText(administrador.getDomicilioUser());
                         }
                     }
                 });
+
+        ImageButton btnUserProfile = findViewById(R.id.imageButton6);
+        ImageButton btnHome = findViewById(R.id.buttonhomesuper);
+        ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
+        Button atras = findViewById(R.id.button2);
+        Button editar = findViewById(R.id.button5);
 
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +73,23 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
         editar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEditConfirmationDialog();
+                Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_editar_administrador.class);
+                intent.putExtra("ADMIN_ID", adminId);
+                intent.putExtra("nombre", nombreTextView.getText().toString());
+                intent.putExtra("apellido", apellidoTextView.getText().toString());
+                intent.putExtra("dni", dniTextView.getText().toString());
+                intent.putExtra("correo", correoTextView.getText().toString());
+                intent.putExtra("telefono", telefonoTextView.getText().toString());
+                intent.putExtra("domicilio", domicilioTextView.getText().toString());
+                startActivity(intent);
+            }
+        });
+
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_logs.class);
+                startActivity(intent);
             }
         });
 
@@ -92,36 +108,5 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        btnHistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_logs.class);
-                startActivity(intent);
-            }
-        });
-    }
-
-    private void showEditConfirmationDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirmar");
-        builder.setMessage("¿Está seguro que quiere editar?");
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(superadmin_detalles_administrador.this, "Editando administrador", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_editar_administrador.class);
-                startActivity(intent);
-            }
-        });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.show();
     }
 }
-

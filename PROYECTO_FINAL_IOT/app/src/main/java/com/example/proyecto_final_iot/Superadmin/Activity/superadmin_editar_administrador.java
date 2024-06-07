@@ -47,23 +47,14 @@ public class superadmin_editar_administrador extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        adminId = getIntent().getStringExtra("ADMIN_ID");
-
-        db.collection("administrador").document(adminId)
-                .get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()) {
-                        Admin administrador = documentSnapshot.toObject(Admin.class);
-                        if (administrador != null) {
-                            editNombre.setText(administrador.getNombreUser());
-                            editApellido.setText(administrador.getApellidoUser());
-                            editDni.setText(String.valueOf(administrador.getDniUser()));
-                            editCorreo.setText(administrador.getCorreoUser());
-                            editTelefono.setText(String.valueOf(administrador.getTelefonoUser()));
-                            editDomicilio.setText(administrador.getDomicilioUser());
-                        }
-                    }
-                });
+        Intent intent = getIntent();
+        adminId = intent.getStringExtra("ADMIN_ID");
+        editNombre.setText(intent.getStringExtra("nombre"));
+        editApellido.setText(intent.getStringExtra("apellido"));
+        editDni.setText(intent.getStringExtra("dni"));
+        editCorreo.setText(intent.getStringExtra("correo"));
+        editTelefono.setText(intent.getStringExtra("telefono"));
+        editDomicilio.setText(intent.getStringExtra("domicilio"));
 
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,9 +118,9 @@ public class superadmin_editar_administrador extends AppCompatActivity {
     private void guardarAdministrador() {
         String nombre = editNombre.getText().toString().trim();
         String apellido = editApellido.getText().toString().trim();
-        String dni = editDni.getText().toString().trim();
+        String dni = editDni.getText().toString().trim(); // Cambiado a String
         String correo = editCorreo.getText().toString().trim();
-        String telefono = editTelefono.getText().toString().trim();
+        String telefono = editTelefono.getText().toString().trim(); // Cambiado a String
         String domicilio = editDomicilio.getText().toString().trim();
 
         Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, "Hora placeholder");
