@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -21,9 +22,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -49,14 +52,16 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     Button buttonBorrarEq;
     Button buttonEditarEq;
     FirebaseFirestore db;
-
+    ImageView dataImage_equipos;
     //ImageView qrCodeImageView;
     //Button saveQRCodeButton;
-
+    Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.supervisor_detalles_equipo);
+
+        db = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
         String sku = intent.getStringExtra("sku");
@@ -76,7 +81,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
             Log.e("EquipoDetalleActivity", "No se recibió el QR Code");
         }*/
 
-        db = FirebaseFirestore.getInstance();
+
+        FirebaseApp.initializeApp(this);
 
         textViewNombreEquipo = findViewById(R.id.textViewNombreEquipo);
         textViewSku = findViewById(R.id.textViewSku);
@@ -85,6 +91,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewModelo = findViewById(R.id.textViewModelo);
         textViewDescripcion = findViewById(R.id.textViewDescripcion);
         textViewFecha = findViewById(R.id.textViewFecha);
+        dataImage_equipos = findViewById(R.id.imagen_equipo_super);
 
         //qrCodeImageView = findViewById(R.id.qr_code_image);
         //saveQRCodeButton = findViewById(R.id.save_qr_code_button);
@@ -96,7 +103,41 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewModelo.setText(modelo);
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
+/*
+        Bundle bundle = getIntent().getExtras();
+        String imageUrlEquipo = bundle.getString("dataImage_equipos");
+        if (bundle != null) {
+            dataImage_equipos.setImageURI(Uri.parse(bundle.getString("dataImage_equipos")));
+            if (bundle != null && bundle.getString("dataImage_equipos") != null) {
+                String imageUrlequipo = bundle.getString("dataImage_equipos");
+                Glide.with(this)
+                        .load(imageUrlequipo)
+                        .into(dataImage_equipos);
+            }
 
+        }*/
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            // Obtener el valor de dataImage_equipos del bundle
+            String imageUrlEquipo = bundle.getString("dataImage_equipos");
+
+            if (imageUrlEquipo != null) {
+                // Usa Glide para cargar la imagen
+                Glide.with(this)
+                        .load(imageUrlEquipo)
+                        .into(dataImage_equipos);
+
+                // Si necesitas usar setImageURI, asegúrate de que no sea null
+                dataImage_equipos.setImageURI(Uri.parse(imageUrlEquipo));
+            } else {
+                // Maneja el caso donde imageUrlEquipo es null
+                Log.e("EquipoDetalleActivity", "La URL de la imagen es null");
+            }
+        } else {
+            // Maneja el caso donde el bundle es null
+            Log.e("EquipoDetalleActivity", "El bundle es null");
+        }
 
         buttonBorrarEq =  findViewById(R.id.buttonBorrarEq);
         buttonBorrarEq.setOnClickListener(new View.OnClickListener() {

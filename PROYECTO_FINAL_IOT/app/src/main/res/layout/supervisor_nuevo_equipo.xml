@@ -319,8 +319,8 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <ImageButton
-                    android:id="@+id/imageButton"
+                <ImageView
+                    android:id="@+id/imagen_upload"
                     android:layout_width="177dp"
                     android:layout_height="121dp"
                     android:layout_marginTop="452dp"
@@ -328,11 +328,24 @@
                     android:src="@drawable/baseline_add_a_photo_24"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintHorizontal_bias="0.298"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0"
+
                     app:srcCompat="@drawable/baseline_add_a_photo_24" />
+
+                <Button
+                    android:id="@+id/boton_upload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Subir imagen"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.945"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.943" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

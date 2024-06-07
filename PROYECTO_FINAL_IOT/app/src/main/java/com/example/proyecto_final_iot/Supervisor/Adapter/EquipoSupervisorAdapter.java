@@ -71,6 +71,7 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
                 intent.putExtra("serie", equipoData.getSerie());
                 intent.putExtra("descripcion", equipoData.getDescripcion());
                 intent.putExtra("fecha", equipoData.getFechaRegistro());
+                intent.putExtra("dataImage_equipo", equipoData.getDataImage_equipo());
                 v.getContext().startActivity(intent);
             }
         });

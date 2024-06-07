@@ -7,7 +7,7 @@ public class EquipoData {
     private String modelo;
     private  String descripcion;
     private String fechaRegistro;
-
+    private String dataImage_equipo;
     private String id_codigodeSitio;
 
     // Getter
@@ -73,5 +73,13 @@ public class EquipoData {
     }
     public void setFechaRegistro(String fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public String getDataImage_equipo() {
+        return dataImage_equipo;
+    }
+
+    public void setDataImage_equipo(String dataImage_equipo) {
+        this.dataImage_equipo = dataImage_equipo;
     }
 }

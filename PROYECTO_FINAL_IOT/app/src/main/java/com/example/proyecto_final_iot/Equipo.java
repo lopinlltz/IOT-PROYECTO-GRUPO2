@@ -10,6 +10,7 @@ public class Equipo {
     private String fechaRegistro;
     private String qrCode;
     private String id_codigodeSitio;
+    private String dataImage_equipo;
 
     // Getter
     public String getId_codigodeSitio() {
@@ -72,5 +73,13 @@ public class Equipo {
 
     public void setQrCode(String qrCode) {
         this.qrCode = qrCode;
+    }
+
+    public String getDataImage_equipo() {
+        return dataImage_equipo;
+    }
+
+    public void setDataImage_equipo(String dataImage_equipo) {
+        this.dataImage_equipo = dataImage_equipo;
     }
 }
