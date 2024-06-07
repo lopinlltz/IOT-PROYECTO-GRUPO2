@@ -127,13 +127,13 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
         String apellidoString = apellido.getText().toString().trim();
 
         dni = findViewById(R.id.dni);
-        int dniint = Integer.parseInt(dni.getText().toString().trim());
+        String dniint = dni.getText().toString().trim();
 
         correo = findViewById(R.id.correo);
         String correoString = correo.getText().toString().trim();
 
         telefono = findViewById(R.id.telefono);
-        int telefeonoInt = Integer.parseInt(telefono.getText().toString().trim());
+        String telefeonoInt = telefono.getText().toString().trim();
 
         domicilio = findViewById(R.id.domicilio);
         String domicilioString = domicilio.getText().toString().trim();

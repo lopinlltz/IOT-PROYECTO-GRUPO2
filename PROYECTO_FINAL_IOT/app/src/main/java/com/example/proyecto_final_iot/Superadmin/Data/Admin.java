@@ -4,17 +4,17 @@ public class Admin {
     private String id;
     private String nombreUser;
     private String apellidoUser;
-    private int dniUser;
+    private String dniUser;
     private String correoUser;
-    private int telefonoUser;
+    private String telefonoUser;
     private String domicilioUser;
     private String hora;
-
+    // Constructor vacío requerido por Firebase Firestore
     public Admin() {
-        // Constructor vacío requerido por Firebase Firestore
     }
 
-    public Admin(String id, String nombreUser, String apellidoUser, int dniUser, String correoUser, int telefonoUser, String domicilioUser, String hora) {
+    // Constructor con parámetros
+    public Admin(String id, String nombreUser, String apellidoUser, String dniUser, String correoUser, String telefonoUser, String domicilioUser, String hora) {
         this.id = id;
         this.nombreUser = nombreUser;
         this.apellidoUser = apellidoUser;
@@ -25,6 +25,7 @@ public class Admin {
         this.hora = hora;
     }
 
+    // Getters y setters para id
     public String getId() {
         return id;
     }
@@ -33,6 +34,7 @@ public class Admin {
         this.id = id;
     }
 
+    // Getters y setters para nombreUser
     public String getNombreUser() {
         return nombreUser;
     }
@@ -41,6 +43,7 @@ public class Admin {
         this.nombreUser = nombreUser;
     }
 
+    // Getters y setters para apellidoUser
     public String getApellidoUser() {
         return apellidoUser;
     }
@@ -49,14 +52,16 @@ public class Admin {
         this.apellidoUser = apellidoUser;
     }
 
-    public int getDniUser() {
+    // Getters y setters para dniUser
+    public String getDniUser() {
         return dniUser;
     }
 
-    public void setDniUser(int dniUser) {
+    public void setDniUser(String dniUser) {
         this.dniUser = dniUser;
     }
 
+    // Getters y setters para correoUser
     public String getCorreoUser() {
         return correoUser;
     }
@@ -65,14 +70,16 @@ public class Admin {
         this.correoUser = correoUser;
     }
 
-    public int getTelefonoUser() {
+    // Getters y setters para telefonoUser
+    public String getTelefonoUser() {
         return telefonoUser;
     }
 
-    public void setTelefonoUser(int telefonoUser) {
+    public void setTelefonoUser(String telefonoUser) {
         this.telefonoUser = telefonoUser;
     }
 
+    // Getters y setters para domicilioUser
     public String getDomicilioUser() {
         return domicilioUser;
     }
@@ -81,6 +88,7 @@ public class Admin {
         this.domicilioUser = domicilioUser;
     }
 
+    // Getters y setters para hora
     public String getHora() {
         return hora;
     }
@@ -88,6 +96,10 @@ public class Admin {
     public void setHora(String hora) {
         this.hora = hora;
     }
+
+
+
+
 
     public String getNombreCompleto() {
         return nombreUser + " " + apellidoUser;

@@ -127,9 +127,9 @@ public class superadmin_editar_administrador extends AppCompatActivity {
     private void guardarAdministrador() {
         String nombre = editNombre.getText().toString().trim();
         String apellido = editApellido.getText().toString().trim();
-        int dni = Integer.parseInt(editDni.getText().toString().trim());
+        String dni = editDni.getText().toString().trim();
         String correo = editCorreo.getText().toString().trim();
-        int telefono = Integer.parseInt(editTelefono.getText().toString().trim());
+        String telefono = editTelefono.getText().toString().trim();
         String domicilio = editDomicilio.getText().toString().trim();
 
         Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, "Hora placeholder");
