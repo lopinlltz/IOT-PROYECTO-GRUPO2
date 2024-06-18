@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -36,22 +37,33 @@ public class Admin_usuario_detalles extends AppCompatActivity {
 
     TextView id_nombreUser_tw, id_apellidoUser_tw, id_dniUSer_tw,
             id_correoUser_tw, id_telefonoUser_tw,
-            id_domicilioUser_tw;
+            id_domicilioUser_tw,textViewEstado_admin_tw;
     ImageView dataImage;
-    private UsuarioListAdminAdapter adapter;
-    private RecyclerView recyclerView;
     Button editButton_user , backButton_back_det;
     FirebaseFirestore db;
-    FirebaseFirestore firestore_lista_detalle_usuario;
+
     List<Supervisor_Data> data_List_detalle_user;
 
-    Uri imageUri;
+    private Button buttonCambiarEstado_admin;
+    private int usuarioId;
+    Supervisor_Data supervisor_data= new Supervisor_Data();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
         db = FirebaseFirestore.getInstance();
+
+
+        /**ESTADO**/
+
+
+        buttonCambiarEstado_admin = findViewById(R.id.buttonCambiarEstado_admin);
+
+
+        usuarioId = getIntent().getIntExtra("usuarioId", -1);
+        //supervisor_data = Admin_lista_usuario..get(usuarioId);
 
         Intent intent = getIntent();
         String id_nombreUser = intent.getStringExtra("id_nombreUser");
@@ -60,6 +72,7 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         String id_correoUser = intent.getStringExtra("id_correoUser");
         String id_telefonoUser = intent.getStringExtra("id_telefonoUser");
         String id_domicilioUser = intent.getStringExtra("id_domicilioUser");
+        String textViewEstado_admin = intent.getStringExtra("textViewEstado_admin");
 
 
         setContentView(R.layout.activity_admin_usuario_detalles);
@@ -73,6 +86,9 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         id_telefonoUser_tw = findViewById(R.id.id_telefonoUser);
         id_domicilioUser_tw = findViewById(R.id.id_domicilioUser);
         dataImage = findViewById(R.id.imagenview_detalles);
+        textViewEstado_admin_tw = findViewById(R.id.textViewEstado_admin);
+        buttonCambiarEstado_admin = findViewById(R.id.buttonCambiarEstado_admin);
+
 
 
         id_nombreUser_tw.setText(id_nombreUser);
@@ -81,6 +97,10 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         id_correoUser_tw.setText(id_correoUser);
         id_telefonoUser_tw.setText(id_telefonoUser);
         id_domicilioUser_tw.setText(id_domicilioUser);
+
+        textViewEstado_admin_tw.setText(textViewEstado_admin);
+
+        Log.d("Debug", "textViewEstado_admin: " + textViewEstado_admin_tw.getText().toString());
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -118,6 +138,28 @@ public class Admin_usuario_detalles extends AppCompatActivity {
             }
         });
 
-}
+        /**ESTADO**/
+
+        buttonCambiarEstado_admin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cambiar el estado del usuario
+                supervisor_data.setStatus_admin("DESACTIVADO");
+                textViewEstado_admin_tw.setText("DESACTIVADO");
+                Log.d("Debug", "TextoDesactivado: " + textViewEstado_admin_tw.getText().toString());
+
+
+                // Enviar el resultado a la actividad anterior
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("usuarioId", usuarioId);
+                resultIntent.putExtra("nuevoEstado", "DESACTIVADO");
+                setResult(RESULT_OK, resultIntent);
+
+                finish(); // Finalizar la actividad de detalles
+            }
+        });
     }
+}
+
+
     

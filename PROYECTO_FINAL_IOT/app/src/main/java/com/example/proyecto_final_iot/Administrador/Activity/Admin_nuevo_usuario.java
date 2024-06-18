@@ -186,11 +186,10 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         String correo = binding_new_supervisor.idCorreoUser.getText().toString();
         String telefono = binding_new_supervisor.idTelefonoUser.getText().toString();
         String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
-        String imagen_User = String.valueOf(binding_new_supervisor.imagenview.getBackground());
+        String textViewEstado_admin = binding_new_supervisor.textViewEstadoAdmin.getText().toString();
 
 
-
-        Supervisor_Data supervisorNuevoData = new Supervisor_Data(nombre, apellido,dni, correo, telefono,Domicilio, imagenURL);
+        Supervisor_Data supervisorNuevoData = new Supervisor_Data(nombre, apellido,dni, correo, telefono,Domicilio, imagenURL, textViewEstado_admin);
         supervisorNuevoData.setId_nombreUser(nombre);
         supervisorNuevoData.setId_apellidoUser(apellido);
         supervisorNuevoData.setId_dniUSer(dni);
@@ -198,6 +197,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         supervisorNuevoData.setId_telefonoUser(telefono);
         supervisorNuevoData.setId_domicilioUser(Domicilio);
         supervisorNuevoData.setDataImage(imagenURL);
+        supervisorNuevoData.setStatus_admin(textViewEstado_admin);
 
 
 

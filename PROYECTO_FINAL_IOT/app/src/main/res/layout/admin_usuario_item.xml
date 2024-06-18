@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="68dp"
+        android:layout_height="110dp"
         android:background="@drawable/edittext_bkg"
         android:orientation="horizontal">
 
@@ -22,7 +22,7 @@
             android:id="@+id/list_item_imagen_user"
             android:src="@drawable/baseline_person_24"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="30dp"
             android:scaleType="centerCrop"
             />
 
@@ -50,25 +50,30 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-
-            <Switch
-                android:id="@+id/switchVisibility"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentStart="true"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
-                 />
+                android:layout_marginStart="0dp"
+                android:elevation="3dp"
+                android:layout_marginTop="-20dp"
+                android:padding="8dp"
+                android:background="@drawable/edittext_bkg"
+                android:text="Detalles " />
 
-            <ImageView
-                android:id="@+id/image_on_off"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="fitCenter"
+
+            <TextView
+                android:id="@+id/item_id_status_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/baseline_visibility_off_24"
-                android:text="Activo" />
+                android:layout_marginStart="-70dp"
+                android:layout_marginTop="20dp"
+                android:elevation="3dp"
+                android:padding="8dp"
+                android:text="ACTIVO"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
