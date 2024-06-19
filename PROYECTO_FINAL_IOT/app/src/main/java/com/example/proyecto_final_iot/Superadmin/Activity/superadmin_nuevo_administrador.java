@@ -5,11 +5,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,8 +24,6 @@ import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -194,8 +192,11 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
         String telefonoString = telefono.getText().toString().trim();
         String domicilioString = domicilio.getText().toString().trim();
 
+        // Generar un UUID como ID de documento
+        String adminId = UUID.randomUUID().toString();
+
         Admin administrador = new Admin(
-                null,  // ID será generado por Firestore
+                adminId,
                 nombreString,
                 apellidoString,
                 dniString,
@@ -206,15 +207,19 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 "activo"  // ejemplo de status
         );
 
-        db.collection("administrador")
-                .add(administrador)
-                .addOnSuccessListener(documentReference -> {
-                    Toast.makeText(superadmin_nuevo_administrador.this, "Administrador creado correctamente", Toast.LENGTH_SHORT).show();
+        db.collection("administrador").document(adminId)
+                .set(administrador)
+                .addOnSuccessListener(aVoid -> {
+                    Log.d("NuevoAdmin", "DocumentSnapshot added with ID: " + adminId);
+                    Toast.makeText(superadmin_nuevo_administrador.this, "Admin creado con ID: " + adminId, Toast.LENGTH_SHORT).show();
+
                     Intent intent = new Intent(superadmin_nuevo_administrador.this, Superadmin_vista_principal1.class);
+                    intent.putExtra("ADMIN_ID", adminId); // Pasar el ID del admin al intent
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(superadmin_nuevo_administrador.this, "No se creó el administrador", Toast.LENGTH_SHORT).show();
+                    Log.w("NuevoAdmin", "Error adding document", e);
+                    Toast.makeText(superadmin_nuevo_administrador.this, "Error al crear admin", Toast.LENGTH_SHORT).show();
                 });
     }
 }

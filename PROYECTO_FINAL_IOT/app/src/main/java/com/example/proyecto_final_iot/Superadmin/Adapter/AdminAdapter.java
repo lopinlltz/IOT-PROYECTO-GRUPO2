@@ -6,8 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -20,7 +18,7 @@ import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> implements Filterable {
+public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> {
     private List<Admin> adminList;
     private List<Admin> adminListFull;
     private Context context;
@@ -47,7 +45,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, superadmin_detalles_administrador.class);
-                intent.putExtra("ADMIN_ID", admin.getId());
+                intent.putExtra("ADMIN_ID", admin.getId()); // Asegúrate de que el ID se pasa aquí
                 context.startActivity(intent);
             }
         });
@@ -58,52 +56,18 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
         return adminList.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return adminFilter;
+    public void setFilteredList(List<Admin> filteredList) {
+        this.adminList = filteredList;
+        notifyDataSetChanged();
     }
-
-    private Filter adminFilter = new Filter() {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            List<Admin> filteredList = new ArrayList<>();
-
-            if (constraint == null || constraint.length() == 0) {
-                filteredList.addAll(adminListFull);
-            } else {
-                String filterPattern = constraint.toString().toLowerCase().trim();
-
-                for (Admin item : adminListFull) {
-                    if (item.getNombreUser().toLowerCase().contains(filterPattern) ||
-                            item.getApellidoUser().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(item);
-                    }
-                }
-            }
-
-            FilterResults results = new FilterResults();
-            results.values = filteredList;
-
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            adminList.clear();
-            adminList.addAll((List) results.values);
-            notifyDataSetChanged();
-        }
-    };
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView NombreAdmin;
-        TextView hora;
         Button myButton;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             NombreAdmin = itemView.findViewById(R.id.NombreAdmin);
-            hora = itemView.findViewById(R.id.hora);
             myButton = itemView.findViewById(R.id.button4);
         }
     }

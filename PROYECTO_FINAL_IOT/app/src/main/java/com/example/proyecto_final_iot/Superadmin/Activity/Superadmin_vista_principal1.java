@@ -5,8 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import androidx.appcompat.widget.SearchView;
+import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,17 +15,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Adapter.AdminAdapter;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Superadmin_vista_principal1 extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdminAdapter adapter;
     FirebaseFirestore db;
     private List<Admin> dataList;
+    private SearchView searchAdmin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +38,7 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button button3 = findViewById(R.id.button3);
-        SearchView searchAdmin = findViewById(R.id.search_admin);
+        searchAdmin = findViewById(R.id.search_admin);
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,49 +75,57 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         dataList = new ArrayList<>();
-
         adapter = new AdminAdapter(this, dataList);
         recyclerView.setAdapter(adapter);
 
         db = FirebaseFirestore.getInstance();
 
-        db.collection("administrador")
-                .addSnapshotListener((snapshot, error) -> {
-                    if (error != null) {
-                        return;
-                    }
+        CargarDatos_lista_administrador();
 
-                    dataList.clear();
-                    for (QueryDocumentSnapshot document : snapshot) {
-                        Admin adminData = document.toObject(Admin.class);
-                        dataList.add(new Admin(
-                                document.getId(),  // Obtener el ID del documento
-                                adminData.getNombreUser(),  // Obtener nombre
-                                adminData.getApellidoUser(),  // Obtener apellido
-                                adminData.getDniUser(),  // Obtener DNI
-                                adminData.getCorreoUser(),  // Obtener correo
-                                adminData.getTelefonoUser(),  // Obtener teléfono
-                                adminData.getDomicilioUser(),
-                                adminData.getDataImage(),  // Obtener imagen
-                                adminData.getStatus_admin()  // Obtener status
-                        ));
-                    }
-
-                    adapter.notifyDataSetChanged();
-                });
-
+        searchAdmin.clearFocus();
         searchAdmin.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                adapter.getFilter().filter(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                adapter.getFilter().filter(newText);
-                return false;
+                filterList(newText);
+                return true;
             }
         });
+    }
+
+    private void CargarDatos_lista_administrador() {
+        dataList.clear();
+        db.collection("administrador")
+                .addSnapshotListener((value, error) -> {
+                    if (error != null) {
+                        Toast.makeText(this, "Error al cargar administradores", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()) {
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
+                            dataList.add(dc.getDocument().toObject(Admin.class));
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+    private void filterList(String text) {
+        List<Admin> filteredList = new ArrayList<>();
+        for (Admin item : dataList) {
+            if (item.getNombreUser().toLowerCase().contains(text.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "Administrador no encontrado", Toast.LENGTH_SHORT).show();
+        } else {
+            adapter.setFilteredList(filteredList);
+        }
     }
 }
