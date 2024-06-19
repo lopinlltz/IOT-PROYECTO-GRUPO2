@@ -144,8 +144,8 @@ public class EquipoNuevoActivity extends AppCompatActivity {
 
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                 while (!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                imagenURL_equipo = urlImage.toString();
+                Uri urlImage_equipo = uriTask.getResult();
+                imagenURL_equipo = urlImage_equipo.toString();
                 dialog.dismiss();
                 guardarEquipo();
                 Toast.makeText(EquipoNuevoActivity.this, "Imagen subido exitosamente", Toast.LENGTH_SHORT).show();
@@ -206,8 +206,25 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         sitio = findViewById(R.id.sitio);
         String sitioString = sitio.getText().toString().trim();
 
-        imagen_upload = findViewById(R.id.imagen_upload);
-        String imagen_uploadString = sitio.getText().toString().trim();
+
+        ImageView dataImage_equipos = findViewById(R.id.imagen_upload);
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String imageUriString = bundle.getString("imageUri");
+            if (imageUriString != null) {
+                Uri imageUri = Uri.parse(imageUriString);
+                // Usa Glide o setImageURI para cargar la imagen
+                Glide.with(this).load(imageUri).into(dataImage_equipos);
+                // dataImage_equipos.setImageURI(imageUri); // Alternativa
+            } else {
+                Log.e("EquipoDetalleActivity", "imageUriString es null");
+                Toast.makeText(this, "Error: URI de la imagen no encontrada", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Log.e("EquipoDetalleActivity", "El bundle es null");
+            Toast.makeText(this, "Error: No se recibieron datos", Toast.LENGTH_LONG).show();
+        }
 
 
 
@@ -218,6 +235,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         }
 
         // Validar que el SKU no exista en la base de datos
+       // String finalImagen_uploadString = imagen_uploadString;
         db.collection("equipo")
                 .whereEqualTo("sku", skuString)
                 .get()
@@ -241,7 +259,8 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                                                 equipo.setDescripcion(descripcionString);
                                                 equipo.setFechaRegistro(fechaRegistroString);
                                                 equipo.setId_codigodeSitio(sitioString); // Asegúrate de que el modelo Equipo tenga un campo sitio
-                                                equipo.setDataImage_equipo(imagen_uploadString);
+                                                equipo.setDataImage_equipo(imagenURL_equipo);
+                                                Log.e("imagendetalle",imagenURL_equipo) ;
 
 
                             // Generar QR code
@@ -313,7 +332,6 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                         Toast.makeText(EquipoNuevoActivity.this, "Error al verificar el SKU en Firebase", Toast.LENGTH_SHORT).show();
                     }
                 });
-
 
 
     }

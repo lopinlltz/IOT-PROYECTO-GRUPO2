@@ -7,6 +7,7 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.proyecto_final_iot.Administrador.Activity.Admin_lista_usuario;
 import com.example.proyecto_final_iot.Administrador.Activity.Admin_usuario_detalles;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
@@ -68,26 +70,10 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
     public void onBindViewHolder(@NonNull UsuarioListAdminAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Supervisor_Data supervisor_data = supervisor_dataList.get(position);
         holder.nombre_user_list.setText(supervisor_data.getId_nombreUser());
+        holder.textViewEstado_admin.setText(supervisor_data.getStatus_admin());
 
-        holder.switchVisibility.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
-            @SuppressLint({"RestrictedApi", "UseCompatLoadingForDrawables"})
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked) {
-                    holder.image_on_off.setImageDrawable(getApplicationContext().getDrawable(R.drawable.baseline_visibility_24));
-
-
-                }else {
-                    holder.image_on_off.setImageDrawable(getApplicationContext().getDrawable(R.drawable.baseline_visibility_off_24));
-
-                }
-            }
-
-        });
 
         Glide.with(holder.list_item_imagen_user.getContext()).load(supervisor_data.getDataImage()).into(holder.list_item_imagen_user);
-        //Picasso.get().load(supervisor_data.getDataImage()).into(holder.list_item_imagen_user);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +86,10 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
                 intent.putExtra("id_telefonoUser", supervisor_data.getId_telefonoUser());
                 intent.putExtra("id_domicilioUser", supervisor_data.getId_domicilioUser());
                 intent.putExtra("dataImage", supervisor_data.getDataImage());
+                intent.putExtra("textViewEstado_admin", supervisor_data.getStatus_admin());
+                intent.putExtra("usuarioId", position);
 
+                Log.d("Debug", "usuarioID : " + position);
 
                 v.getContext().startActivity(intent);
             }
@@ -119,19 +108,22 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
 
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre_user_list;
+        TextView nombre_user_list, textViewEstado_admin;
         ImageView list_item_imagen_user ;
-        final ImageView image_on_off;
-        Switch switchVisibility ;
 
         public ViewHolder(@NonNull View itemView ) {
             super(itemView);
             nombre_user_list = itemView.findViewById(R.id.item_id_nombreUser);
             list_item_imagen_user = itemView.findViewById(R.id.list_item_imagen_user);
-            image_on_off = itemView.findViewById(R.id.image_on_off);
-            switchVisibility = itemView.findViewById(R.id.switchVisibility);
+            textViewEstado_admin = itemView.findViewById(R.id.item_id_status_admin);
+
 
         }
+    }
+
+    public void actualizarEstadoUsuario(int position, String nuevoEstado) {
+        supervisor_dataList.get(position).setStatus_admin(nuevoEstado);
+        notifyItemChanged(position);
     }
 
 }

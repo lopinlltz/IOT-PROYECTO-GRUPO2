@@ -52,7 +52,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     Button buttonBorrarEq;
     Button buttonEditarEq;
     FirebaseFirestore db;
-    ImageView dataImage_equipos;
+    ImageView dataImage_equipo;
     //ImageView qrCodeImageView;
     //Button saveQRCodeButton;
     Uri imageUri;
@@ -91,7 +91,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewModelo = findViewById(R.id.textViewModelo);
         textViewDescripcion = findViewById(R.id.textViewDescripcion);
         textViewFecha = findViewById(R.id.textViewFecha);
-        dataImage_equipos = findViewById(R.id.imagen_equipo_super);
+        dataImage_equipo = findViewById(R.id.imagen_equipo_super);
 
         //qrCodeImageView = findViewById(R.id.qr_code_image);
         //saveQRCodeButton = findViewById(R.id.save_qr_code_button);
@@ -119,24 +119,14 @@ public class EquipoDetalleActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            // Obtener el valor de dataImage_equipos del bundle
-            String imageUrlEquipo = bundle.getString("dataImage_equipos");
-
-            if (imageUrlEquipo != null) {
-                // Usa Glide para cargar la imagen
+            dataImage_equipo.setImageURI(Uri.parse(bundle.getString("dataImage_equipo")));
+            if (bundle != null && bundle.getString("dataImage_equipo") != null) {
+                String imageUrl = bundle.getString("dataImage_equipo");
                 Glide.with(this)
-                        .load(imageUrlEquipo)
-                        .into(dataImage_equipos);
-
-                // Si necesitas usar setImageURI, asegúrate de que no sea null
-                dataImage_equipos.setImageURI(Uri.parse(imageUrlEquipo));
-            } else {
-                // Maneja el caso donde imageUrlEquipo es null
-                Log.e("EquipoDetalleActivity", "La URL de la imagen es null");
+                        .load(imageUrl)
+                        .into(dataImage_equipo);
             }
-        } else {
-            // Maneja el caso donde el bundle es null
-            Log.e("EquipoDetalleActivity", "El bundle es null");
+
         }
 
         buttonBorrarEq =  findViewById(R.id.buttonBorrarEq);

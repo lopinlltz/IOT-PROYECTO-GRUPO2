@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdap
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.annotations.Nullable;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,6 +27,7 @@ import java.util.Objects;
 
 public class Admin_lista_usuario extends AppCompatActivity {
 
+    public static final int REQUEST_CODE = 1;
     private Uri imageUri;
     private UsuarioListAdminAdapter adapter;
     private RecyclerView recyclerView;
@@ -32,7 +35,6 @@ public class Admin_lista_usuario extends AppCompatActivity {
     private SearchView searchView;
 
     List<Supervisor_Data> data_List_user = new ArrayList<>();
-
     FirebaseFirestore firestore_lista_usuario;
 
     @Override
@@ -86,7 +88,6 @@ public class Admin_lista_usuario extends AppCompatActivity {
         });
 
 
-
     }
 
     private void CargarDatos_lista_usuario() {
@@ -94,13 +95,13 @@ public class Admin_lista_usuario extends AppCompatActivity {
         firestore_lista_usuario.collection("supervisorAdmin")
                 .addSnapshotListener((value, error) -> {
 
-                    if (error != null){
-                        Toast.makeText(this, "Lista de Supervisor Cargando" , Toast.LENGTH_SHORT).show();
+                    if (error != null) {
+                        Toast.makeText(this, "Lista de Supervisor Cargando", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()){
+                    for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()) {
 
-                        if (dc.getType() == DocumentChange.Type.ADDED){
+                        if (dc.getType() == DocumentChange.Type.ADDED) {
                             data_List_user.add(dc.getDocument().toObject(Supervisor_Data.class));
                         }
 
@@ -113,20 +114,41 @@ public class Admin_lista_usuario extends AppCompatActivity {
 
     private void filterList(String text) {
         List<Supervisor_Data> filteredList = new ArrayList<>();
-        for(Supervisor_Data item : data_List_user ){
-            if (item.getId_nombreUser().toLowerCase().contains(text.toLowerCase())){
+        for (Supervisor_Data item : data_List_user) {
+            if (item.getId_nombreUser().toLowerCase().contains(text.toLowerCase())) {
                 filteredList.add(item);
             }
         }
 
-        if (filteredList.isEmpty()){
-            Toast.makeText(this, "Supervisor no encontrado" , Toast.LENGTH_SHORT).show();
-        }else{
+        if (filteredList.isEmpty()) {
+            Toast.makeText(this, "Supervisor no encontrado", Toast.LENGTH_SHORT).show();
+        } else {
             adapter.setFilteredList(filteredList);
         }
 
 
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+            if (data != null) {
+                int usuarioId = data.getIntExtra("usuarioId", -1);
+                String nuevoEstado = data.getStringExtra("nuevoEstado");
+                Log.d("Debug", "nuevoEstado: " + nuevoEstado);
 
+
+                if (usuarioId != -1 && nuevoEstado != null) {
+                    adapter.actualizarEstadoUsuario(usuarioId, nuevoEstado);
+                    Log.d("Debug", "nuevoEstado: " + nuevoEstado);
+                }
+            }
+        }
+
+
+    }
+
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+    }
 }
