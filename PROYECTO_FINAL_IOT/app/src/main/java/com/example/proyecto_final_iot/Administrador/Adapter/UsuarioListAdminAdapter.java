@@ -22,7 +22,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.proyecto_final_iot.Administrador.Activity.Admin_lista_usuario;
 import com.example.proyecto_final_iot.Administrador.Activity.Admin_usuario_detalles;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
@@ -125,5 +124,4 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
         supervisor_dataList.get(position).setStatus_admin(nuevoEstado);
         notifyItemChanged(position);
     }
-
 }

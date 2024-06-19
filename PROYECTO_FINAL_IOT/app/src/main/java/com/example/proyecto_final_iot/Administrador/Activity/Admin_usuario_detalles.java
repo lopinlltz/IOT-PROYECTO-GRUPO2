@@ -37,47 +37,18 @@ public class Admin_usuario_detalles extends AppCompatActivity {
 
     TextView id_nombreUser_tw, id_apellidoUser_tw, id_dniUSer_tw,
             id_correoUser_tw, id_telefonoUser_tw,
-            id_domicilioUser_tw,textViewEstado_admin_tw;
+            id_domicilioUser_tw, textViewEstado_admin_tw;
     ImageView dataImage;
-    Button editButton_user , backButton_back_det;
+    Button editButton_user, backButton_back_det, buttonCambiarEstado_admin;
     FirebaseFirestore db;
-
-    List<Supervisor_Data> data_List_detalle_user;
-
-    private Button buttonCambiarEstado_admin;
-    private int usuarioId;
-    Supervisor_Data supervisor_data= new Supervisor_Data();
+    int usuarioId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        db = FirebaseFirestore.getInstance();
-
-
-        /**ESTADO**/
-
-
-        buttonCambiarEstado_admin = findViewById(R.id.buttonCambiarEstado_admin);
-
-
-        usuarioId = getIntent().getIntExtra("usuarioId", -1);
-        //supervisor_data = Admin_lista_usuario..get(usuarioId);
-
-        Intent intent = getIntent();
-        String id_nombreUser = intent.getStringExtra("id_nombreUser");
-        String id_apellidoUser = intent.getStringExtra("id_apellidoUser");
-        String id_dniUSer = intent.getStringExtra("id_dniUSer");
-        String id_correoUser = intent.getStringExtra("id_correoUser");
-        String id_telefonoUser = intent.getStringExtra("id_telefonoUser");
-        String id_domicilioUser = intent.getStringExtra("id_domicilioUser");
-        String textViewEstado_admin = intent.getStringExtra("textViewEstado_admin");
-
-
         setContentView(R.layout.activity_admin_usuario_detalles);
 
-        FirebaseApp.initializeApp(this);
+        db = FirebaseFirestore.getInstance();
 
         id_nombreUser_tw = findViewById(R.id.id_nombreUser);
         id_apellidoUser_tw = findViewById(R.id.id_apellidoUser);
@@ -88,78 +59,66 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         dataImage = findViewById(R.id.imagenview_detalles);
         textViewEstado_admin_tw = findViewById(R.id.textViewEstado_admin);
         buttonCambiarEstado_admin = findViewById(R.id.buttonCambiarEstado_admin);
+        editButton_user = findViewById(R.id.editButton_user);
+        backButton_back_det = findViewById(R.id.backButton_back_det);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            usuarioId = intent.getIntExtra("usuarioId", -1);
+            String id_nombreUser = intent.getStringExtra("id_nombreUser");
+            String id_apellidoUser = intent.getStringExtra("id_apellidoUser");
+            String id_dniUSer = intent.getStringExtra("id_dniUSer");
+            String id_correoUser = intent.getStringExtra("id_correoUser");
+            String id_telefonoUser = intent.getStringExtra("id_telefonoUser");
+            String id_domicilioUser = intent.getStringExtra("id_domicilioUser");
+            String textViewEstado_admin = intent.getStringExtra("textViewEstado_admin");
 
+            id_nombreUser_tw.setText(id_nombreUser);
+            id_apellidoUser_tw.setText(id_apellidoUser);
+            id_dniUSer_tw.setText(id_dniUSer);
+            id_correoUser_tw.setText(id_correoUser);
+            id_telefonoUser_tw.setText(id_telefonoUser);
+            id_domicilioUser_tw.setText(id_domicilioUser);
+            textViewEstado_admin_tw.setText(textViewEstado_admin);
 
-        id_nombreUser_tw.setText(id_nombreUser);
-        id_apellidoUser_tw.setText(id_apellidoUser);
-        id_dniUSer_tw.setText(id_dniUSer);
-        id_correoUser_tw.setText(id_correoUser);
-        id_telefonoUser_tw.setText(id_telefonoUser);
-        id_domicilioUser_tw.setText(id_domicilioUser);
-
-        textViewEstado_admin_tw.setText(textViewEstado_admin);
-
-        Log.d("Debug", "textViewEstado_admin: " + textViewEstado_admin_tw.getText().toString());
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            dataImage.setImageURI(Uri.parse(bundle.getString("dataImage")));
+            Bundle bundle = intent.getExtras();
             if (bundle != null && bundle.getString("dataImage") != null) {
                 String imageUrl = bundle.getString("dataImage");
                 Glide.with(this)
                         .load(imageUrl)
                         .into(dataImage);
             }
-
         }
 
-        editButton_user = findViewById(R.id.editButton_user);
-        editButton_user.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick (View v){
-        Intent intent = new Intent(Admin_usuario_detalles.this, Admin_usuario_editar.class);
-        intent.putExtra("id_nombreUser", id_nombreUser);
-        intent.putExtra("id_apellidoUser", id_apellidoUser);
-        intent.putExtra("id_dniUSer", id_dniUSer);
-        intent.putExtra("id_correoUser", id_correoUser);
-        intent.putExtra("id_telefonoUser", id_telefonoUser);
-        intent.putExtra("id_domicilioUser", id_domicilioUser);
-        startActivity(intent);
-    }
-    });
-
-        backButton_back_det= findViewById(R.id.backButton_back_det);
-        backButton_back_det.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Admin_usuario_detalles.this, Admin_lista_usuario.class);
-                startActivity(intent);
-            }
+        editButton_user.setOnClickListener(v -> {
+            Intent editIntent = new Intent(Admin_usuario_detalles.this, Admin_usuario_editar.class);
+            editIntent.putExtra("id_nombreUser", id_nombreUser_tw.getText().toString());
+            editIntent.putExtra("id_apellidoUser", id_apellidoUser_tw.getText().toString());
+            editIntent.putExtra("id_dniUSer", id_dniUSer_tw.getText().toString());
+            editIntent.putExtra("id_correoUser", id_correoUser_tw.getText().toString());
+            editIntent.putExtra("id_telefonoUser", id_telefonoUser_tw.getText().toString());
+            editIntent.putExtra("id_domicilioUser", id_domicilioUser_tw.getText().toString());
+            startActivity(editIntent);
         });
 
-        /**ESTADO**/
+        backButton_back_det.setOnClickListener(v -> {
+            finish(); // Regresar a la actividad anterior
+        });
 
-        buttonCambiarEstado_admin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Cambiar el estado del usuario
-                supervisor_data.setStatus_admin("DESACTIVADO");
-                textViewEstado_admin_tw.setText("DESACTIVADO");
-                Log.d("Debug", "TextoDesactivado: " + textViewEstado_admin_tw.getText().toString());
+        buttonCambiarEstado_admin.setOnClickListener(v -> {
+            // Cambiar el estado del usuario
+            String nuevoEstado = "DESACTIVADO";
+            textViewEstado_admin_tw.setText(nuevoEstado);
+            Log.d("Debug", "TextoDesactivado: " + textViewEstado_admin_tw.getText().toString());
 
-
-                // Enviar el resultado a la actividad anterior
-                Intent resultIntent = new Intent();
-                resultIntent.putExtra("usuarioId", usuarioId);
-                resultIntent.putExtra("nuevoEstado", "DESACTIVADO");
-                setResult(RESULT_OK, resultIntent);
-
-                finish(); // Finalizar la actividad de detalles
-            }
+            // Enviar el resultado a la actividad anterior
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra("usuarioId", usuarioId);
+            resultIntent.putExtra("nuevoEstado", nuevoEstado);
+            setResult(RESULT_OK, resultIntent);
+            finish(); // Finalizar la actividad de detalles
         });
     }
 }
-
 
     
