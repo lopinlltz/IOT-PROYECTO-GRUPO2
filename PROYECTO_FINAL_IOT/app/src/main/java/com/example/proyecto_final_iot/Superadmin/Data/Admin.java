@@ -8,13 +8,19 @@ public class Admin {
     private String correoUser;
     private String telefonoUser;  // Cambiado a String
     private String domicilioUser;
-    private String hora;
+    private String dataImage;
+    private String status_admin;
 
-    public Admin() {
-        // Constructor vacío requerido por Firebase Firestore
+
+    public String getDataImage() {
+        return dataImage;
     }
 
-    public Admin(String id, String nombreUser, String apellidoUser, String dniUser, String correoUser, String telefonoUser, String domicilioUser, String hora) {
+    public void setDataImage(String dataImage) {
+        this.dataImage = dataImage;
+    }
+
+    public Admin(String id, String nombreUser, String apellidoUser, String dniUser, String correoUser, String telefonoUser, String domicilioUser, String dataImage, String status_admin) {
         this.id = id;
         this.nombreUser = nombreUser;
         this.apellidoUser = apellidoUser;
@@ -22,8 +28,25 @@ public class Admin {
         this.correoUser = correoUser;
         this.telefonoUser = telefonoUser;
         this.domicilioUser = domicilioUser;
-        this.hora = hora;
+        this.dataImage = dataImage;
+        this.status_admin = status_admin;
     }
+
+    public String getStatus_admin() {
+        return status_admin;
+    }
+
+    public void setStatus_admin(String status_admin) {
+        this.status_admin = status_admin;
+    }
+
+
+
+    public Admin() {
+        // Constructor vacío requerido por Firebase Firestore
+    }
+
+
 
     // Getters and setters
     public String getId() {
@@ -82,13 +105,7 @@ public class Admin {
         this.domicilioUser = domicilioUser;
     }
 
-    public String getHora() {
-        return hora;
-    }
 
-    public void setHora(String hora) {
-        this.hora = hora;
-    }
 
     public String getNombreCompleto() {
         return nombreUser + " " + apellidoUser;

@@ -1,17 +1,17 @@
 package com.example.proyecto_final_iot.Superadmin.Activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -24,6 +24,9 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
     private TextView correoTextView;
     private TextView telefonoTextView;
     private TextView domicilioTextView;
+    private ImageView imagenAdministrador;
+    private String adminId;
+    private String imagenUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +39,11 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
         correoTextView = findViewById(R.id.correo);
         telefonoTextView = findViewById(R.id.telefono);
         domicilioTextView = findViewById(R.id.domicilio);
+        imagenAdministrador = findViewById(R.id.imagenadmin); // Asegúrate de tener un ImageView en tu layout
 
         db = FirebaseFirestore.getInstance();
 
-        String adminId = getIntent().getStringExtra("ADMIN_ID");
+        adminId = getIntent().getStringExtra("ADMIN_ID");
 
         db.collection("administrador").document(adminId)
                 .get()
@@ -49,10 +53,14 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
                         if (administrador != null) {
                             nombreTextView.setText(administrador.getNombreUser());
                             apellidoTextView.setText(administrador.getApellidoUser());
-                            dniTextView.setText(String.valueOf(administrador.getDniUser()));
+                            dniTextView.setText(administrador.getDniUser());
                             correoTextView.setText(administrador.getCorreoUser());
-                            telefonoTextView.setText(String.valueOf(administrador.getTelefonoUser()));
+                            telefonoTextView.setText(administrador.getTelefonoUser());
                             domicilioTextView.setText(administrador.getDomicilioUser());
+                            imagenUrl = administrador.getDataImage();
+                            if (imagenUrl != null && !imagenUrl.isEmpty()) {
+                                Glide.with(this).load(imagenUrl).into(imagenAdministrador);
+                            }
                         }
                     }
                 });
@@ -81,6 +89,7 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
                 intent.putExtra("correo", correoTextView.getText().toString());
                 intent.putExtra("telefono", telefonoTextView.getText().toString());
                 intent.putExtra("domicilio", domicilioTextView.getText().toString());
+                intent.putExtra("imagenUrl", imagenUrl); // Pasa la URL de la imagen a la actividad de edición
                 startActivity(intent);
             }
         });

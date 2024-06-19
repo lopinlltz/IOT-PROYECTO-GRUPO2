@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Superadmin.Activity.superadmin_detalles_administrador">
-
+    tools:context=".Superadmin.Activity.DetallesSupervisorSuperadmin">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -37,7 +36,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:text="  Detalles Administrador"
+                    android:text="  Detalles Supervisor"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -338,7 +337,7 @@
                     android:background="@drawable/borde_negro2">
 
                     <ImageView
-                        android:id="@+id/imagenadmin"
+                        android:id="@+id/imageView4"
                         android:layout_width="319dp"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/image_profile_white" />
@@ -500,5 +499,4 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

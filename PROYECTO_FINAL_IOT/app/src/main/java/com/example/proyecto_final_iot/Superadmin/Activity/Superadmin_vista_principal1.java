@@ -94,8 +94,9 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
                                 adminData.getDniUser(),  // Obtener DNI
                                 adminData.getCorreoUser(),  // Obtener correo
                                 adminData.getTelefonoUser(),  // Obtener teléfono
-                                adminData.getDomicilioUser(),  // Obtener domicilio
-                                "Hora placeholder"  // Ajustar según tus necesidades
+                                adminData.getDomicilioUser(),
+                                adminData.getDataImage(),  // Obtener imagen
+                                adminData.getStatus_admin()  // Obtener status
                         ));
                     }
 

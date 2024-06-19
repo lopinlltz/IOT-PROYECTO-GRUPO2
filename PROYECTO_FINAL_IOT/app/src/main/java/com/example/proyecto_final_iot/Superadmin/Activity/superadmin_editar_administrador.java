@@ -8,11 +8,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
@@ -28,6 +30,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
     private EditText editCorreo;
     private EditText editTelefono;
     private EditText editDomicilio;
+    private ImageView imageView;
     private String adminId;
 
     @Override
@@ -41,6 +44,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         editCorreo = findViewById(R.id.editCorreo);
         editTelefono = findViewById(R.id.editTelefono);
         editDomicilio = findViewById(R.id.editDomicilio);
+        imageView = findViewById(R.id.imagenadmin); // Asegúrate de tener un ImageView en tu layout
 
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
@@ -59,6 +63,11 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         editTelefono.setText(intent.getStringExtra("telefono"));
         editDomicilio.setText(intent.getStringExtra("domicilio"));
 
+        String imagenUrl = intent.getStringExtra("imagenUrl");
+        if (imagenUrl != null && !imagenUrl.isEmpty()) {
+            Glide.with(this).load(imagenUrl).into(imageView);
+        }
+
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +79,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (validarCampos()) {
-                    showSaveConfirmationDialog();
+                    showSaveConfirmationDialog(imagenUrl); // Pasa la URL de la imagen al diálogo de confirmación
                 }
             }
         });
@@ -145,14 +154,14 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         return true;
     }
 
-    private void showSaveConfirmationDialog() {
+    private void showSaveConfirmationDialog(String imagenUrl) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar");
         builder.setMessage("¿Está seguro que desea guardar?");
         builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                guardarAdministrador();
+                guardarAdministrador(imagenUrl);
             }
         });
         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -165,7 +174,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         dialog.show();
     }
 
-    private void guardarAdministrador() {
+    private void guardarAdministrador(String imagenUrl) {
         String nombre = editNombre.getText().toString().trim();
         String apellido = editApellido.getText().toString().trim();
         String dni = editDni.getText().toString().trim();
@@ -173,7 +182,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         String telefono = editTelefono.getText().toString().trim();
         String domicilio = editDomicilio.getText().toString().trim();
 
-        Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, "Hora placeholder");
+        Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, imagenUrl, "defaultStatus");
 
         db.collection("administrador").document(adminId)
                 .set(administrador)

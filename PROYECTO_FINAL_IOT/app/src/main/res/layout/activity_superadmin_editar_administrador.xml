@@ -376,7 +376,7 @@
                     android:background="@drawable/borde_negro2">
 
                     <ImageView
-                        android:id="@+id/imageView4"
+                        android:id="@+id/imagenadmin"
                         android:layout_width="319dp"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/image_profile_white" />

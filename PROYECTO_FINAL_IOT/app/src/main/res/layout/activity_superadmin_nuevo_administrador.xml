@@ -362,14 +362,58 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/borde_negro2">
+                    android:background="@drawable/borde_negro2"
+                    android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/imageView4"
-                        android:layout_width="319dp"
+                    <LinearLayout
+                        android:layout_width="144dp"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/image_profile_white" />
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imagensubir"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:srcCompat="@drawable/baseline_person_24_admin_bar" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="66dp"
+                            android:orientation="horizontal"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/textViewEstado_admin"
+                                android:layout_width="5dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="ACTIVO"
+                                android:gravity="center"
+                                android:textColor="@color/black"
+                                android:textSize="16sp"
+                               android:background="@drawable/borde_negro" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/subirimagen"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Subir imagen" />
+                        </LinearLayout>
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
