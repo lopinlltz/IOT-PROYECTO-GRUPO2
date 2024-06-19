@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Superadmin.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +17,8 @@ import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.regex.Pattern;
 
 public class superadmin_editar_administrador extends AppCompatActivity {
     private FirebaseFirestore db;
@@ -66,8 +69,9 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showSaveConfirmationDialog();
-
+                if (validarCampos()) {
+                    showSaveConfirmationDialog();
+                }
             }
         });
 
@@ -94,6 +98,51 @@ public class superadmin_editar_administrador extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    private boolean validarCampos() {
+        String nombre = editNombre.getText().toString().trim();
+        String apellido = editApellido.getText().toString().trim();
+        String dni = editDni.getText().toString().trim();
+        String correo = editCorreo.getText().toString().trim();
+        String telefono = editTelefono.getText().toString().trim();
+        String domicilio = editDomicilio.getText().toString().trim();
+
+        Pattern nombreApellidoPattern = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+        Pattern dniPattern = Pattern.compile("^\\d{8}$");
+        Pattern telefonoPattern = Pattern.compile("^\\d{9}$");
+
+        if (nombre.isEmpty() || !nombreApellidoPattern.matcher(nombre).matches()) {
+            Toast.makeText(this, "Nombre inválido. Solo letras y espacios son permitidos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (apellido.isEmpty() || !nombreApellidoPattern.matcher(apellido).matches()) {
+            Toast.makeText(this, "Apellido inválido. Solo letras y espacios son permitidos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (dni.isEmpty() || !dniPattern.matcher(dni).matches()) {
+            Toast.makeText(this, "DNI inválido. Debe tener 8 dígitos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (correo.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            Toast.makeText(this, "Correo electrónico inválido.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (telefono.isEmpty() || !telefonoPattern.matcher(telefono).matches()) {
+            Toast.makeText(this, "Teléfono inválido. Debe tener 9 dígitos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (domicilio.isEmpty()) {
+            Toast.makeText(this, "Domicilio no puede estar vacío.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
     }
 
     private void showSaveConfirmationDialog() {
