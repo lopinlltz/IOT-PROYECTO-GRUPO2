@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
+        android:layout_height="125dp"
         android:background="@drawable/edittext_bkg"
         android:orientation="horizontal">
 
@@ -37,6 +37,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre de Usuario "
+                android:layout_marginStart="10dp"
+                android:padding="8dp"
+                android:elevation="3dp"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"/>
+            <TextView
+                android:id="@+id/item_id_apellidoUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Apellido de Usuario "
+                android:layout_marginStart="10dp"
+                android:padding="8dp"
+                android:elevation="3dp"
+                android:layout_gravity="center"
+                android:layout_alignParentBottom="true"/>
+            <TextView
+                android:id="@+id/item_id_correoUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Correo de Usuario "
                 android:layout_marginStart="10dp"
                 android:padding="8dp"
                 android:elevation="3dp"

@@ -4,9 +4,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,8 @@ import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.regex.Pattern;
 
 public class Admin_usuario_editar extends AppCompatActivity {
 
@@ -67,15 +71,11 @@ public class Admin_usuario_editar extends AppCompatActivity {
                 String nuevoTelefono = id_telefonoUser_et.getText().toString();
                 String nuevoDomicilio = id_domicilioUser_et.getText().toString();
 
-                Log.d("Admin_usuario_editar", "Datos obtenidos para edición: " +
-                        "nuevoNombre=" + nuevoNombre +
-                        ", nuevoApellido=" + nuevoApellido +
-                        ", nuevoDNI=" + nuevoDNI +
-                        ", nuevoCorreo=" + nuevoCorreo +
-                        ", nuevoTelefono=" + nuevoTelefono +
-                        ", nuevoDomicilio=" + nuevoDomicilio);
-
                 ConfirmacionPopup(nuevoNombre, nuevoApellido, nuevoDNI, nuevoCorreo, nuevoTelefono, nuevoDomicilio);
+               /*
+                if (validarCampos()) {
+                    ConfirmacionPopup(nuevoNombre, nuevoApellido, nuevoDNI, nuevoCorreo, nuevoTelefono, nuevoDomicilio);
+                }*/
             }
 
         });
@@ -94,6 +94,9 @@ public class Admin_usuario_editar extends AppCompatActivity {
                 intent.putExtra("id_domicilioUser", id_domicilioUser);
                 v.getContext().startActivity(intent);
                 startActivity(intent);
+
+
+
             }
         });
     }
@@ -153,7 +156,9 @@ public class Admin_usuario_editar extends AppCompatActivity {
                                         Log.e("Admin_usuario_editar", "Error al actualizar el usuario", e);
                                         // Error al actualizar el equipo
                                     });
-                        } else {
+                        }
+
+                        else {
                             // No se encontró ningún documento con el `sku` especificado
                             Log.e("Admin_usuario_editar", "El documento con Nombre " + id_nombreUser + " no existe.");
                         }
@@ -162,6 +167,51 @@ public class Admin_usuario_editar extends AppCompatActivity {
                     }
                 });
     }
+/*
+    private boolean validarCampos() {
+        String nombre = id_nombreUser_et.getText().toString();
+        String apellido = id_apellidoUser_et.getText().toString();
+        String dni = id_dniUSer_et.getText().toString();
+        String correo = id_correoUser_et.getText().toString();
+        String telefono = id_telefonoUser_et.getText().toString();
+        String domicilio = id_domicilioUser_et.getText().toString();
+
+        Pattern nombreApellidoPattern = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
+        Pattern dniPattern = Pattern.compile("^\\d{8}$");
+        Pattern telefonoPattern = Pattern.compile("^\\d{9}$");
+
+        if (nombre.isEmpty() || !nombreApellidoPattern.matcher(nombre).matches()) {
+            Toast.makeText(this, "Nombre inválido. Solo letras y espacios son permitidos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (apellido.isEmpty() || !nombreApellidoPattern.matcher(apellido).matches()) {
+            Toast.makeText(this, "Apellido inválido. Solo letras y espacios son permitidos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (dni.isEmpty() || !dniPattern.matcher(dni).matches()) {
+            Toast.makeText(this, "DNI inválido. Debe tener 8 dígitos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (correo.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            Toast.makeText(this, "Correo electrónico inválido.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (telefono.isEmpty() || !telefonoPattern.matcher(telefono).matches()) {
+            Toast.makeText(this, "Teléfono inválido. Debe tener 9 dígitos.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (domicilio.isEmpty()) {
+            Toast.makeText(this, "Domicilio no puede estar vacío.", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        return true;
+    }*/
 
 
 

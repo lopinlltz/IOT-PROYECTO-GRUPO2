@@ -69,6 +69,8 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
     public void onBindViewHolder(@NonNull UsuarioListAdminAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Supervisor_Data supervisor_data = supervisor_dataList.get(position);
         holder.nombre_user_list.setText(supervisor_data.getId_nombreUser());
+        holder.apellido_user_list.setText(supervisor_data.getId_apellidoUser());
+        holder.correoo_user_list.setText(supervisor_data.getId_correoUser());
         holder.textViewEstado_admin.setText(supervisor_data.getStatus_admin());
 
 
@@ -86,9 +88,7 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
                 intent.putExtra("id_domicilioUser", supervisor_data.getId_domicilioUser());
                 intent.putExtra("dataImage", supervisor_data.getDataImage());
                 intent.putExtra("textViewEstado_admin", supervisor_data.getStatus_admin());
-                intent.putExtra("usuarioId", position);
 
-                Log.d("Debug", "usuarioID : " + position);
 
                 v.getContext().startActivity(intent);
             }
@@ -107,7 +107,7 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
 
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nombre_user_list, textViewEstado_admin;
+        TextView nombre_user_list, textViewEstado_admin, apellido_user_list, correoo_user_list ;
         ImageView list_item_imagen_user ;
 
         public ViewHolder(@NonNull View itemView ) {
@@ -115,13 +115,12 @@ public class UsuarioListAdminAdapter extends RecyclerView.Adapter<UsuarioListAdm
             nombre_user_list = itemView.findViewById(R.id.item_id_nombreUser);
             list_item_imagen_user = itemView.findViewById(R.id.list_item_imagen_user);
             textViewEstado_admin = itemView.findViewById(R.id.item_id_status_admin);
+            apellido_user_list = itemView.findViewById(R.id.item_id_apellidoUser);
+            correoo_user_list = itemView.findViewById(R.id.item_id_correoUser);
 
 
         }
     }
 
-    public void actualizarEstadoUsuario(int position, String nuevoEstado) {
-        supervisor_dataList.get(position).setStatus_admin(nuevoEstado);
-        notifyItemChanged(position);
-    }
+
 }
