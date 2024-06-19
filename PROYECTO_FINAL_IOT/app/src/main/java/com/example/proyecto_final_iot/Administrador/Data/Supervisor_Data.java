@@ -10,11 +10,13 @@ public class Supervisor_Data {
     private String dataImage;
     private String status_admin;
 
+
     public Supervisor_Data(String idNombreUser, String imageUrl) {
     }
     public Supervisor_Data() {
     }
     public Supervisor_Data(String id_nombreUser, String id_apellidoUser, String id_dniUSer, String id_correoUser, String id_telefonoUser, String id_domicilioUser, String dataImage, String status_admin) {
+
         this.id_nombreUser = id_nombreUser;
         this.id_apellidoUser = id_apellidoUser;
         this.id_dniUSer = id_dniUSer;
@@ -88,4 +90,6 @@ public class Supervisor_Data {
     public void setStatus_admin(String status_admin) {
         this.status_admin = status_admin;
     }
+
+
 }
