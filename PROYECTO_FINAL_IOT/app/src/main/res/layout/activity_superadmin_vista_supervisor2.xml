@@ -148,8 +148,8 @@
 
             <LinearLayout
                 android:id="@+id/linearLayoutHome_SuperAdmin"
-                android:layout_width="6dp"
-                android:layout_height="70dp"
+                android:layout_width="179dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -162,23 +162,51 @@
                     android:scaleType="fitCenter"
                     android:scaleX="0.9"
                     android:scaleY="0.9"
-                    android:src="@drawable/addresspic" />
+                    android:src="@drawable/baseline_person_24_admin_bar" />
 
                 <TextView
                     android:id="@+id/textViewSitio_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sitio_admin"
+                    android:text="Administradores"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayoutSUpervisor"
+                android:layout_width="147dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/buttonsupervisor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="46dp"
+                    android:background="@null"
+                    android:scaleType="fitCenter"
+                    android:scaleX="0.9"
+                    android:scaleY="0.9"
+                    android:src="@drawable/baseline_person_24_admin_bar" />
+
+                <TextView
+                    android:id="@+id/textViewSitio_supervisor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Supervisores"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutHistorial_superadmin"
-                android:layout_width="4dp"
-                android:layout_height="70dp"
+                android:layout_width="163dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -197,10 +225,10 @@
                     android:id="@+id/textViewUsuario_Admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/usuario_admin"
+                    android:text="Historial"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:visibility="gone" />
+                    />
 
             </LinearLayout>
         </LinearLayout>
