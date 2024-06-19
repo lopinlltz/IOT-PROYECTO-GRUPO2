@@ -67,6 +67,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showSaveConfirmationDialog();
+
             }
         });
 
@@ -118,9 +119,9 @@ public class superadmin_editar_administrador extends AppCompatActivity {
     private void guardarAdministrador() {
         String nombre = editNombre.getText().toString().trim();
         String apellido = editApellido.getText().toString().trim();
-        String dni = editDni.getText().toString().trim(); // Cambiado a String
+        String dni = editDni.getText().toString().trim();
         String correo = editCorreo.getText().toString().trim();
-        String telefono = editTelefono.getText().toString().trim(); // Cambiado a String
+        String telefono = editTelefono.getText().toString().trim();
         String domicilio = editDomicilio.getText().toString().trim();
 
         Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, "Hora placeholder");
@@ -131,7 +132,8 @@ public class superadmin_editar_administrador extends AppCompatActivity {
                     Toast.makeText(superadmin_editar_administrador.this, "Datos guardados", Toast.LENGTH_SHORT).show();
                     NotificationHelper.createNotificationChannel(superadmin_editar_administrador.this);
                     NotificationHelper.sendNotification(superadmin_editar_administrador.this, "Usuarios", "Administrador editado");
-                    finish();
+                    Intent intent = new Intent(superadmin_editar_administrador.this, Superadmin_vista_principal1.class);
+                    startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(superadmin_editar_administrador.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();

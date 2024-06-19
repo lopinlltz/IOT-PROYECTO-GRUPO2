@@ -22,13 +22,13 @@ import java.util.List;
 
 public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> implements Filterable {
     private List<Admin> adminList;
-    private List<Admin> adminListFull; // Lista completa para soporte de búsqueda
+    private List<Admin> adminListFull;
     private Context context;
 
     public AdminAdapter(Context context, List<Admin> adminList) {
         this.context = context;
         this.adminList = adminList;
-        adminListFull = new ArrayList<>(adminList); // Copia de la lista completa
+        this.adminListFull = new ArrayList<>(adminList);
     }
 
     @NonNull
@@ -41,22 +41,16 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Admin admin = adminList.get(holder.getAdapterPosition());
-        holder.NombreAdmin.setText(admin.getNombreCompleto());
-        holder.hora.setText(admin.getHora());
+        holder.NombreAdmin.setText(admin.getNombreUser());
 
         holder.myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                performAction(holder.getAdapterPosition());
+                Intent intent = new Intent(context, superadmin_detalles_administrador.class);
+                intent.putExtra("ADMIN_ID", admin.getId());
+                context.startActivity(intent);
             }
         });
-    }
-
-    private void performAction(int position) {
-        Intent intent = new Intent(context, superadmin_detalles_administrador.class);
-        Admin selectedAdmin = adminList.get(position);
-        intent.putExtra("ADMIN_ID", selectedAdmin.getId());
-        context.startActivity(intent);
     }
 
     @Override
@@ -79,9 +73,10 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (Admin admin : adminListFull) {
-                    if (admin.getNombreUser().toLowerCase().contains(filterPattern)) {
-                        filteredList.add(admin);
+                for (Admin item : adminListFull) {
+                    if (item.getNombreUser().toLowerCase().contains(filterPattern) ||
+                            item.getApellidoUser().toLowerCase().contains(filterPattern)) {
+                        filteredList.add(item);
                     }
                 }
             }
