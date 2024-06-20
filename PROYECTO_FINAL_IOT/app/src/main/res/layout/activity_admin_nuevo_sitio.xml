@@ -119,14 +119,15 @@
                 android:padding="10dp"
                 android:textColor="@color/color_admin"
                 android:textSize="16sp" />
-            <EditText
+
+            <TextView
                 android:id="@+id/id_latitud_long"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
-                android:hint="Latitud y Longitud [geolocalización]"
+                android:hint="Latitud, Longitud"
                 android:padding="10dp"
                 android:textColor="@color/color_admin"
                 android:textSize="16sp" />
@@ -139,16 +140,25 @@
                 android:layout_marginStart="0dp"
                 android:src="@drawable/image_mapa" />
 
+            <Button
+                android:id="@+id/obtener_geolocalizacion"
+                android:layout_width="115dp"
+                android:layout_height="35dp"
+                android:background="#2060CC"
+                android:textColor="@color/white"
+                android:layout_marginStart="190dp"
+                android:layout_marginTop="-100dp"
+                android:text="Get Location"
+                />
 
             <Button
                 android:id="@+id/Guardar_new_sitio"
                 android:layout_width="115dp"
                 android:layout_height="35dp"
-                android:background="@drawable/circular_borde_morado_admin"
                 android:layout_marginStart="190dp"
-                android:layout_marginTop="-90dp"
-                android:text="Guardar"
-                 />
+                android:layout_marginTop="20dp"
+                android:background="@drawable/circular_borde_morado_admin"
+                android:text="Guardar" />
 
 
         </LinearLayout>

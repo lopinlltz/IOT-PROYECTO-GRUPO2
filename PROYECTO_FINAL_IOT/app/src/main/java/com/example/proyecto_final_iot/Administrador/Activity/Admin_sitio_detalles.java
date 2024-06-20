@@ -60,18 +60,6 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         setContentView(R.layout.activity_admin_sitio_detalles);
         db = FirebaseFirestore.getInstance();
 
-        Intent intent = getIntent();
-        String id_codigodeSitio = intent.getStringExtra("id_codigodeSitio");
-        String id_departamento = intent.getStringExtra("id_departamento");
-        String id_provincia = intent.getStringExtra("id_provincia");
-        String id_distrito =  intent.getStringExtra("id_distrito");
-        String id_ubigeo =  intent.getStringExtra("id_ubigeo");
-        String id_tipo_de_zona =  intent.getStringExtra("id_tipo_de_zona");
-        String id_tipo_de_sitio =  intent.getStringExtra("id_tipo_de_sitio");
-        String id_latitud_long =  intent.getStringExtra("id_latitud_long");
-
-
-
         id_codigodeSitio_tw= findViewById(R.id.id_codigodeSitio);
         id_departamento_tw = findViewById(R.id.id_departamento);
         id_provincia_tw = findViewById(R.id.id_provincia);
@@ -81,6 +69,15 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         id_tipo_de_sitio_tw = findViewById(R.id.id_tipoDeSitio_det);
         id_latitud_long_tw = findViewById(R.id.id_latitud_long);
 
+        Intent intent = getIntent();
+        String id_codigodeSitio = intent.getStringExtra("id_codigodeSitio");
+        String id_departamento = intent.getStringExtra("id_departamento");
+        String id_provincia = intent.getStringExtra("id_provincia");
+        String id_distrito =  intent.getStringExtra("id_distrito");
+        String id_ubigeo =  intent.getStringExtra("id_ubigeo");
+        String id_tipo_de_zona =  intent.getStringExtra("id_tipo_de_zona");
+        String id_tipo_de_sitio =  intent.getStringExtra("id_tipo_de_sitio");
+        String id_latitud_long =  intent.getStringExtra("id_latitud_long");
 
         id_codigodeSitio_tw.setText(id_codigodeSitio);
         id_departamento_tw.setText(id_departamento);
@@ -130,13 +127,20 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Admin_sitio_detalles.this, Admin_lista_Sitio.class);
+
                 borrarSitioporCodigo(sitioID);
-                startActivity(intent);
+
+                Intent intent = new Intent(Admin_sitio_detalles.this, Admin_lista_Sitio.class);
+                intent.putExtra("sitioIDEliminado", sitioID);
+                setResult(RESULT_OK, intent);
+                finish();
+
+                // Enviar notificación
+                NotificationHelper.createNotificationChannel(Admin_sitio_detalles.this);
+                NotificationHelper.sendNotification(Admin_sitio_detalles.this, "Sitio", "Sitio borrado");
+
                 dialog.dismiss();
 
-                NotificationHelper.createNotificationChannel(Admin_sitio_detalles.this);
-                NotificationHelper.sendNotification(Admin_sitio_detalles.this, "Sitio", "sitio borrado");
             }
         });
 
