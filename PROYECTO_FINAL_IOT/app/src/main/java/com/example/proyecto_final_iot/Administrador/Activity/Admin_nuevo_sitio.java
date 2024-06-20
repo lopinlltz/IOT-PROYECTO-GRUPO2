@@ -5,50 +5,30 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_nuevo_Data;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Reporte;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.NuevoReporteActivity;
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoSitioBinding;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class Admin_nuevo_sitio extends AppCompatActivity {
-
-
 
     //---------Firebase------------
     ListenerRegistration snapshotListener;
     ActivityAdminNuevoSitioBinding binding_new_sitio;
     FirebaseFirestore db_nuevo_sitio;
-
-    DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,12 +41,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
         db_nuevo_sitio = FirebaseFirestore.getInstance();
         binding_new_sitio.GuardarNewSitio.setOnClickListener(view -> {
             ConfirmacionPopup();
-
         });
-
-
-
-
     }
 
     @Override
@@ -76,11 +51,9 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
             snapshotListener.remove();
     }
 
-
     private void ConfirmacionPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
-
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
@@ -128,6 +101,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
                 .set(sitioNuevoData)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(Admin_nuevo_sitio.this, "Sitio grabado", Toast.LENGTH_SHORT).show();
+                    guardarHistorial("Creó un nuevo sitio: " + id_codigodeSitio, "Nombre del Administrador", "Administrador");
                     Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_lista_Sitio.class);
                     startActivity(intent);
                 })
@@ -136,5 +110,25 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
                 });
     }
 
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
 
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
+
+        db_nuevo_sitio.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
+                });
+    }
 }

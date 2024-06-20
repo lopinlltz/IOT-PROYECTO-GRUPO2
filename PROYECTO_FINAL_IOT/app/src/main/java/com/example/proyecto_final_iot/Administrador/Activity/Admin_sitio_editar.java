@@ -5,47 +5,34 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.TextureView;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class Admin_sitio_editar extends AppCompatActivity {
 
-    EditText id_departamento_et,id_provincia_et,id_distrito_et,id_ubigeo_et,id_tipo_de_zona_et,id_tipo_de_sitio_et,id_latitud_long_et;
+    EditText id_departamento_et, id_provincia_et, id_distrito_et, id_ubigeo_et, id_tipo_de_zona_et, id_tipo_de_sitio_et, id_latitud_long_et;
     TextView id_codigodeSitio_tv;
 
-    private String selectTipoDeZona;
-    private ArrayAdapter<CharSequence> zonaAdapter;
-    private String selectTipoDeSitio;
-    FirebaseFirestore db ;
+    FirebaseFirestore db;
     FloatingActionButton boton_guardar_sitio;
     FloatingActionButton boton_atras_sitio;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,11 +43,11 @@ public class Admin_sitio_editar extends AppCompatActivity {
         String id_codigodeSitio = intent.getStringExtra("id_codigodeSitio");
         String id_departamento = intent.getStringExtra("id_departamento");
         String id_provincia = intent.getStringExtra("id_provincia");
-        String id_distrito =  intent.getStringExtra("id_distrito");
-        String id_ubigeo =  intent.getStringExtra("id_ubigeo");
-        String id_tipo_de_zona =  intent.getStringExtra("id_tipo_de_zona");
-        String id_tipo_de_sitio =  intent.getStringExtra("id_tipo_de_sitio");
-        String id_latitud_long =  intent.getStringExtra("id_latitud_long");
+        String id_distrito = intent.getStringExtra("id_distrito");
+        String id_ubigeo = intent.getStringExtra("id_ubigeo");
+        String id_tipo_de_zona = intent.getStringExtra("id_tipo_de_zona");
+        String id_tipo_de_sitio = intent.getStringExtra("id_tipo_de_sitio");
+        String id_latitud_long = intent.getStringExtra("id_latitud_long");
 
         id_codigodeSitio_tv = findViewById(R.id.id_codigodeSitio);
         id_departamento_et = findViewById(R.id.id_departamento);
@@ -86,10 +73,10 @@ public class Admin_sitio_editar extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Admin_sitio_editar.this, Admin_lista_Sitio.class);
                 intent.putExtra("id_codigodeSitio", id_codigodeSitio);
-                intent.putExtra("id_departamento", id_departamento );
+                intent.putExtra("id_departamento", id_departamento);
                 intent.putExtra("id_provincia", id_provincia);
                 intent.putExtra("id_distrito", id_distrito);
-                intent.putExtra("id_ubigeo",id_ubigeo);
+                intent.putExtra("id_ubigeo", id_ubigeo);
                 intent.putExtra("id_tipo_de_zona", id_tipo_de_zona);
                 intent.putExtra("id_tipo_de_sitio", id_tipo_de_sitio);
                 intent.putExtra("id_latitud_long", id_latitud_long);
@@ -97,11 +84,11 @@ public class Admin_sitio_editar extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         boton_guardar_sitio = findViewById(R.id.boton_save_sitio);
         boton_guardar_sitio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String nuevaDepartamento = id_departamento_et.getText().toString();
                 String nuevoProvincia = id_provincia_et.getText().toString();
                 String nuevaDistrito = id_distrito_et.getText().toString();
@@ -115,26 +102,25 @@ public class Admin_sitio_editar extends AppCompatActivity {
                         "nuevaDepartamento=" + nuevaDepartamento +
                         ", nuevoProvincia=" + nuevoProvincia +
                         ", nuevaDistrito=" + nuevaDistrito +
-                        ", nuevaUbigeo=" + nuevaUbigeo+
-                        ", nuevaZona=" + nuevaZona+
-                        ", nuevaSitio=" + nuevaSitio+
+                        ", nuevaUbigeo=" + nuevaUbigeo +
+                        ", nuevaZona=" + nuevaZona +
+                        ", nuevaSitio=" + nuevaSitio +
                         ", nuevaLong=" + nuevaLong);
 
-                ConfirmacionPopup(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo,nuevaZona,nuevaSitio, nuevaLong);
+                ConfirmacionPopup(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona, nuevaSitio, nuevaLong);
             }
         });
     }
 
-    private void ConfirmacionPopup(String id_codigodeSitio ,String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo,  String nuevaZona, String nuevaSitio, String nuevaLong) {
+    private void ConfirmacionPopup(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
-
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
-                editarSitio(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona,  nuevaSitio, nuevaLong);
+                editarSitio(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona, nuevaSitio, nuevaLong);
+                guardarHistorial("Editó el sitio: " + id_codigodeSitio, "Nombre del Administrador", "Administrador");
                 Intent intent = new Intent(Admin_sitio_editar.this, Admin_lista_Sitio.class);
                 startActivity(intent);
                 dialog.dismiss();
@@ -155,14 +141,13 @@ public class Admin_sitio_editar extends AppCompatActivity {
         dialog.show();
     }
 
-    private void editarSitio(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito , String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong ) {
+    private void editarSitio(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong) {
         db.collection("sitio")
                 .whereEqualTo("id_codigodeSitio", id_codigodeSitio)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (!task.getResult().isEmpty()) {
-
                             DocumentReference sitioRef = task.getResult().getDocuments().get(0).getReference();
 
                             // Actualizar el documento
@@ -179,18 +164,35 @@ public class Admin_sitio_editar extends AppCompatActivity {
                                     })
                                     .addOnFailureListener(e -> {
                                         Log.e("Admin_sitio_editar", "Error al actualizar el sitio", e);
-
                                     });
                         } else {
-
                             Log.e("Admin_sitio_editar", "El documento con Codigo " + id_codigodeSitio + " no existe.");
                         }
                     } else {
-                        Log.e("Admin_sitio_editar ", "Error al obtener el documento", task.getException());
+                        Log.e("Admin_sitio_editar", "Error al obtener el documento", task.getException());
                     }
                 });
     }
 
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
 
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
+
+        db.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
+                });
+    }
 }
-

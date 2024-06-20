@@ -15,12 +15,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
-import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class Admin_usuario_editar extends AppCompatActivity {
@@ -43,7 +45,6 @@ public class Admin_usuario_editar extends AppCompatActivity {
         id_telefonoUser_et = findViewById(R.id.id_telefonoUser);
         id_domicilioUser_et = findViewById(R.id.id_domicilioUser);
 
-
         Intent intent = getIntent();
         String id_nombreUser = intent.getStringExtra("id_nombreUser");
         String id_apellidoUser = intent.getStringExtra("id_apellidoUser");
@@ -59,11 +60,10 @@ public class Admin_usuario_editar extends AppCompatActivity {
         id_telefonoUser_et.setText(id_telefonoUser);
         id_domicilioUser_et.setText(id_domicilioUser);
 
-        saveButton_user_edit = findViewById((R.id.saveButton_user_edit));
+        saveButton_user_edit = findViewById(R.id.saveButton_user_edit);
         saveButton_user_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String nuevoNombre = id_nombreUser_et.getText().toString();
                 String nuevoApellido = id_apellidoUser_et.getText().toString();
                 String nuevoDNI = id_dniUSer_et.getText().toString();
@@ -72,44 +72,35 @@ public class Admin_usuario_editar extends AppCompatActivity {
                 String nuevoDomicilio = id_domicilioUser_et.getText().toString();
 
                 ConfirmacionPopup(nuevoNombre, nuevoApellido, nuevoDNI, nuevoCorreo, nuevoTelefono, nuevoDomicilio);
-               /*
-                if (validarCampos()) {
-                    ConfirmacionPopup(nuevoNombre, nuevoApellido, nuevoDNI, nuevoCorreo, nuevoTelefono, nuevoDomicilio);
-                }*/
             }
-
         });
 
-        saveButton_back_edit = findViewById((R.id.saveButton_back_edit));
+        saveButton_back_edit = findViewById(R.id.saveButton_back_edit);
         saveButton_back_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(Admin_usuario_editar.this, Admin_usuario_detalles.class);
                 intent.putExtra("id_nombreUser", id_nombreUser);
-                intent.putExtra("id_apellidoUser", id_apellidoUser );
+                intent.putExtra("id_apellidoUser", id_apellidoUser);
                 intent.putExtra("id_dniUSer", id_dniUSer);
                 intent.putExtra("id_correoUser", id_correoUser);
-                intent.putExtra("id_telefonoUser",id_telefonoUser);
+                intent.putExtra("id_telefonoUser", id_telefonoUser);
                 intent.putExtra("id_domicilioUser", id_domicilioUser);
                 v.getContext().startActivity(intent);
                 startActivity(intent);
-
-
-
             }
         });
     }
 
-    private void ConfirmacionPopup(String id_nombreUser, String id_apellidoUser, String id_dniUSer, String id_correoUser, String  id_telefonoUser, String  id_domicilioUser) {
+    private void ConfirmacionPopup(String id_nombreUser, String id_apellidoUser, String id_dniUSer, String id_correoUser, String id_telefonoUser, String id_domicilioUser) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
-
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 editarUsuario(id_nombreUser, id_apellidoUser, id_dniUSer, id_correoUser, id_telefonoUser, id_domicilioUser);
+                guardarHistorial("Editó el usuario: " + id_nombreUser, "Nombre del Administrador", "Administrador");
                 Intent intent = new Intent(Admin_usuario_editar.this, Admin_lista_usuario.class);
                 startActivity(intent);
                 dialog.dismiss();
@@ -130,8 +121,7 @@ public class Admin_usuario_editar extends AppCompatActivity {
         dialog.show();
     }
 
-
-    private void editarUsuario(String id_nombreUser, String id_apellidoUser, String id_dniUSer, String id_correoUser, String  id_telefonoUser, String  id_domicilioUser) {
+    private void editarUsuario(String id_nombreUser, String id_apellidoUser, String id_dniUSer, String id_correoUser, String id_telefonoUser, String id_domicilioUser) {
         db.collection("supervisorAdmin")
                 .whereEqualTo("id_nombreUser", id_nombreUser)
                 .get()
@@ -146,20 +136,15 @@ public class Admin_usuario_editar extends AppCompatActivity {
                                             "id_dniUSer", id_dniUSer,
                                             "id_correoUser", id_correoUser,
                                             "id_telefonoUser", id_telefonoUser,
-                                    "id_domicilioUser", id_domicilioUser)
+                                            "id_domicilioUser", id_domicilioUser)
                                     .addOnSuccessListener(aVoid -> {
                                         Log.d("Admin_usuario_editar", "Usuario actualizado con éxito");
-                                        // Éxito al actualizar el equipo
                                         finish();
                                     })
                                     .addOnFailureListener(e -> {
                                         Log.e("Admin_usuario_editar", "Error al actualizar el usuario", e);
-                                        // Error al actualizar el equipo
                                     });
-                        }
-
-                        else {
-                            // No se encontró ningún documento con el `sku` especificado
+                        } else {
                             Log.e("Admin_usuario_editar", "El documento con Nombre " + id_nombreUser + " no existe.");
                         }
                     } else {
@@ -167,54 +152,26 @@ public class Admin_usuario_editar extends AppCompatActivity {
                     }
                 });
     }
-/*
-    private boolean validarCampos() {
-        String nombre = id_nombreUser_et.getText().toString();
-        String apellido = id_apellidoUser_et.getText().toString();
-        String dni = id_dniUSer_et.getText().toString();
-        String correo = id_correoUser_et.getText().toString();
-        String telefono = id_telefonoUser_et.getText().toString();
-        String domicilio = id_domicilioUser_et.getText().toString();
 
-        Pattern nombreApellidoPattern = Pattern.compile("^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$");
-        Pattern dniPattern = Pattern.compile("^\\d{8}$");
-        Pattern telefonoPattern = Pattern.compile("^\\d{9}$");
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
 
-        if (nombre.isEmpty() || !nombreApellidoPattern.matcher(nombre).matches()) {
-            Toast.makeText(this, "Nombre inválido. Solo letras y espacios son permitidos.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
 
-        if (apellido.isEmpty() || !nombreApellidoPattern.matcher(apellido).matches()) {
-            Toast.makeText(this, "Apellido inválido. Solo letras y espacios son permitidos.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
 
-        if (dni.isEmpty() || !dniPattern.matcher(dni).matches()) {
-            Toast.makeText(this, "DNI inválido. Debe tener 8 dígitos.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
 
-        if (correo.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
-            Toast.makeText(this, "Correo electrónico inválido.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (telefono.isEmpty() || !telefonoPattern.matcher(telefono).matches()) {
-            Toast.makeText(this, "Teléfono inválido. Debe tener 9 dígitos.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if (domicilio.isEmpty()) {
-            Toast.makeText(this, "Domicilio no puede estar vacío.", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        return true;
-    }*/
-
-
-
+        db.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
+                });
+    }
 }
-
-

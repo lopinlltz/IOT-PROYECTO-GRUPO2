@@ -6,12 +6,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.util.Log;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -26,27 +24,28 @@ import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdap
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoUsuarioBinding;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 
-import javax.microedition.khronos.opengles.GL;
+import java.util.List;
+import java.util.Objects;
 
 public class Admin_nuevo_usuario extends AppCompatActivity {
-
 
     Button uploadImagen, selecImage;
     ImageView imageView;
@@ -65,10 +64,9 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                     uploadImagen.setEnabled(true);
                     Glide.with(getApplicationContext()).load(image).into(imageView);
                 }
-            }else{
-                Toast.makeText(Admin_nuevo_usuario.this, "Selecciona una imagen, porfavor", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(Admin_nuevo_usuario.this, "Selecciona una imagen, por favor", Toast.LENGTH_SHORT).show();
             }
-
         }
     });
 
@@ -77,7 +75,6 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     ListenerRegistration snapshotListener;
     ActivityAdminNuevoUsuarioBinding binding_new_supervisor;
     FirebaseFirestore db_nuevo_supervisor;
-
     StorageReference storageReference;
 
     @Override
@@ -85,9 +82,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_nuevo_usuario);
 
-
         db_nuevo_supervisor = FirebaseFirestore.getInstance();
-
 
         binding_new_supervisor = ActivityAdminNuevoUsuarioBinding.inflate(getLayoutInflater());
         setContentView(binding_new_supervisor.getRoot());
@@ -112,11 +107,9 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                 activityResultLauncher.launch(intent);
             }
         });
-
-
     }
 
-    private void uploadImagen(Uri image){
+    private void uploadImagen(Uri image) {
         StorageReference reference = storageReference.child("FotosdeSupervisores/" + UUID.randomUUID().toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(Admin_nuevo_usuario.this);
         builder.setCancelable(false);
@@ -126,27 +119,25 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                 while (!uriTask.isComplete());
                 Uri urlImage = uriTask.getResult();
                 imagenURL = urlImage.toString();
                 dialog.dismiss();
                 guardarSupervisor();
-                Toast.makeText(Admin_nuevo_usuario.this, "Imagen subido exitosamente", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Admin_nuevo_usuario.this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(Admin_nuevo_usuario.this, "Error al subir la iamgen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Admin_nuevo_usuario.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-
     private void ConfirmacionPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Estas seguro de guardar los cambios?");
+        builder.setTitle("¿Estás seguro de guardar los cambios?");
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
@@ -155,8 +146,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                 uploadImagen(image);
                 dialog.dismiss();
                 NotificationHelper.createNotificationChannel(Admin_nuevo_usuario.this);
-                NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado ");
-
+                NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado");
             }
         });
 
@@ -179,41 +169,57 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     }
 
     private void guardarSupervisor() {
-
         String nombre = binding_new_supervisor.idNombreUser.getText().toString();
         String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
         String dni = binding_new_supervisor.idDniUSer.getText().toString();
         String correo = binding_new_supervisor.idCorreoUser.getText().toString();
         String telefono = binding_new_supervisor.idTelefonoUser.getText().toString();
-        String Domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
+        String domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
         String textViewEstado_admin = binding_new_supervisor.textViewEstadoAdmin.getText().toString();
 
-
-        Supervisor_Data supervisorNuevoData = new Supervisor_Data(nombre, apellido,dni, correo, telefono,Domicilio, imagenURL, textViewEstado_admin);
+        Supervisor_Data supervisorNuevoData = new Supervisor_Data(nombre, apellido, dni, correo, telefono, domicilio, imagenURL, textViewEstado_admin);
         supervisorNuevoData.setId_nombreUser(nombre);
         supervisorNuevoData.setId_apellidoUser(apellido);
         supervisorNuevoData.setId_dniUSer(dni);
         supervisorNuevoData.setId_correoUser(correo);
         supervisorNuevoData.setId_telefonoUser(telefono);
-        supervisorNuevoData.setId_domicilioUser(Domicilio);
+        supervisorNuevoData.setId_domicilioUser(domicilio);
         supervisorNuevoData.setDataImage(imagenURL);
         supervisorNuevoData.setStatus_admin(textViewEstado_admin);
-
-
-
 
         db_nuevo_supervisor.collection("supervisorAdmin")
                 .document(nombre)
                 .set(supervisorNuevoData)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(Admin_nuevo_usuario.this, "Supervisor grabado", Toast.LENGTH_SHORT).show();
+                    guardarHistorial("Creó un nuevo supervisor: " + nombre, "Nombre del Administrador", "Administrador");
                     Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
                     startActivity(intent);
                 })
                 .addOnFailureListener(e -> {
-                    Toast.makeText(Admin_nuevo_usuario.this, "Algo pasó al guardar ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Admin_nuevo_usuario.this, "Algo pasó al guardar", Toast.LENGTH_SHORT).show();
                 });
     }
 
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
 
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
+
+        db_nuevo_supervisor.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
+                });
+    }
 }

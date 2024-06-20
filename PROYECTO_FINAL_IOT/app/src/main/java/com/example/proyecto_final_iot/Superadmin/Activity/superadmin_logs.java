@@ -13,6 +13,7 @@ import com.example.proyecto_final_iot.Superadmin.Adapter.HistorialAdapter;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
@@ -60,6 +61,7 @@ public class superadmin_logs extends AppCompatActivity {
         List<HistorialData> historialList = new ArrayList<>();
 
         db.collection("historialglobal")
+                .orderBy("date", Query.Direction.DESCENDING)  // Ordenar por fecha en orden descendente
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
