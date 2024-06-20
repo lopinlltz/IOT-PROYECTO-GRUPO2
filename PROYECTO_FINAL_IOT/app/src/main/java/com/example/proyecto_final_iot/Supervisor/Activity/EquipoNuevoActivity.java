@@ -131,7 +131,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
 
     }
 
-    private void uploadImagenEquipo(Uri image){
+    private void uploadImagenEquipo(Uri image) {
         StorageReference reference = storageReference.child("FotosdeEquipos/" + UUID.randomUUID().toString());
         AlertDialog.Builder builder = new AlertDialog.Builder(EquipoNuevoActivity.this);
         builder.setCancelable(false);
@@ -141,19 +141,19 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                 Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
                 while (!uriTask.isComplete());
                 Uri urlImage_equipo = uriTask.getResult();
                 imagenURL_equipo = urlImage_equipo.toString();
                 dialog.dismiss();
-                guardarEquipo();
-                Toast.makeText(EquipoNuevoActivity.this, "Imagen subido exitosamente", Toast.LENGTH_SHORT).show();
+                guardarEquipo();  // Llamar a guardarEquipo() después de obtener la URL de la imagen
+                Toast.makeText(EquipoNuevoActivity.this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Toast.makeText(EquipoNuevoActivity.this, "Error al subir la iamgen", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                Toast.makeText(EquipoNuevoActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -206,50 +206,24 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         sitio = findViewById(R.id.sitio);
         String sitioString = sitio.getText().toString().trim();
 
-
-        ImageView dataImage_equipos = findViewById(R.id.imagen_upload);
-
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            String imageUriString = bundle.getString("imageUri");
-            if (imageUriString != null) {
-                Uri imageUri = Uri.parse(imageUriString);
-                // Usa Glide o setImageURI para cargar la imagen
-                Glide.with(this).load(imageUri).into(dataImage_equipos);
-                // dataImage_equipos.setImageURI(imageUri); // Alternativa
-            } else {
-                Log.e("EquipoDetalleActivity", "imageUriString es null");
-                Toast.makeText(this, "Error: URI de la imagen no encontrada", Toast.LENGTH_LONG).show();
-            }
-        } else {
-            Log.e("EquipoDetalleActivity", "El bundle es null");
-            Toast.makeText(this, "Error: No se recibieron datos", Toast.LENGTH_LONG).show();
-        }
-
-
-
         if (skuString.isEmpty() || serieString.isEmpty() || marcaString.isEmpty() ||
                 modeloString.isEmpty() || descripcionString.isEmpty() || sitioString.isEmpty() || fechaRegistroString.isEmpty()) {
             Toast.makeText(EquipoNuevoActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Validar que el SKU no exista en la base de datos
-       // String finalImagen_uploadString = imagen_uploadString;
         db.collection("equipo")
                 .whereEqualTo("sku", skuString)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
                         if (task.getResult().isEmpty()) {
-                            // Validar que el sitio exista en la base de datos
                             db.collection("sitio")
                                     .whereEqualTo("id_codigodeSitio", sitioString)
                                     .get()
                                     .addOnCompleteListener(siteTask -> {
                                         if (siteTask.isSuccessful()) {
                                             if (!siteTask.getResult().isEmpty()) {
-                                                // El sitio existe, podemos guardar el equipo
                                                 Equipo equipo = new Equipo();
 
                                                 equipo.setSku(skuString);
@@ -258,82 +232,40 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                                                 equipo.setModelo(modeloString);
                                                 equipo.setDescripcion(descripcionString);
                                                 equipo.setFechaRegistro(fechaRegistroString);
-                                                equipo.setId_codigodeSitio(sitioString); // Asegúrate de que el modelo Equipo tenga un campo sitio
-                                                equipo.setDataImage_equipo(imagenURL_equipo);
-                                                Log.e("imagendetalle",imagenURL_equipo) ;
+                                                equipo.setId_codigodeSitio(sitioString);
 
+                                                if (imagenURL_equipo != null) {
+                                                    equipo.setDataImage_equipo(imagenURL_equipo);
+                                                    Log.e("imagendetalle", imagenURL_equipo);
+                                                    db.collection("equipo")
+                                                            .add(equipo)
+                                                            .addOnSuccessListener(unused -> {
+                                                                guardarHistorial();
+                                                                Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
+                                                                Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
+                                                                startActivity(intent);
+                                                            })
+                                                            .addOnFailureListener(e -> {
+                                                                Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
+                                                            });
+                                                } else {
+                                                    Log.e("imagendetalle", "URL de la imagen es null");
+                                                }
 
-                            // Generar QR code
-                            String qrContent = "SKU: " + skuString + ", Serie: " + serieString;
-                           /* Bitmap qrCodeBitmap = generateQRCode(qrContent);
-
-                            if (qrCodeBitmap != null) {
-                                Log.d("CrearEquipo", "QR Code generado correctamente");
-
-                                // Convertir Bitmap a base64
-                                String qrCodeBase64 = bitmapToBase64(qrCodeBitmap);
-                                equipo.setQrCode(qrCodeBase64);
-
-                               Intent intent = new Intent(EquipoNuevoActivity.this, QRCodePreviewActivity.class);
-
-                                // Agregar el qrCodeBase64 como extra en el Intent
-                                intent.putExtra("qrCodeBase64", qrCodeBase64);
-
-                                // Iniciar la actividad EquipoDetalleActivity
-                                startActivity(intent);
-
-                            } else {
-                                Log.e("CrearEquipo", "Error al generar el QR Code");
-                            }
-
-*/
-
-                            /*db.collection("equipo")
-                                    .add(equipo)
-                                    .addOnSuccessListener(unused -> {
-                                        // Correcto
-                                        Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
-                                        Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
-                                        startActivity(intent);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        // Error
-                                        Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();*/
-
-                                                db.collection("equipo")
-                                                        .add(equipo)
-                                                        .addOnSuccessListener(unused -> {
-                                                            // Correcto
-                                                            guardarHistorial();
-                                                            Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
-                                                            Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
-                                                            startActivity(intent);
-                                                        })
-                                                        .addOnFailureListener(e -> {
-                                                            // Error
-                                                            Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
-                                                        });
                                             } else {
-                                                // El sitio no existe
                                                 Toast.makeText(EquipoNuevoActivity.this, "El sitio no existe, por favor ingrese un sitio válido", Toast.LENGTH_SHORT).show();
                                             }
                                         } else {
-                                            // Error al consultar Firebase
                                             Toast.makeText(EquipoNuevoActivity.this, "Error al verificar el sitio en Firebase", Toast.LENGTH_SHORT).show();
                                         }
-
                                     });
                         } else {
-                            // El SKU ya existe
                             Toast.makeText(EquipoNuevoActivity.this, "El SKU ya existe, por favor ingrese un SKU diferente", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        // Error al consultar Firebase
                         Toast.makeText(EquipoNuevoActivity.this, "Error al verificar el SKU en Firebase", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
     }
 
     private void guardarHistorial() {
