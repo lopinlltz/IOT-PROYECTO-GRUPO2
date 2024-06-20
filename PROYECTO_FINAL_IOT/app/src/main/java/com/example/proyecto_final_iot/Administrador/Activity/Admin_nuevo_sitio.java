@@ -101,7 +101,7 @@ public class Admin_nuevo_sitio extends AppCompatActivity {
                 .set(sitioNuevoData)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(Admin_nuevo_sitio.this, "Sitio grabado", Toast.LENGTH_SHORT).show();
-                    guardarHistorial("Creó un nuevo sitio: " + id_codigodeSitio, "Nombre del Administrador", "Administrador");
+                    guardarHistorial("Creó un nuevo sitio: " + id_codigodeSitio, "Samantha", "Administrador");
                     Intent intent = new Intent(Admin_nuevo_sitio.this, Admin_lista_Sitio.class);
                     startActivity(intent);
                 })

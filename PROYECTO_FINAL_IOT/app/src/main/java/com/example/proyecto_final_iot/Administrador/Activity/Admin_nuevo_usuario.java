@@ -192,7 +192,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                 .set(supervisorNuevoData)
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(Admin_nuevo_usuario.this, "Supervisor grabado", Toast.LENGTH_SHORT).show();
-                    guardarHistorial("Creó un nuevo supervisor: " + nombre, "Nombre del Administrador", "Administrador");
+                    guardarHistorial("Creó un nuevo supervisor: " + nombre, "Samantha", "Administrador");
                     Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);
                     startActivity(intent);
                 })

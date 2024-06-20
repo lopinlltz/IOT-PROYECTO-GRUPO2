@@ -192,13 +192,13 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         String telefono = editTelefono.getText().toString().trim();
         String domicilio = editDomicilio.getText().toString().trim();
 
-        Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, imagenUrl, "defaultStatus");
+        Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, imagenUrl, "activo");
 
         db.collection("administrador").document(adminId)
                 .set(administrador)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(superadmin_editar_administrador.this, "Datos guardados", Toast.LENGTH_SHORT).show();
-                    guardarHistorial("Se edito un administrador", "Maricielo", "Superadmin");
+                    guardarHistorial("Se edito un administrador" + nombre , "Maricielo", "Superadmin");
                     NotificationHelper.createNotificationChannel(superadmin_editar_administrador.this);
                     NotificationHelper.sendNotification(superadmin_editar_administrador.this, "Usuarios", "Administrador editado");
                     Intent intent = new Intent(superadmin_editar_administrador.this, Superadmin_vista_principal1.class);

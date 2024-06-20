@@ -242,7 +242,7 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
                     Log.d("NuevoAdmin", "DocumentSnapshot added with ID: " + adminId);
                     Toast.makeText(superadmin_nuevo_administrador.this, "Admin creado con ID: " + adminId, Toast.LENGTH_SHORT).show();
-                    guardarHistorial("Creó un nuevo administrador", "Nombre del Superadmin", "Superadmin");
+                    guardarHistorial("Creó un nuevo administrador " +nombreString , "Maricielo", "Superadmin");
                     Intent intent = new Intent(superadmin_nuevo_administrador.this, Superadmin_vista_principal1.class);
                     intent.putExtra("ADMIN_ID", adminId); // Pasar el ID del admin al intent
                     startActivity(intent);

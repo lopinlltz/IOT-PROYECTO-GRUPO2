@@ -100,7 +100,7 @@ public class Admin_usuario_editar extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 editarUsuario(id_nombreUser, id_apellidoUser, id_dniUSer, id_correoUser, id_telefonoUser, id_domicilioUser);
-                guardarHistorial("Editó el usuario: " + id_nombreUser, "Nombre del Administrador", "Administrador");
+                guardarHistorial("Editó el usuario: " + id_nombreUser, "Samantha", "Administrador");
                 Intent intent = new Intent(Admin_usuario_editar.this, Admin_lista_usuario.class);
                 startActivity(intent);
                 dialog.dismiss();

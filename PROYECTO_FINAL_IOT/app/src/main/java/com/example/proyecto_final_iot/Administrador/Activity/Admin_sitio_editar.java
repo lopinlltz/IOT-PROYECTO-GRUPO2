@@ -120,7 +120,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 editarSitio(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona, nuevaSitio, nuevaLong);
-                guardarHistorial("Editó el sitio: " + id_codigodeSitio, "Nombre del Administrador", "Administrador");
+                guardarHistorial("Editó el sitio: " + id_codigodeSitio, "Samantha", "Administrador");
                 Intent intent = new Intent(Admin_sitio_editar.this, Admin_lista_Sitio.class);
                 startActivity(intent);
                 dialog.dismiss();

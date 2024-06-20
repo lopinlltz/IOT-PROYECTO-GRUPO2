@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Activity.superadmin_detalles_administrador;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
@@ -39,15 +41,16 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Admin admin = adminList.get(holder.getAdapterPosition());
-        holder.NombreAdmin.setText(admin.getNombreUser());
+        holder.NombreAdmin.setText(admin.getNombreCompleto());
+        holder.statusAdmin.setText(admin.getStatus_admin());
 
-        holder.myButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, superadmin_detalles_administrador.class);
-                intent.putExtra("ADMIN_ID", admin.getId()); // Asegúrate de que el ID se pasa aquí
-                context.startActivity(intent);
-            }
+        // Cargar la imagen usando Glide
+        Glide.with(holder.imageView16.getContext()).load(admin.getDataImage()).into(holder.imageView16);
+
+        holder.myButton.setOnClickListener(v -> {
+            Intent intent = new Intent(context, superadmin_detalles_administrador.class);
+            intent.putExtra("ADMIN_ID", admin.getId());
+            context.startActivity(intent);
         });
     }
 
@@ -63,12 +66,16 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView NombreAdmin;
+        ImageView imageView16;
         Button myButton;
+        TextView statusAdmin;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             NombreAdmin = itemView.findViewById(R.id.NombreAdmin);
+            imageView16 = itemView.findViewById(R.id.imageView16);
             myButton = itemView.findViewById(R.id.button4);
+            statusAdmin = itemView.findViewById(R.id.item_id_status_admin);
         }
     }
 }
