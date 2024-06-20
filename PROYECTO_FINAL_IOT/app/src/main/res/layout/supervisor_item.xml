@@ -22,8 +22,9 @@
 
             <ImageView
                 android:id="@+id/imageView16"
-                android:layout_width="60dp"
-                android:layout_height="57dp"
+                android:layout_width="48dp"
+                android:layout_height="47dp"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/profilepicicon" />
         </LinearLayout>
 
@@ -47,7 +48,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="74dp"
+                android:layout_width="99dp"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
@@ -62,39 +63,27 @@
                     android:layout_height="24dp"
                     android:layout_gravity="center"
                     android:background="@drawable/rounded_background2"
-                    android:text="Más detalles"
                     android:gravity="center"
+                    android:text="Más detalles"
                     android:textSize="8sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/item_id_status_admin2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:text="ACTIVO"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="21dp"
-                    android:orientation="vertical"></LinearLayout>
-
-                <TextView
-                    android:id="@+id/hora"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|center_horizontal"
-                    android:text="  13:10" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="46dp"
-                    android:orientation="vertical"/>
-
-            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

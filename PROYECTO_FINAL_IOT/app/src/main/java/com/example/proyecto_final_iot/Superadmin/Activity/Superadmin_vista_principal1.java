@@ -39,6 +39,11 @@ public class Superadmin_vista_principal1 extends AppCompatActivity {
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button button3 = findViewById(R.id.button3);
         searchAdmin = findViewById(R.id.search_admin);
+        ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
+        buttonsupervisor.setOnClickListener(v -> {
+            Intent intent = new Intent(Superadmin_vista_principal1.this, superadmin_vista_supervisor2.class);
+            startActivity(intent);
+        });
 
         button3.setOnClickListener(new View.OnClickListener() {
             @Override

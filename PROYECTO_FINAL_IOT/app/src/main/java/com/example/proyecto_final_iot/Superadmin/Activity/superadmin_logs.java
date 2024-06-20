@@ -28,7 +28,11 @@ public class superadmin_logs extends AppCompatActivity {
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
-
+        ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
+        buttonsupervisor.setOnClickListener(v -> {
+            Intent intent = new Intent(superadmin_logs.this, superadmin_vista_supervisor2.class);
+            startActivity(intent);
+        });
 
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override

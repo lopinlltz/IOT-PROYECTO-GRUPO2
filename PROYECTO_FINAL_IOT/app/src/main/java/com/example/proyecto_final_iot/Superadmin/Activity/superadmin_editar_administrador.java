@@ -51,6 +51,11 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button atras = findViewById(R.id.button2);
         Button guardar = findViewById(R.id.button5);
+        ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
+        buttonsupervisor.setOnClickListener(v -> {
+            Intent intent = new Intent(superadmin_editar_administrador.this, superadmin_vista_supervisor2.class);
+            startActivity(intent);
+        });
 
         db = FirebaseFirestore.getInstance();
 

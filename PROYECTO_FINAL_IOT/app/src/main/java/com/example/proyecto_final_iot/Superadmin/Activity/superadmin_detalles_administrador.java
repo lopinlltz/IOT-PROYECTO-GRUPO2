@@ -88,6 +88,11 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button atras = findViewById(R.id.button2);
         Button editar = findViewById(R.id.button5);
+        ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
+        buttonsupervisor.setOnClickListener(v -> {
+            Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_vista_supervisor2.class);
+            startActivity(intent);
+        });
 
         atras.setOnClickListener(v -> finish());
 
@@ -108,6 +113,7 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
             Intent intent = new Intent(superadmin_detalles_administrador.this, superadmin_logs.class);
             startActivity(intent);
         });
+
 
         btnUserProfile.setOnClickListener(v -> {
             Intent intent = new Intent(superadmin_detalles_administrador.this, PerfilSuperadmin.class);

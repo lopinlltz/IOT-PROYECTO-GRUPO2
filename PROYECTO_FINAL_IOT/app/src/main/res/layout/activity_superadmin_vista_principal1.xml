@@ -100,7 +100,7 @@
                         android:layout_alignParentTop="true"
                         android:focusable="false"
                         app:iconifiedByDefault="false"
-                        app:queryHint="Ingrese el admin"
+                        app:queryHint="Ingrese el administrador"
                         app:searchHintIcon="@null" />
 
 

@@ -10,6 +10,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -74,6 +75,30 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
+        ImageButton btnHome = findViewById(R.id.buttonhomesuper);
+        ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
+        ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
+        buttonsupervisor.setOnClickListener(v -> {
+            Intent intent = new Intent(superadmin_nuevo_administrador.this, superadmin_vista_supervisor2.class);
+            startActivity(intent);
+        });
+        btnHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Revisar si necesitas recargar la misma actividad o realizar otra acción
+                Intent intent = new Intent(superadmin_nuevo_administrador.this, Superadmin_vista_principal1.class);
+                startActivity(intent);
+                //recreate(); // Recrea la actividad actual
+            }
+        });
+
+        btnHistory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(superadmin_nuevo_administrador.this, superadmin_logs.class);
+                startActivity(intent);
+            }
+        });
 
         nombre = findViewById(R.id.nombre);
         apellido = findViewById(R.id.apellido);
