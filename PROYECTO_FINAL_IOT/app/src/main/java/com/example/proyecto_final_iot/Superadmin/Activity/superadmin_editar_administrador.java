@@ -18,8 +18,13 @@ import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class superadmin_editar_administrador extends AppCompatActivity {
@@ -193,6 +198,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
                 .set(administrador)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(superadmin_editar_administrador.this, "Datos guardados", Toast.LENGTH_SHORT).show();
+                    guardarHistorial("Se edito un administrador", "Maricielo", "Superadmin");
                     NotificationHelper.createNotificationChannel(superadmin_editar_administrador.this);
                     NotificationHelper.sendNotification(superadmin_editar_administrador.this, "Usuarios", "Administrador editado");
                     Intent intent = new Intent(superadmin_editar_administrador.this, Superadmin_vista_principal1.class);
@@ -200,6 +206,27 @@ public class superadmin_editar_administrador extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(superadmin_editar_administrador.this, "Error al guardar los datos", Toast.LENGTH_SHORT).show();
+                });
+    }
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
+
+        db.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
                 });
     }
 }

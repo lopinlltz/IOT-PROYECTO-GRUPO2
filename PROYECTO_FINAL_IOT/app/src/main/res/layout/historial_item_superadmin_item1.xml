@@ -7,7 +7,7 @@
     android:gravity="center">
 
     <LinearLayout
-        android:layout_width="376dp"
+        android:layout_width="334dp"
         android:layout_height="68dp"
         android:background="@drawable/borde_superadmin"
 
@@ -31,7 +31,7 @@
             android:textSize="14sp" />-->
 
         <LinearLayout
-            android:layout_width="265dp"
+            android:layout_width="244dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -46,19 +46,20 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textViewSupervisorName"
+                android:id="@+id/usuariodinosaurio"
                 android:layout_width="157dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="supervisor x"
                 android:textSize="15dp" />
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewDateActivity"
@@ -66,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="29/04/24"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textViewHourActivity"
@@ -74,7 +75,15 @@
                 android:layout_height="wrap_content"
                 android:text="10:23"
                 android:textSize="15dp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/idrol"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ROL"
+                android:textSize="15dp"
+                android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 

@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -32,6 +33,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
@@ -237,7 +242,7 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 .addOnSuccessListener(aVoid -> {
                     Log.d("NuevoAdmin", "DocumentSnapshot added with ID: " + adminId);
                     Toast.makeText(superadmin_nuevo_administrador.this, "Admin creado con ID: " + adminId, Toast.LENGTH_SHORT).show();
-
+                    guardarHistorial("Creó un nuevo administrador", "Nombre del Superadmin", "Superadmin");
                     Intent intent = new Intent(superadmin_nuevo_administrador.this, Superadmin_vista_principal1.class);
                     intent.putExtra("ADMIN_ID", adminId); // Pasar el ID del admin al intent
                     startActivity(intent);
@@ -245,6 +250,27 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 .addOnFailureListener(e -> {
                     Log.w("NuevoAdmin", "Error adding document", e);
                     Toast.makeText(superadmin_nuevo_administrador.this, "Error al crear admin", Toast.LENGTH_SHORT).show();
+                });
+    }
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
+
+        db.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
                 });
     }
 }
