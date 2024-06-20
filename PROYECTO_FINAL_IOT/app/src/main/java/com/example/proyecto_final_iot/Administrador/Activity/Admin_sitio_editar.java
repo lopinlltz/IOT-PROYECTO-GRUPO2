@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -97,17 +98,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
                 String nuevaSitio = id_tipo_de_sitio_et.getText().toString();
                 String nuevaLong = id_latitud_long_et.getText().toString();
 
-                Log.d("Admin_sitio_editar", "Datos obtenidos para edición: " +
-                        "id_codigodeSitio=" + id_codigodeSitio +
-                        "nuevaDepartamento=" + nuevaDepartamento +
-                        ", nuevoProvincia=" + nuevoProvincia +
-                        ", nuevaDistrito=" + nuevaDistrito +
-                        ", nuevaUbigeo=" + nuevaUbigeo +
-                        ", nuevaZona=" + nuevaZona +
-                        ", nuevaSitio=" + nuevaSitio +
-                        ", nuevaLong=" + nuevaLong);
-
-                ConfirmacionPopup(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona, nuevaSitio, nuevaLong);
+                ConfirmacionPopup(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo,nuevaZona,nuevaSitio, nuevaLong);
             }
         });
     }
@@ -160,6 +151,23 @@ public class Admin_sitio_editar extends AppCompatActivity {
                                             "id_latitud_long", nuevaLong)
                                     .addOnSuccessListener(aVoid -> {
                                         Log.d("Admin_sitio_editar", "Sitio actualizado con éxito");
+
+                                        Toast.makeText(Admin_sitio_editar.this, "Usuario actualizado con éxito", Toast.LENGTH_SHORT).show();
+
+
+                                        id_codigodeSitio_tv.setText(id_codigodeSitio);
+                                        id_departamento_et.setText(nuevaDepartamento);
+                                        id_provincia_et.setText(nuevoProvincia);
+                                        id_distrito_et.setText(nuevaDistrito);
+                                        id_ubigeo_et.setText(nuevaUbigeo);
+                                        id_tipo_de_zona_et.setText(nuevaZona);
+                                        id_tipo_de_sitio_et.setText(nuevaSitio);
+                                        id_latitud_long_et.setText(nuevaLong);
+
+                                        Intent intent = new Intent(Admin_sitio_editar.this, Admin_lista_Sitio.class);
+                                        startActivity(intent);
+
+
                                         finish();
                                     })
                                     .addOnFailureListener(e -> {
@@ -169,7 +177,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
                             Log.e("Admin_sitio_editar", "El documento con Codigo " + id_codigodeSitio + " no existe.");
                         }
                     } else {
-                        Log.e("Admin_sitio_editar", "Error al obtener el documento", task.getException());
+                        Log.e("Admin_sitio_editar ", "Error al obtener el documento", task.getException());
                     }
                 });
     }

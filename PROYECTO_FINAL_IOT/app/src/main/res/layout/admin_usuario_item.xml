@@ -27,7 +27,7 @@
             />
 
         <LinearLayout
-            android:layout_width="172dp"
+            android:layout_width="200dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -37,8 +37,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Nombre de Usuario "
+                android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
-                android:padding="8dp"
+                android:padding="2dp"
                 android:elevation="3dp"
                 android:layout_gravity="center"
                 android:layout_alignParentBottom="true"/>
@@ -48,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:text="Apellido de Usuario "
                 android:layout_marginStart="10dp"
-                android:padding="8dp"
+                android:padding="2dp"
                 android:elevation="3dp"
                 android:layout_gravity="center"
                 android:layout_alignParentBottom="true"/>
@@ -58,8 +59,9 @@
                 android:layout_height="wrap_content"
                 android:text="Correo de Usuario "
                 android:layout_marginStart="10dp"
-                android:padding="8dp"
-                android:elevation="3dp"
+                android:padding="3dp"
+                android:elevation="2dp"
+                android:textSize="12dp"
                 android:layout_gravity="center"
                 android:layout_alignParentBottom="true"/>
 
@@ -74,9 +76,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="0dp"
+                android:layout_marginStart="10dp"
                 android:elevation="3dp"
-                android:layout_marginTop="-20dp"
+                android:layout_marginTop="-30dp"
                 android:padding="8dp"
                 android:background="@drawable/edittext_bkg"
                 android:text="Detalles " />
@@ -93,6 +95,7 @@
                 android:elevation="3dp"
                 android:padding="8dp"
                 android:text="ACTIVO"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
 

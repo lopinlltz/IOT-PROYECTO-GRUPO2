@@ -47,7 +47,7 @@ public class Admin_usuario_detalles extends AppCompatActivity {
     Button editButton_user, backButton_back_det;
     Button buttonCambiarEstado_admin , buttonCambiarEstadoActivar_admin;
     FirebaseFirestore db;
-    int usuarioId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,31 +71,31 @@ public class Admin_usuario_detalles extends AppCompatActivity {
 
         Intent intent = getIntent();
         String id_nombreUser = intent.getStringExtra("id_nombreUser");
-        if (intent != null) {
-            usuarioId = intent.getIntExtra("usuarioId", -1);
-            String id_apellidoUser = intent.getStringExtra("id_apellidoUser");
-            String id_dniUSer = intent.getStringExtra("id_dniUSer");
-            String id_correoUser = intent.getStringExtra("id_correoUser");
-            String id_telefonoUser = intent.getStringExtra("id_telefonoUser");
-            String id_domicilioUser = intent.getStringExtra("id_domicilioUser");
-            String textViewEstado_admin = intent.getStringExtra("textViewEstado_admin");
+        String id_apellidoUser = intent.getStringExtra("id_apellidoUser");
+        String id_dniUSer = intent.getStringExtra("id_dniUSer");
+        String id_correoUser = intent.getStringExtra("id_correoUser");
+        String id_telefonoUser = intent.getStringExtra("id_telefonoUser");
+        String id_domicilioUser = intent.getStringExtra("id_domicilioUser");
+        String textViewEstado_admin = intent.getStringExtra("textViewEstado_admin");
 
-            id_nombreUser_tw.setText(id_nombreUser);
-            id_apellidoUser_tw.setText(id_apellidoUser);
-            id_dniUSer_tw.setText(id_dniUSer);
-            id_correoUser_tw.setText(id_correoUser);
-            id_telefonoUser_tw.setText(id_telefonoUser);
-            id_domicilioUser_tw.setText(id_domicilioUser);
-            textViewEstado_admin_tw.setText(textViewEstado_admin);
+        id_nombreUser_tw.setText(id_nombreUser);
+        id_apellidoUser_tw.setText(id_apellidoUser);
+        id_dniUSer_tw.setText(id_dniUSer);
+        id_correoUser_tw.setText(id_correoUser);
+        id_telefonoUser_tw.setText(id_telefonoUser);
+        id_domicilioUser_tw.setText(id_domicilioUser);
+        textViewEstado_admin_tw.setText(textViewEstado_admin);
 
-            Bundle bundle = intent.getExtras();
-            if (bundle != null && bundle.getString("dataImage") != null) {
-                String imageUrl = bundle.getString("dataImage");
-                Glide.with(this)
-                        .load(imageUrl)
-                        .into(dataImage);
-            }
-        }
+        Bundle bundle = intent.getExtras();
+
+            String imageUrl = bundle.getString("dataImage");
+            Glide.with(this)
+                    .load(imageUrl)
+                    .into(dataImage);
+
+
+
+
 
         editButton_user.setOnClickListener(v -> {
             Intent editIntent = new Intent(Admin_usuario_detalles.this, Admin_usuario_editar.class);
@@ -105,6 +105,7 @@ public class Admin_usuario_detalles extends AppCompatActivity {
             editIntent.putExtra("id_correoUser", id_correoUser_tw.getText().toString());
             editIntent.putExtra("id_telefonoUser", id_telefonoUser_tw.getText().toString());
             editIntent.putExtra("id_domicilioUser", id_domicilioUser_tw.getText().toString());
+            editIntent.putExtra("dataImage", imageUrl);
             startActivity(editIntent);
         });
 
@@ -124,7 +125,7 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         });
         buttonCambiarEstadoActivar_admin.setOnClickListener(v -> {
             // Cambiar el estado del usuario
-            String nuevoEstado = "ACTIVADO";
+            String nuevoEstado = "ACTIVO";
             textViewEstado_admin_tw.setText(nuevoEstado);
             Log.d("Debug", "TextoActivado: " + textViewEstado_admin_tw.getText().toString());
 
@@ -241,7 +242,7 @@ public class Admin_usuario_detalles extends AppCompatActivity {
                             DocumentReference usuarioRef = task.getResult().getDocuments().get(0).getReference();
 
                             // Actualiza el campo `estado` con el nuevo valor
-                            usuarioRef.update("status_admin", "ACTIVADO")
+                            usuarioRef.update("status_admin", "ACTIVO")
                                     .addOnSuccessListener(aVoid -> {
                                         // La actualización fue exitosa
                                         Log.d("Firebase", "Estado actualizado exitosamente.");

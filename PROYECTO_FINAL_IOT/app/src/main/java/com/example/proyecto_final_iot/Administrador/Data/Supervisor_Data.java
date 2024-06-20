@@ -27,6 +27,8 @@ public class Supervisor_Data {
         this.status_admin = status_admin;
     }
 
+
+
     public String getId_nombreUser() {
         return id_nombreUser;
     }

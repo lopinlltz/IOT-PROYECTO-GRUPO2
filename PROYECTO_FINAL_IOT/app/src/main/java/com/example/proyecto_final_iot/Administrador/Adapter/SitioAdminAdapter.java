@@ -66,6 +66,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
     public void onBindViewHolder(@NonNull SitioAdminAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Sitio_Data sitio_data = sitio_dataList.get(position);
         holder.codigo.setText(sitio_data.getId_codigodeSitio());
+        holder.item_NombreSupervisor_admin.setText(sitio_data.getId_departamento());
         idDocumento = sitio_data.getDocumentoID();
 
 
@@ -113,13 +114,14 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
-            TextView codigo;
+            TextView codigo, item_NombreSupervisor_admin;
             ImageButton imageButton_supervisor;
 
             public ViewHolder(@NonNull View itemView) {
                 super(itemView);
                 codigo = itemView.findViewById(R.id.item_CodigoSitio_admin);
                 imageButton_supervisor = itemView.findViewById(R.id.bottom_admin_supervisor);
+                item_NombreSupervisor_admin = itemView.findViewById(R.id.item_NombreSupervisor_admin);
 
             }
 
