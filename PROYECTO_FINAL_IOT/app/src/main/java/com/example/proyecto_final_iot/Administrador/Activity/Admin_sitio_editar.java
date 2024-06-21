@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -17,6 +18,12 @@ import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -25,15 +32,16 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Admin_sitio_editar extends AppCompatActivity {
+public class Admin_sitio_editar extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener{
 
-    EditText id_departamento_et, id_provincia_et, id_distrito_et, id_ubigeo_et, id_tipo_de_zona_et, id_tipo_de_sitio_et, id_latitud_long_et;
-    TextView id_codigodeSitio_tv;
+    EditText id_departamento_et, id_provincia_et, id_distrito_et, id_ubigeo_et, id_tipo_de_zona_et, id_tipo_de_sitio_et;
+    TextView id_codigodeSitio_tv , id_latitud_long_et, id_latitud_latitud_et ;
 
     FirebaseFirestore db;
     FloatingActionButton boton_guardar_sitio;
     FloatingActionButton boton_atras_sitio;
 
+    GoogleMap mMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +57,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
         String id_tipo_de_zona = intent.getStringExtra("id_tipo_de_zona");
         String id_tipo_de_sitio = intent.getStringExtra("id_tipo_de_sitio");
         String id_latitud_long = intent.getStringExtra("id_latitud_long");
+        String id_latitud_latitud = intent.getStringExtra("id_latitud_latitud");
 
         id_codigodeSitio_tv = findViewById(R.id.id_codigodeSitio);
         id_departamento_et = findViewById(R.id.id_departamento);
@@ -58,6 +67,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
         id_tipo_de_zona_et = findViewById(R.id.id_tipoDeZona);
         id_tipo_de_sitio_et = findViewById(R.id.id_tipoDeSitio);
         id_latitud_long_et = findViewById(R.id.id_latitud_long);
+        id_latitud_latitud_et = findViewById(R.id.id_latitud_latitud);
 
         id_codigodeSitio_tv.setText(id_codigodeSitio);
         id_departamento_et.setText(id_departamento);
@@ -67,6 +77,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
         id_tipo_de_zona_et.setText(id_tipo_de_zona);
         id_tipo_de_sitio_et.setText(id_tipo_de_sitio);
         id_latitud_long_et.setText(id_latitud_long);
+        id_latitud_latitud_et.setText(id_latitud_latitud);
 
         boton_atras_sitio = findViewById(R.id.boton_back_sitio);
         boton_atras_sitio.setOnClickListener(new View.OnClickListener() {
@@ -81,6 +92,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
                 intent.putExtra("id_tipo_de_zona", id_tipo_de_zona);
                 intent.putExtra("id_tipo_de_sitio", id_tipo_de_sitio);
                 intent.putExtra("id_latitud_long", id_latitud_long);
+                intent.putExtra("id_latitud_latitud", id_latitud_latitud);
                 v.getContext().startActivity(intent);
                 startActivity(intent);
             }
@@ -97,20 +109,33 @@ public class Admin_sitio_editar extends AppCompatActivity {
                 String nuevaZona = id_tipo_de_zona_et.getText().toString();
                 String nuevaSitio = id_tipo_de_sitio_et.getText().toString();
                 String nuevaLong = id_latitud_long_et.getText().toString();
+                String nuevaLat = id_latitud_latitud_et.getText().toString();
 
-                ConfirmacionPopup(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo,nuevaZona,nuevaSitio, nuevaLong);
+                ConfirmacionPopup(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo,nuevaZona,nuevaSitio, nuevaLong, nuevaLat);
             }
         });
+        // Configurar el fragmento del mapa
+        setupMapFragment();
     }
 
-    private void ConfirmacionPopup(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong) {
+    private void setupMapFragment() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_admin);
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.map_admin, mapFragment)
+                    .commit();
+        }
+        mapFragment.getMapAsync(this);
+    }
+    private void ConfirmacionPopup(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong, String nuevaLat) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                editarSitio(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona, nuevaSitio, nuevaLong);
+                editarSitio(id_codigodeSitio, nuevaDepartamento, nuevoProvincia, nuevaDistrito, nuevaUbigeo, nuevaZona, nuevaSitio, nuevaLong, nuevaLat);
                 guardarHistorial("Editó el sitio: " + id_codigodeSitio, "Samantha", "Administrador");
                 Intent intent = new Intent(Admin_sitio_editar.this, Admin_lista_Sitio.class);
                 startActivity(intent);
@@ -132,7 +157,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
         dialog.show();
     }
 
-    private void editarSitio(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong) {
+    private void editarSitio(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong, String nuevaLat) {
         db.collection("sitio")
                 .whereEqualTo("id_codigodeSitio", id_codigodeSitio)
                 .get()
@@ -148,7 +173,8 @@ public class Admin_sitio_editar extends AppCompatActivity {
                                             "id_ubigeo", nuevaUbigeo,
                                             "id_tipo_de_zona", nuevaZona,
                                             "id_tipo_de_sitio", nuevaSitio,
-                                            "id_latitud_long", nuevaLong)
+                                            "id_latitud_long", nuevaLong,
+                                            "id_latitud_latitud", nuevaLat)
                                     .addOnSuccessListener(aVoid -> {
                                         Log.d("Admin_sitio_editar", "Sitio actualizado con éxito");
 
@@ -163,6 +189,7 @@ public class Admin_sitio_editar extends AppCompatActivity {
                                         id_tipo_de_zona_et.setText(nuevaZona);
                                         id_tipo_de_sitio_et.setText(nuevaSitio);
                                         id_latitud_long_et.setText(nuevaLong);
+                                        id_latitud_latitud_et.setText(nuevaLat);
 
                                         Intent intent = new Intent(Admin_sitio_editar.this, Admin_lista_Sitio.class);
                                         startActivity(intent);
@@ -203,4 +230,44 @@ public class Admin_sitio_editar extends AppCompatActivity {
                     // Error al guardar el historial
                 });
     }
+
+
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Configurar listeners de clic
+        mMap.setOnMapClickListener(this);
+        mMap.setOnMapLongClickListener(this);
+
+        // Establecer la posición inicial del mapa
+        LatLng peru = new LatLng(-11.9867052, -77.0179864);
+        mMap.addMarker(new MarkerOptions().position(peru).title("Perú"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(peru, 10));
+
+        // Configurar la interfaz de usuario del mapa
+        mMap.getUiSettings().setRotateGesturesEnabled(true);
+        mMap.getUiSettings().setZoomControlsEnabled(true);
+    }
+
+    @Override
+    public void onMapClick(@NonNull LatLng latLng) {
+        id_latitud_latitud_et.setText(String.valueOf(latLng.latitude));
+        id_latitud_long_et.setText(String.valueOf(latLng.longitude));
+
+        mMap.clear();
+        LatLng peru = new LatLng(latLng.latitude,latLng.longitude);
+        mMap.addMarker(new MarkerOptions().position(peru).title(""));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(peru));
+    }
+
+    @Override
+    public void onMapLongClick(@NonNull LatLng latLng) {
+        id_latitud_latitud_et.setText(String.valueOf(latLng.latitude));
+        id_latitud_long_et.setText(String.valueOf(latLng.longitude));
+        mMap.clear();
+        LatLng peru = new LatLng(latLng.latitude,latLng.longitude);
+        mMap.addMarker(new MarkerOptions().position(peru).title(""));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(peru));
+    }
+
 }

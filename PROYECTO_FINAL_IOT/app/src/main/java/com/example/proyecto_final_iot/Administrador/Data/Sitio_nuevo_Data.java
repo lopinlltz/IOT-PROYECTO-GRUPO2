@@ -10,6 +10,8 @@ public class Sitio_nuevo_Data {
     private String id_tipo_de_zona;
     private String id_tipo_de_sitio;
     private String id_latitud_long;
+    private String id_latitud_latitud;
+
 
     public String getId_codigodeSitio() {
         return id_codigodeSitio;
@@ -75,5 +77,13 @@ public class Sitio_nuevo_Data {
 
     public void setId_tipo_de_sitio(String id_tipo_de_sitio) {
         this.id_tipo_de_sitio = id_tipo_de_sitio;
+    }
+
+    public String getId_latitud_latitud() {
+        return id_latitud_latitud;
+    }
+
+    public void setId_latitud_latitud(String id_latitud_latitud) {
+        this.id_latitud_latitud = id_latitud_latitud;
     }
 }

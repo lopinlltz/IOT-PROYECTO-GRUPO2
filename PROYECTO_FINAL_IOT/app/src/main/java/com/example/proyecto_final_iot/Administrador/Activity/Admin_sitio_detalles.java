@@ -24,6 +24,12 @@ import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActiv
 import com.example.proyecto_final_iot.databinding.ActivityAdminSitioDetallesBinding;
 import com.github.clans.fab.FloatingActionButton;
 import com.example.proyecto_final_iot.R;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,15 +47,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Admin_sitio_detalles extends AppCompatActivity {
+public class Admin_sitio_detalles extends AppCompatActivity implements OnMapReadyCallback{
 
     FloatingActionButton boton_delete;
     FloatingActionButton boton_edit;
     TextView id_codigodeSitio_tw, id_departamento_tw, id_provincia_tw, id_distrito_tw, id_ubigeo_tw,
-            id_tipo_de_zona_tw, id_tipo_de_sitio_tw, id_latitud_long_tw;
+            id_tipo_de_zona_tw, id_tipo_de_sitio_tw, id_latitud_long_tw,id_latitud_latitud_tw;
 
 
-
+    GoogleMap mMap;
     private DatabaseReference databaseReference;
     FirebaseFirestore db ;
 
@@ -68,6 +74,7 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         id_tipo_de_zona_tw = findViewById(R.id.id_tipoDeZona_det);
         id_tipo_de_sitio_tw = findViewById(R.id.id_tipoDeSitio_det);
         id_latitud_long_tw = findViewById(R.id.id_latitud_long);
+        id_latitud_latitud_tw = findViewById(R.id.id_latitud_latitud);
 
         Intent intent = getIntent();
         String id_codigodeSitio = intent.getStringExtra("id_codigodeSitio");
@@ -78,6 +85,7 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         String id_tipo_de_zona =  intent.getStringExtra("id_tipo_de_zona");
         String id_tipo_de_sitio =  intent.getStringExtra("id_tipo_de_sitio");
         String id_latitud_long =  intent.getStringExtra("id_latitud_long");
+        String id_latitud_latitud =  intent.getStringExtra("id_latitud_latitud");
 
         id_codigodeSitio_tw.setText(id_codigodeSitio);
         id_departamento_tw.setText(id_departamento);
@@ -87,6 +95,7 @@ public class Admin_sitio_detalles extends AppCompatActivity {
         id_tipo_de_zona_tw.setText(id_tipo_de_zona);
         id_tipo_de_sitio_tw.setText(id_tipo_de_sitio);
         id_latitud_long_tw.setText(id_latitud_long);
+        id_latitud_latitud_tw.setText(id_latitud_latitud);
 
 
 
@@ -113,12 +122,24 @@ public class Admin_sitio_detalles extends AppCompatActivity {
                 intent.putExtra("id_tipo_de_zona", id_tipo_de_zona);
                 intent.putExtra("id_tipo_de_sitio", id_tipo_de_sitio);
                 intent.putExtra("id_latitud_long", id_latitud_long);
+                intent.putExtra("id_latitud_latitud", id_latitud_latitud);
+
                 startActivity(intent);
 
             }
         });
     }
 
+    private void setupMapFragment() {
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_admin);
+        if (mapFragment == null) {
+            mapFragment = SupportMapFragment.newInstance();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.map_admin, mapFragment)
+                    .commit();
+        }
+        mapFragment.getMapAsync(this);
+    }
     private void ConfirmacionPopup(String sitioID) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de eliminar el sitio?");
@@ -181,6 +202,19 @@ public class Admin_sitio_detalles extends AppCompatActivity {
                     }*/
                 });
     }
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Establecer la posición inicial del mapa
+        LatLng peru = new LatLng(-11.9867052, -77.0179864);
+        mMap.addMarker(new MarkerOptions().position(peru).title("Perú"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(peru, 10));
+
+
+        // Desactivar gestos para que el usuario no pueda interactuar con el mapa
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+    }
+
 
 
 }

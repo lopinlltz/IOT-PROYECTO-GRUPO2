@@ -12,13 +12,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="150dp"
         android:background="@drawable/edittext_bkg"
         android:orientation="horizontal">
 
 
         <LinearLayout
-            android:layout_width="172dp"
+            android:layout_width="199dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -30,20 +30,43 @@
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="-10dp"
                 android:elevation="3dp"
                 android:padding="8dp"
+                android:textSize="20dp"
                 android:text="Nombre de Sitio "
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/item_NombreSupervisor_admin"
-                android:layout_width="130dp"
+                android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="0dp"
-                android:layout_marginTop="0dp"
+                android:layout_marginStart="2dp"
                 android:elevation="3dp"
                 android:padding="3dp"
                 android:text="NameSupervisor " />
+
+            <TextView
+                android:id="@+id/item_Latitud_admin"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="2dp"
+                android:elevation="3dp"
+                android:padding="3dp"
+                android:text="Latitud " />
+
+            <TextView
+                android:id="@+id/item_Longitud_admin"
+                android:layout_width="178dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="2dp"
+                android:elevation="3dp"
+                android:padding="3dp"
+                android:text="Longitud " />
+
 
         </LinearLayout>
 
@@ -57,7 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="0dp"
                 android:elevation="3dp"
                 android:padding="8dp"
                 android:background="@drawable/edittext_bkg"
@@ -71,14 +94,14 @@
                 android:layout_marginStart="10dp"
                 android:elevation="3dp"
                 android:padding="8dp"
-                android:layout_marginTop="-40dp"
+                android:layout_marginTop="-50dp"
                 android:text="Supervisor " />
             <TextView
                 android:id="@+id/item_Sup_admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginStart="-80dp"
+                android:layout_marginStart="-90dp"
                 android:elevation="3dp"
                 android:padding="8dp"
                 android:layout_marginTop="30dp"
@@ -88,8 +111,8 @@
                 android:id="@+id/bottom_admin_supervisor"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="-60dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginStart="-70dp"
                 android:background="@drawable/edittext_bkg"
                 android:src="@drawable/baseline_person_24" />
 

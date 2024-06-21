@@ -9,6 +9,7 @@ public class Sitio_Data {
     private String id_tipo_de_zona;
     private String id_tipo_de_sitio;
     private String id_latitud_long;
+    private String id_latitud_latitud;
     private String documentoID;
 
     public String getId_codigodeSitio() {
@@ -49,5 +50,9 @@ public class Sitio_Data {
 
     public void setDocumentoID(String documentoID) {
         this.documentoID = documentoID;
+    }
+
+    public String getId_latitud_latitud() {
+        return id_latitud_latitud;
     }
 }

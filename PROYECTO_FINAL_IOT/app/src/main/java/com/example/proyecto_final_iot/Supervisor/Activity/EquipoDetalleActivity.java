@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -42,6 +44,7 @@ import java.io.IOException;
 public class EquipoDetalleActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
+    private ImageView qrCodeImageView;
     TextView textViewSku;
     TextView textViewNroSerie;
     TextView textViewMarca;
@@ -53,8 +56,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     Button buttonEditarEq;
     FirebaseFirestore db;
     ImageView dataImage_equipo;
-    //ImageView qrCodeImageView;
-    //Button saveQRCodeButton;
+
+    private static final String TAG = "EquipoDetalleActivity";
     Uri imageUri;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,15 +75,6 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         String fecha =  intent.getStringExtra("fecha");
 
 
-        /*String qrCodeBase64 = intent.getStringExtra("qrCodeBase64");
-        Log.d("QR_CODE_DEBUG", "QR Code recibido: " + qrCodeBase64);
-
-        if (qrCodeBase64 != null) {
-            Log.d("EquipoDetalleActivity", "QR Code recibido: " + qrCodeBase64);
-        } else {
-            Log.e("EquipoDetalleActivity", "No se recibió el QR Code");
-        }*/
-
 
         FirebaseApp.initializeApp(this);
 
@@ -92,9 +86,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion = findViewById(R.id.textViewDescripcion);
         textViewFecha = findViewById(R.id.textViewFecha);
         dataImage_equipo = findViewById(R.id.imagen_equipo_super);
-
-        //qrCodeImageView = findViewById(R.id.qr_code_image);
-        //saveQRCodeButton = findViewById(R.id.save_qr_code_button);
+        qrCodeImageView = findViewById(R.id.qr_code_image);
 
         textViewNombreEquipo.setText(sku);
         textViewSku.setText(sku);
@@ -103,19 +95,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewModelo.setText(modelo);
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
-/*
-        Bundle bundle = getIntent().getExtras();
-        String imageUrlEquipo = bundle.getString("dataImage_equipos");
-        if (bundle != null) {
-            dataImage_equipos.setImageURI(Uri.parse(bundle.getString("dataImage_equipos")));
-            if (bundle != null && bundle.getString("dataImage_equipos") != null) {
-                String imageUrlequipo = bundle.getString("dataImage_equipos");
-                Glide.with(this)
-                        .load(imageUrlequipo)
-                        .into(dataImage_equipos);
-            }
 
-        }*/
+        loadQRCode(sku);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -154,77 +135,70 @@ public class EquipoDetalleActivity extends AppCompatActivity {
             }
         });
 
-
-
-        /*
-        if (qrCodeBase64 != null) {
-            Bitmap qrCodeBitmap = base64ToBitmap(qrCodeBase64);
-            qrCodeImage.setImageBitmap(qrCodeBitmap);
-            qrCodeImage.setVisibility(View.VISIBLE);
-            saveQRCodeButton.setVisibility(View.VISIBLE);
-        }
-
-        saveQRCodeButton.setOnClickListener(v -> {
-            Bitmap qrCodeBitmap = ((BitmapDrawable) qrCodeImage.getDrawable()).getBitmap();
-            if (saveQRCodeToStorage(qrCodeBitmap)) {
-                Toast.makeText(EquipoDetalleActivity.this, "QR Code guardado", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(EquipoDetalleActivity.this, "Error al guardar QR Code", Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
-        /*
-        // Mostrar QR code
-        //&& !qrCodeBase64.isEmpty()
-        if (qrCodeBase64 != null ) {
-            byte[] decodedString = Base64.decode(qrCodeBase64, Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            qrCodeImageView.setImageBitmap(decodedByte);
-            qrCodeImageView.setVisibility(View.VISIBLE);
-            saveQRCodeButton.setVisibility(View.VISIBLE);
-
-            String qrContent = new String(decodedString);
-            Log.d("QR_Content", "Contenido del QR: " + qrContent);
-            //Toast.makeText(this, "Contenido del QR: " + qrContent, Toast.LENGTH_LONG).show();
-        } else {
-            Log.e("EquipoDetalleActivity", "No se recibió el QR Code");
-            Toast.makeText(this, "Error: No se recibió el QR Code", Toast.LENGTH_SHORT).show();
-            /*Bitmap decodedBitmap = null;
-            try {
-                byte[] decodedBytes = Base64.decode(qrCodeBase64, Base64.DEFAULT);
-                decodedBitmap = BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-            } catch (IllegalArgumentException e) {
-                Log.e("EquipoDetalleActivity", "Error al decodificar la cadena Base64: " + e.getMessage());
-            }
-
-            if (decodedBitmap != null) {
-                qrCodeImageView.setImageBitmap(decodedBitmap);
-                qrCodeImageView.setVisibility(View.VISIBLE);
-                saveQRCodeButton.setVisibility(View.VISIBLE);
-            } else {
-
-                Log.e("EquipoDetalleActivity", "El Bitmap decodificado del QR Code es nulo");
-                Toast.makeText(this, "Error: No se pudo decodificar el QR Code", Toast.LENGTH_SHORT).show();
-            }
-        }
-
-        saveQRCodeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                boolean hasPermission = (ContextCompat.checkSelfPermission(EquipoDetalleActivity.this,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-                if (!hasPermission) {
-                    ActivityCompat.requestPermissions(EquipoDetalleActivity.this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                            REQUEST_WRITE_STORAGE);
-                } else {
-                    saveQrCodeToFile();
-                }
-            }
-        });*/
+        Button buttonVerQR = findViewById(R.id.buttonVerQR);
+        buttonVerQR.setOnClickListener(v -> verQRCode());
 
     }
+
+    //TODO ESTO ES PARA QR
+    private void loadQRCode(String sku) {
+        db.collection("equipo").whereEqualTo("sku", sku).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String qrCodeUrl = document.getString("qrCodeUrl");
+                    if (qrCodeUrl != null && !qrCodeUrl.isEmpty()) {
+                        Log.d(TAG, "QR Code URL found: " + qrCodeUrl);
+                        //Picasso.get().load(qrCodeUrl).into(qrCodeImageView);
+                        Picasso.get().load(qrCodeUrl).into(qrCodeImageView, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                Log.d(TAG, "QR Code loaded successfully.");
+                            }
+
+                            @Override
+                            public void onError(Exception e) {
+                                Log.e(TAG, "Error loading QR Code", e);
+                            }
+                        });
+                    } else {
+                        Log.w(TAG, "No QR Code URL found for SKU: " + sku);
+                    }
+                }
+            } else {
+                Log.e(TAG, "Error getting documents: ", task.getException());
+                Toast.makeText(EquipoDetalleActivity.this, "Error al cargar el código QR", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void verQRCode() {
+        Bitmap bitmap = ((BitmapDrawable) qrCodeImageView.getDrawable()).getBitmap();
+        String qrFilePath = saveQRToFile(bitmap);
+        Intent intent = new Intent(this, QRCodePreviewActivity.class);
+        //intent.putExtra("qr_bitmap", bitmap);
+        intent.putExtra("qr_file_path", qrFilePath);
+        startActivity(intent);
+    }
+    //new ga
+    private String saveQRToFile(Bitmap bitmap) {
+        String fileName = "QRCode_" + System.currentTimeMillis() + ".png";
+        File qrDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "QR_Codes");
+        if (!qrDir.exists() && !qrDir.mkdirs()) {
+            Toast.makeText(this, "No se pudo crear el directorio para guardar el QR", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+
+        File qrFile = new File(qrDir, fileName);
+        try (FileOutputStream out = new FileOutputStream(qrFile)) {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+            return qrFile.getAbsolutePath();
+        } catch (IOException e) {
+            Log.e("SitioDetalleActivity", "Error al guardar el QR", e);
+            Toast.makeText(this, "Error al guardar el QR", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+    //HASTA AQUI
 
     private void ConfirmacionPopup(String equipoId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

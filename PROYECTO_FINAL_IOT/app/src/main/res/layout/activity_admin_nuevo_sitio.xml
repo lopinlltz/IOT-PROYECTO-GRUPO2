@@ -3,6 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -31,6 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="Nuevo Sitio"
                 android:textAlignment="center"
+                android:layout_marginTop="-5dp"
                 android:textColor="@color/color_admin"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -39,7 +41,7 @@
                 android:id="@+id/id_codigodeSitio"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="0dp"
                 android:background="@drawable/list_morado_border"
                 android:elegantTextHeight="false"
                 android:gravity="start|center_vertical"
@@ -53,7 +55,7 @@
                 android:id="@+id/id_departamento"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/list_morado_border"
                 android:gravity="start|center_vertical"
                 android:hint="Departamento"
@@ -65,7 +67,7 @@
                 android:id="@+id/id_provincia"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
                 android:hint="Provincia"
@@ -77,7 +79,7 @@
                 android:id="@+id/id_distrito"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
                 android:hint="Distrito"
@@ -89,7 +91,7 @@
                 android:id="@+id/id_ubigeo"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
                 android:hint="Ubigeo"
@@ -100,7 +102,7 @@
                 android:id="@+id/id_tipoDeZona"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
                 android:hint="Tipo de Zona (Urbana o Rural)"
@@ -112,7 +114,7 @@
                 android:id="@+id/id_tipoDeSitio"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
                 android:hint="Tipo de Sitio (Movil o Fijo)"
@@ -121,44 +123,45 @@
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/id_latitud_long"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="10dp"
+                android:id="@+id/id_latitud_latitud"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="9dp"
                 android:background="@drawable/edittext_bkg"
                 android:gravity="start|center_vertical"
-                android:hint="Latitud, Longitud"
+                android:hint="Latitud"
                 android:padding="10dp"
                 android:textColor="@color/color_admin"
                 android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/id_latitud_long"
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="-50dp"
+                android:layout_marginStart="160dp"
+                android:background="@drawable/edittext_bkg"
+                android:gravity="start|center_vertical"
+                android:hint="Longitud"
+                android:padding="10dp"
+                android:textColor="@color/color_admin"
+                android:textSize="16sp" />
+
+
             <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="200dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="0dp"
-                android:src="@drawable/image_mapa" />
-
-            <Button
-                android:id="@+id/obtener_geolocalizacion"
-                android:layout_width="115dp"
-                android:layout_height="35dp"
-                android:background="#2060CC"
-                android:textColor="@color/white"
-                android:layout_marginStart="190dp"
-                android:layout_marginTop="-100dp"
-                android:text="Get Location"
-                />
-
-            <Button
                 android:id="@+id/Guardar_new_sitio"
-                android:layout_width="115dp"
-                android:layout_height="35dp"
-                android:layout_marginStart="190dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/circular_borde_morado_admin"
-                android:text="Guardar" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="-489dp"
+                android:layout_marginHorizontal="265dp"
+                app:srcCompat="@drawable/baseline_save_24_admin" />
+
+            <FrameLayout
+                android:id="@+id/map_admin"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginTop="470dp"
+                />
 
 
         </LinearLayout>

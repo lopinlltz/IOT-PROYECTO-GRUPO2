@@ -67,6 +67,8 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
         Sitio_Data sitio_data = sitio_dataList.get(position);
         holder.codigo.setText(sitio_data.getId_codigodeSitio());
         holder.item_NombreSupervisor_admin.setText(sitio_data.getId_departamento());
+        holder.item_Latitud_admin.setText(sitio_data.getId_latitud_latitud());
+        holder.item_Longitud_admin.setText(sitio_data.getId_latitud_long());
         idDocumento = sitio_data.getDocumentoID();
 
 
@@ -96,6 +98,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
                 intent.putExtra("id_tipo_de_sitio", sitio_data.getId_tipo_de_sitio());
                 Log.d("msg-pruebaID",sitio_data.getId_tipo_de_sitio());
                 intent.putExtra("id_latitud_long",sitio_data.getId_latitud_long());
+                intent.putExtra("id_latitud_latitud",sitio_data.getId_latitud_latitud());
                 intent.putExtra("documentoID",sitio_data.getDocumentoID());
 
                 v.getContext().startActivity(intent);
@@ -114,7 +117,7 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
         }
 
         public static class ViewHolder extends RecyclerView.ViewHolder {
-            TextView codigo, item_NombreSupervisor_admin;
+            TextView codigo, item_NombreSupervisor_admin, item_Latitud_admin, item_Longitud_admin;
             ImageButton imageButton_supervisor;
 
             public ViewHolder(@NonNull View itemView) {
@@ -122,6 +125,8 @@ public class SitioAdminAdapter extends RecyclerView.Adapter<SitioAdminAdapter.Vi
                 codigo = itemView.findViewById(R.id.item_CodigoSitio_admin);
                 imageButton_supervisor = itemView.findViewById(R.id.bottom_admin_supervisor);
                 item_NombreSupervisor_admin = itemView.findViewById(R.id.item_NombreSupervisor_admin);
+                item_Latitud_admin = itemView.findViewById(R.id.item_Latitud_admin);
+                item_Longitud_admin = itemView.findViewById(R.id.item_Longitud_admin);
 
             }
 
