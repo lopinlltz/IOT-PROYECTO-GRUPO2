@@ -65,11 +65,11 @@ public class EquiposSupervisorActivity extends AppCompatActivity {
             }
         });
 
+        //para abrir boton de buscar qr
         qrSearchButton = findViewById(R.id.qr_search_button);
         qrSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar la actividad de escaneo de QR
                 Intent intent = new Intent(EquiposSupervisorActivity.this, QRScannerActivity.class);
                 startActivityForResult(intent, REQUEST_CODE_QR_SCAN);
             }

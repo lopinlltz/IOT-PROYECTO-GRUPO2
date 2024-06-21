@@ -8,7 +8,7 @@ public class Equipo {
     private String modelo;
     private  String descripcion;
     private String fechaRegistro;
-    private String qrCode;
+    private String qrCodeUrl;
     private String id_codigodeSitio;
     private String dataImage_equipo;
 
@@ -67,12 +67,12 @@ public class Equipo {
         this.fechaRegistro = fechaRegistro;
     }
 
-    public String getQrCode() {
-        return qrCode;
+    public String getQrCodeUrl() {
+        return qrCodeUrl;
     }
 
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
+    public void setQrCodeUrl(String qrCodeUrl) {
+        this.qrCodeUrl = qrCodeUrl;
     }
 
     public String getDataImage_equipo() {

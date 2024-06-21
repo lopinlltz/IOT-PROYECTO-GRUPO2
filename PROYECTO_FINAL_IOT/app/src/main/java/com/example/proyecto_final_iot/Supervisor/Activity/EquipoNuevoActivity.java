@@ -38,6 +38,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.zxing.BarcodeFormat;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 
 import java.io.ByteArrayOutputStream;
@@ -50,6 +52,7 @@ import java.util.UUID;
 
 public class EquipoNuevoActivity extends AppCompatActivity {
 
+    private static final String TAG = "EquipoNuevoActivity";
     private ConstraintLayout atras;
     private ConstraintLayout Guardar;
 
@@ -237,17 +240,30 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                                                 if (imagenURL_equipo != null) {
                                                     equipo.setDataImage_equipo(imagenURL_equipo);
                                                     Log.e("imagendetalle", imagenURL_equipo);
-                                                    db.collection("equipo")
-                                                            .add(equipo)
-                                                            .addOnSuccessListener(unused -> {
-                                                                guardarHistorial();
-                                                                Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
-                                                                Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
-                                                                startActivity(intent);
-                                                            })
-                                                            .addOnFailureListener(e -> {
-                                                                Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
-                                                            });
+
+                                                    //PARA QR
+                                                    try {
+                                                        Log.d(TAG, "Generando código QR para SKU: " + skuString);
+                                                        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                                                        Bitmap bitmap = barcodeEncoder.encodeBitmap("SKU:" + skuString, BarcodeFormat.QR_CODE, 500, 500);
+
+                                                        if (bitmap != null) {
+                                                            Log.d(TAG, "Código QR generado correctamente");
+                                                            saveQRCodeToFirebase(bitmap, skuString, equipo);
+                                                            //Log.d("CrearEquipo", "QR Code generado correctamente");
+
+
+                                                        } else {
+                                                            Log.e(TAG, "Error al generar el código QR");
+                                                        }
+
+                                                    } catch (Exception e) {
+                                                        //e.printStackTrace();
+                                                        Log.e(TAG, "Excepción al generar el código QR", e);
+                                                    }
+
+
+
                                                 } else {
                                                     Log.e("imagendetalle", "URL de la imagen es null");
                                                 }
@@ -296,18 +312,44 @@ public class EquipoNuevoActivity extends AppCompatActivity {
 
     }
 
-/*
-    private Bitmap generateQRCode(String content) {
-        BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
-        try {
-            BitMatrix bitMatrix = barcodeEncoder.encode(content, BarcodeFormat.QR_CODE, 400, 400);
-            return barcodeEncoder.createBitmap(bitMatrix);
-        } catch (WriterException e) {
-            Log.e("GenerateQRCode", "Error al generar el QR code: " + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }*/
+    //PARA GUARDAR QR
+    private void saveQRCodeToFirebase(Bitmap bitmap, String sku, Equipo equipo) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        StorageReference qrCodeRef = FirebaseStorage.getInstance().getReference("qrcodes").child(sku + ".png");
+        UploadTask uploadTask = qrCodeRef.putBytes(data);
+
+        uploadTask.addOnSuccessListener(taskSnapshot -> {
+            Log.d(TAG, "QR Code subido a Firebase Storage");
+            qrCodeRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                String qrCodeUrl = uri.toString();
+                equipo.setQrCodeUrl(qrCodeUrl);
+                Log.d(TAG, "URL del QR Code obtenida: " + qrCodeUrl);
+
+                db.collection("equipo")
+                        .add(equipo)
+                        .addOnSuccessListener(unused -> {
+                            Log.d(TAG, "Equipo creado correctamente en Firestore");
+                            guardarHistorial();
+                            Toast.makeText(EquipoNuevoActivity.this, "Equipo creado correctamente", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(EquipoNuevoActivity.this, EquiposSupervisorActivity.class);
+                            startActivity(intent);
+                        })
+                        .addOnFailureListener(e -> {
+                            Log.e(TAG, "Error al crear el equipo en Firestore", e);
+                            Toast.makeText(EquipoNuevoActivity.this, "No se creó el equipo", Toast.LENGTH_SHORT).show();
+                        });
+            }).addOnFailureListener(e -> {
+                Log.e(TAG, "Error al obtener la URL del QR Code", e);
+                Toast.makeText(EquipoNuevoActivity.this, "Error al obtener la URL del QR Code", Toast.LENGTH_SHORT).show();
+            });
+        }).addOnFailureListener(e -> {
+            Log.e(TAG, "Error al subir el QR Code a Firebase Storage", e);
+            Toast.makeText(EquipoNuevoActivity.this, "Error al subir el código QR", Toast.LENGTH_SHORT).show();
+        });
+    }
 
     private String bitmapToBase64(Bitmap bitmap) {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
