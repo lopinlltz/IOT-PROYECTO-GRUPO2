@@ -11,6 +11,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -74,9 +76,24 @@ public class Admin_nuevo_sitio extends AppCompatActivity implements OnMapReadyCa
 
         // Configurar el fragmento del mapa
         setupMapFragment();
+        // Agregar TextWatcher para el campo de texto del departamento
+        binding_new_sitio.idDepartamento.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String departamento = s.toString();
+                if (!departamento.isEmpty()) {
+                    centerMapOnDepartamento(departamento);
+                }
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
+
 
     private void setupMapFragment() {
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_admin);
@@ -87,6 +104,25 @@ public class Admin_nuevo_sitio extends AppCompatActivity implements OnMapReadyCa
                     .commit();
         }
         mapFragment.getMapAsync(this);
+    }
+
+    private void centerMapOnDepartamento(String departamento) {
+        Geocoder geocoder = new Geocoder(this);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(departamento, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                txtLatitud.setText(String.valueOf(address.getLatitude()));
+                txtLongitud.setText(String.valueOf(address.getLongitude()));
+            } else {
+                Toast.makeText(this, "Departamento no encontrado", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al buscar el departamento", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

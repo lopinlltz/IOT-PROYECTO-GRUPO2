@@ -3,7 +3,11 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -27,9 +31,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Admin_sitio_editar extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener{
@@ -116,6 +122,21 @@ public class Admin_sitio_editar extends AppCompatActivity implements OnMapReadyC
         });
         // Configurar el fragmento del mapa
         setupMapFragment();
+        id_departamento_et.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String departamento = s.toString();
+                if (!departamento.isEmpty()) {
+                    centerMapOnDepartamento(departamento);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     private void setupMapFragment() {
@@ -128,6 +149,27 @@ public class Admin_sitio_editar extends AppCompatActivity implements OnMapReadyC
         }
         mapFragment.getMapAsync(this);
     }
+
+    private void centerMapOnDepartamento(String departamento) {
+        Geocoder geocoder = new Geocoder(this);
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(departamento, 1);
+            if (addresses != null && !addresses.isEmpty()) {
+                Address address = addresses.get(0);
+                LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                id_latitud_latitud_et.setText(String.valueOf(address.getLatitude()));
+                id_latitud_long_et.setText(String.valueOf(address.getLongitude()));
+            } else {
+                Toast.makeText(this, "Departamento no encontrado", Toast.LENGTH_SHORT).show();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error al buscar el departamento", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
     private void ConfirmacionPopup(String id_codigodeSitio, String nuevaDepartamento, String nuevoProvincia, String nuevaDistrito, String nuevaUbigeo, String nuevaZona, String nuevaSitio, String nuevaLong, String nuevaLat) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
@@ -239,10 +281,14 @@ public class Admin_sitio_editar extends AppCompatActivity implements OnMapReadyC
         mMap.setOnMapClickListener(this);
         mMap.setOnMapLongClickListener(this);
 
-        // Establecer la posición inicial del mapa
-        LatLng peru = new LatLng(-11.9867052, -77.0179864);
-        mMap.addMarker(new MarkerOptions().position(peru).title("Perú"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(peru, 10));
+        // Convert the coordinates from TextView to double
+        double latitud = Double.parseDouble(id_latitud_latitud_et.getText().toString());
+        double longitud = Double.parseDouble(id_latitud_long_et.getText().toString());
+
+        // Centrar el mapa en las coordenadas del sitio
+        LatLng sitioLocation = new LatLng(latitud, longitud);
+        mMap.addMarker(new MarkerOptions().position(sitioLocation).title("Ubicación del Sitio"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sitioLocation, 15));
 
         // Configurar la interfaz de usuario del mapa
         mMap.getUiSettings().setRotateGesturesEnabled(true);

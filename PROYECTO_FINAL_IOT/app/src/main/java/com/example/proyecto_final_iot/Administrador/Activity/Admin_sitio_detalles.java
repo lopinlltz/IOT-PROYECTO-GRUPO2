@@ -128,6 +128,9 @@ public class Admin_sitio_detalles extends AppCompatActivity implements OnMapRead
 
             }
         });
+
+        // Configurar el fragmento del mapa
+        setupMapFragment();
     }
 
     private void setupMapFragment() {
@@ -205,16 +208,27 @@ public class Admin_sitio_detalles extends AppCompatActivity implements OnMapRead
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Establecer la posición inicial del mapa
-        LatLng peru = new LatLng(-11.9867052, -77.0179864);
-        mMap.addMarker(new MarkerOptions().position(peru).title("Perú"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(peru, 10));
 
+        // Convert the coordinates from TextView to double
+        double latitud = Double.parseDouble(id_latitud_latitud_tw.getText().toString());
+        double longitud = Double.parseDouble(id_latitud_long_tw.getText().toString());
+
+        // Centrar el mapa en las coordenadas del sitio
+        LatLng sitioLocation = new LatLng(latitud, longitud);
+        mMap.addMarker(new MarkerOptions().position(sitioLocation).title("Ubicación del Sitio"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sitioLocation, 15));
 
         // Desactivar gestos para que el usuario no pueda interactuar con el mapa
         mMap.getUiSettings().setAllGesturesEnabled(false);
     }
 
+    public void onMapClick(@NonNull LatLng latLng) {
+
+    }
+
+
+    public void onMapLongClick(@NonNull LatLng latLng) {
+    }
 
 
 }
