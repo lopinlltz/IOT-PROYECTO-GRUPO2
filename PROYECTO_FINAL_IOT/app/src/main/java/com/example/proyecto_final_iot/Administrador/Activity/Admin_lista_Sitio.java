@@ -1,10 +1,13 @@
 package com.example.proyecto_final_iot.Administrador.Activity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,6 +16,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
+import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioSelectAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.R;
@@ -39,9 +43,11 @@ public class Admin_lista_Sitio extends AppCompatActivity{
     private SearchView searchView_sitio;
     List<Sitio_Data> data_List = new ArrayList<>();
     List<Supervisor_Data> supervisor_SelectdataList = new ArrayList<>();
+
     FirebaseFirestore firestore_lista;
-
-
+    String selectedSupervisorId ;
+    String siteId;
+    private String selectedSupervisorName;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -66,11 +72,16 @@ public class Admin_lista_Sitio extends AppCompatActivity{
 
 //--------------Firestore--------------
         firestore_lista = FirebaseFirestore.getInstance();
+
         data_List = new ArrayList<>();
+        supervisor_SelectdataList = new ArrayList<>();
+
+
         recyclerView = findViewById(R.id.recyclerView_lista_sitios);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new SitioAdminAdapter(data_List);
+        adapter = new SitioAdminAdapter(data_List, supervisor_SelectdataList,selectedSupervisorName);
         recyclerView.setAdapter(adapter);
+
 
         fab = findViewById(R.id.fab_user);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -103,17 +114,30 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         adapter.setOnItemClickListener(new SitioAdminAdapter.OnItemClickListener() {
             @Override
             public void onReportButtonClick(int position) {
+                Sitio_Data sitioData = data_List.get(position);
                 Intent intent = new Intent(Admin_lista_Sitio.this, Admin_select_supervisor.class);
-                startActivity(intent);
+                intent.putExtra("siteId", sitioData.getId_codigodeSitio());
+                startActivityForResult(intent, 1);
             }
         });
 
-                /*cargar datos de la Firebase a recycler*/
-                CargarDatos_lista_sitio();
-
+        CargarDatos_lista_sitio();
 
 
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            String siteId = data.getStringExtra("siteId");
+            String supervisorName = data.getStringExtra("selectedSupervisorId");  // Make sure this is the supervisor name
+            Log.e("siteId onActivityResult", siteId);
+            Log.e("supervisorName onActivityResult", supervisorName);
+            adapter.updateSupervisor(siteId, supervisorName);  // Update supervisor in the adapter
+        }
+    }
+
+
 
     private void CargarDatos_lista_sitio() {
         data_List.clear();
@@ -125,16 +149,22 @@ public class Admin_lista_Sitio extends AppCompatActivity{
                         return;
                     }
                     for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()){
-
                         if (dc.getType() == DocumentChange.Type.ADDED){
-                            data_List.add(dc.getDocument().toObject(Sitio_Data.class));
+                            Sitio_Data sitioData = dc.getDocument().toObject(Sitio_Data.class);
+                            // Verificar si este es el sitio que coincide con siteId
+                            if (sitioData.getId_codigodeSitio().equals(siteId)) {
+                                // Asignar el supervisor seleccionado a este sitio
+                                sitioData.setSupervisorName(selectedSupervisorId);
+                            }
+                            data_List.add(sitioData);
                         }
-
-                        adapter.notifyDataSetChanged();
                     }
 
+                        adapter.notifyDataSetChanged();
+
+
                 });
-    }
+}
 
     private void filterList_sitio(String text_sitio) {
         List<Sitio_Data> filteredList_sitio = new ArrayList<>();
@@ -150,7 +180,6 @@ public class Admin_lista_Sitio extends AppCompatActivity{
         }else{
             adapter.setFilteredList_sitio(filteredList_sitio);
         }
-
-
     }
+
 }

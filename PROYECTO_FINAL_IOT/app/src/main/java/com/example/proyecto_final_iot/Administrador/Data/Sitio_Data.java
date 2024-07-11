@@ -11,6 +11,9 @@ public class Sitio_Data {
     private String id_latitud_long;
     private String id_latitud_latitud;
     private String documentoID;
+    private String supervisorName;
+
+
 
     public String getId_codigodeSitio() {
         return id_codigodeSitio;
@@ -54,5 +57,14 @@ public class Sitio_Data {
 
     public String getId_latitud_latitud() {
         return id_latitud_latitud;
+    }
+
+
+    public String getSupervisorName() {
+        return supervisorName;
+    }
+
+    public void setSupervisorName(String supervisorName) {
+        this.supervisorName = supervisorName;
     }
 }

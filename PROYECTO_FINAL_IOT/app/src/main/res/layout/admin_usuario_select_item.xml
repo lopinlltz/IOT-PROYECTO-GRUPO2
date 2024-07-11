@@ -39,18 +39,17 @@
                 android:layout_gravity="center"
                 android:layout_alignParentBottom="true"/>
 
-
         <LinearLayout
             android:layout_width="63dp"
             android:layout_height="match_parent"
             android:layout_marginStart="80dp"
             android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/check_box"
+            <ImageView
+                android:id="@+id/check_super_select"
                 android:layout_width="30dp"
                 android:layout_height="match_parent"
-                android:src="@drawable/baseline_check_24" />
+                android:src="@drawable/ic_tick_point" />
         </LinearLayout>
 
     </LinearLayout>

@@ -1,6 +1,8 @@
 package com.example.proyecto_final_iot.Administrador.Data;
 
-public class Supervisor_Data {
+import java.io.Serializable;
+
+public class Supervisor_Data implements Serializable {
     private String id_nombreUser;
     private String id_apellidoUser;
     private String id_dniUSer;
@@ -9,7 +11,15 @@ public class Supervisor_Data {
     private String id_domicilioUser;
     private String dataImage;
     private String status_admin;
+    private boolean isChecked = false;
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public Supervisor_Data(String idNombreUser, String imageUrl) {
     }

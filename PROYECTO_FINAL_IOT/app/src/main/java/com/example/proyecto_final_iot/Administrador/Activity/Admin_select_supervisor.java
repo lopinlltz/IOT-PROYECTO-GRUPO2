@@ -1,6 +1,11 @@
 package com.example.proyecto_final_iot.Administrador.Activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,24 +28,50 @@ public class Admin_select_supervisor extends AppCompatActivity implements Serial
 
     private UsuarioSelectAdapter adapter;
     private RecyclerView recyclerView;
-    List<Supervisor_Data> data_List_select_user = new ArrayList<>();
+    List<Supervisor_Data> supervisorList  = new ArrayList<>();
     FirebaseFirestore firestore_lista_select_usuario;
+    Button btn;
+    private String siteId;
 
-    private boolean isChecked = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_select_usuario);
 
+        btn = findViewById(R.id.sumit);
 
         //--------------Firestore--------------
         firestore_lista_select_usuario = FirebaseFirestore.getInstance();
-        data_List_select_user = new ArrayList<>();
+        supervisorList  = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView_lista_select_supervisor);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new UsuarioSelectAdapter(data_List_select_user);
+        adapter = new UsuarioSelectAdapter(this, supervisorList );
         recyclerView.setAdapter(adapter);
+
+        // Obtener el ID del sitio desde el Intent
+        siteId = getIntent().getStringExtra("siteId");
+        Log.e("siteId onCreate", siteId);  // Log the siteId onCreate
+
+        // Botón para obtener el supervisor seleccionado
+        btn = findViewById(R.id.sumit);
+        btn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Supervisor_Data selectedSupervisor = adapter.getSelected();
+                if (selectedSupervisor != null) {
+                    Intent intent = new Intent();
+                    intent.putExtra("siteId", siteId);  // Site ID del sitio que estás editando
+                    intent.putExtra("selectedSupervisorId", selectedSupervisor.getId_nombreUser());  // ID del supervisor seleccionado
+                    intent.putExtra("selectedSupervisorName", selectedSupervisor.getId_nombreUser());  // Nombre del supervisor seleccionado
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                } else {
+                    Toast.makeText(Admin_select_supervisor.this, "No seleccionaste un Supervisor", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
 
 
@@ -51,7 +82,7 @@ public class Admin_select_supervisor extends AppCompatActivity implements Serial
     }
 
     private void CargarDatos_lista_usuario() {
-        data_List_select_user.clear();
+        supervisorList .clear();
         firestore_lista_select_usuario.collection("supervisorAdmin")
                 .addSnapshotListener((value, error) -> {
 
@@ -62,7 +93,7 @@ public class Admin_select_supervisor extends AppCompatActivity implements Serial
                     for (DocumentChange dc : Objects.requireNonNull(value).getDocumentChanges()){
 
                         if (dc.getType() == DocumentChange.Type.ADDED){
-                            data_List_select_user.add(dc.getDocument().toObject(Supervisor_Data.class));
+                            supervisorList .add(dc.getDocument().toObject(Supervisor_Data.class));
                         }
 
                         adapter.notifyDataSetChanged();
@@ -72,7 +103,18 @@ public class Admin_select_supervisor extends AppCompatActivity implements Serial
 
     }
 
-    public void onQuantityChange(List<String> supervisor_List) {
-            Toast.makeText(this, "Seleccionaste este Supervisor " , Toast.LENGTH_SHORT).show();
+    private void ShowToast(String mng){
+        Toast.makeText(this, mng , Toast.LENGTH_SHORT).show();
+    }
+    private void CreateList(){
+        supervisorList  = new ArrayList<>();
+        for (int i=0 ; i<20 ; i++ ){
+            Supervisor_Data supervisorData = new Supervisor_Data();
+            supervisorData.setId_nombreUser("Superrrr" + (i+1));
+            supervisorList .add(supervisorData);
+
         }
+        adapter.SetSupervisor(supervisorList );
+    }
+
 }
