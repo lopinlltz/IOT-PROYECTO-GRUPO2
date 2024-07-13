@@ -92,29 +92,32 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="0dp"
                 android:elevation="3dp"
                 android:padding="8dp"
-                android:layout_marginTop="-50dp"
-                android:text="Supervisor " />
-            <TextView
-                android:id="@+id/item_Sup_admin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="-100dp"
-                android:elevation="3dp"
-                android:padding="8dp"
-                android:layout_marginTop="50dp"
-                android:text="Supervisor " />
+                android:text="Supervisor:" />
 
             <ImageButton
                 android:id="@+id/bottom_admin_supervisor"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginStart="-40dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/edittext_bkg"
+                android:layout_marginStart="-80dp"
+                android:layout_marginTop="20dp"
+                android:background="#9E9B9B"
                 android:src="@drawable/baseline_person_24" />
+
+            <TextView
+                android:id="@+id/item_Sup_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-55dp"
+                android:layout_marginTop="50dp"
+                android:elevation="3dp"
+                android:padding="8dp"
+                android:text="Supervisor "
+                android:textStyle="italic" />
+
 
 
         </LinearLayout>

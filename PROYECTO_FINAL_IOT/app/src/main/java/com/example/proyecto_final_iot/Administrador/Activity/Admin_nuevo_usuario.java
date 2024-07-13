@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoUsuarioBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +65,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                     image = result.getData().getData();
                     uploadImagen.setEnabled(true);
                     Glide.with(getApplicationContext()).load(image).into(imageView);
+                    Log.d("SelectedImage", "URI de la imagen seleccionada: " + image.toString());
                 }
             } else {
                 Toast.makeText(Admin_nuevo_usuario.this, "Selecciona una imagen, por favor", Toast.LENGTH_SHORT).show();
@@ -115,21 +118,34 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         builder.setCancelable(false);
         AlertDialog dialog = builder.create();
         dialog.show();
+        Log.d("SelectedImageCLASEUPLOAD", "URI de la imagen seleccionada: " + image.toString());
 
         reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete());
-                Uri urlImage = uriTask.getResult();
-                imagenURL = urlImage.toString();
-                dialog.dismiss();
-                guardarSupervisor();
-                Toast.makeText(Admin_nuevo_usuario.this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show();
+                taskSnapshot.getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        if (task.isSuccessful()) {
+                            Uri urlImage = task.getResult();
+                            imagenURL = urlImage.toString();
+                            Log.d("Upload", "URL de la imagen subida: " + imagenURL);
+                            dialog.dismiss();
+                            guardarSupervisor();
+                            Toast.makeText(Admin_nuevo_usuario.this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.e("Upload", "Error al obtener la URL de la imagen", task.getException());
+                            dialog.dismiss();
+                            Toast.makeText(Admin_nuevo_usuario.this, "Error al obtener la URL de la imagen", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                Log.e("Upload", "Error al subir la imagen: ", e);
+                dialog.dismiss();
                 Toast.makeText(Admin_nuevo_usuario.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
             }
         });
@@ -144,6 +160,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 guardarSupervisor();
                 uploadImagen(image);
+                Log.d("SelectedImageACEPTAR", "URI de la imagen seleccionada: " + image.toString());
                 dialog.dismiss();
                 NotificationHelper.createNotificationChannel(Admin_nuevo_usuario.this);
                 NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado");

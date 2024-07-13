@@ -105,7 +105,6 @@ public class Admin_nuevo_sitio extends AppCompatActivity implements OnMapReadyCa
         }
         mapFragment.getMapAsync(this);
     }
-
     private void centerMapOnDepartamento(String departamento) {
         Geocoder geocoder = new Geocoder(this);
         try {
