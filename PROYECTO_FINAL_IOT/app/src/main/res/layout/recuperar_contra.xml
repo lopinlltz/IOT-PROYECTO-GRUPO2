@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@drawable/fondo3"
     android:id="@+id/main"
-    tools:context=".MainActivity"
+    tools:context=".Recuperar"
     >
 
     <LinearLayout
@@ -40,48 +40,26 @@
                 android:hint="Correo"
                 android:padding="8dp" />
 
-            <EditText
-                android:id="@+id/login_password"
-                android:layout_width="300dp"
-                android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/edittext_bkg"
-                android:drawableLeft="@drawable/icon_lock"
-                android:drawablePadding="8dp"
-                android:hint="Contraseña"
-                android:inputType="textPassword"
-                android:padding="8dp" />
-
             <Button
-                android:id="@+id/login_button"
+                android:id="@+id/enviar"
                 android:layout_width="199dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:text="Ingresar"
+                android:text="Enviar correo"
                 android:textSize="18sp"
                 app:cornerRadius="30dp" />
 
             <Button
-                android:id="@+id/recuperar"
+                android:id="@+id/volver"
                 android:layout_width="199dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="30dp"
-                android:text="Recuperar Contraseña"
+                android:text="Volver"
                 android:textSize="11sp"
                 app:cornerRadius="30dp" />
 
-            <Button
-                android:id="@+id/forget_button"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:text="Google"
-                android:textSize="11sp"
-                app:cornerRadius="30dp" />
 
 
         </LinearLayout>

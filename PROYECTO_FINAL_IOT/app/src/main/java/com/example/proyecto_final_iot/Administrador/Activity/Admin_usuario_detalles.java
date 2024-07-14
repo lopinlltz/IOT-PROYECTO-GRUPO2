@@ -26,9 +26,13 @@ import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioSelectAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -47,6 +51,21 @@ public class Admin_usuario_detalles extends AppCompatActivity {
     Button editButton_user, backButton_back_det;
     Button buttonCambiarEstado_admin , buttonCambiarEstadoActivar_admin;
     FirebaseFirestore db;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(Admin_usuario_detalles.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
 
     @Override

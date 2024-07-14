@@ -8,7 +8,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SitioDetalleActivity extends AppCompatActivity {
     TextView textViewNombreSitio;
@@ -21,6 +24,21 @@ public class SitioDetalleActivity extends AppCompatActivity {
     TextView textViewTipoZona;
     TextView textViewTipoSitio;
     Button buttonEquipoSitio;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(SitioDetalleActivity.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

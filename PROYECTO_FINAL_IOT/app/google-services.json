@@ -1,26 +1,44 @@
 {
   "project_info": {
-    "project_number": "90836444361",
-    "project_id": "prueba-proyecto-final-af1f3",
-    "storage_bucket": "prueba-proyecto-final-af1f3.appspot.com"
+    "project_number": "401396472683",
+    "project_id": "iotproyect-4abb1",
+    "storage_bucket": "iotproyect-4abb1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:90836444361:android:2b87ad2c194018b6445918",
+        "mobilesdk_app_id": "1:401396472683:android:be3a0b80145fd41e850a2e",
         "android_client_info": {
           "package_name": "com.example.proyecto_final_iot"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "401396472683-ai14lvomt3v3p6sudhqiv7lqjgpbort8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.proyecto_final_iot",
+            "certificate_hash": "3fac9eec881e45d356990be47ea9c391648baefc"
+          }
+        },
+        {
+          "client_id": "401396472683-uoatepiah9poll9lb2vgf4g0pq4aackg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
-          "current_key": "AIzaSyDW3OBbgstBA2mbAstHUB37A8K0QRbOx1E"
+          "current_key": "AIzaSyC1nlDyzxAmVL_GbhEDUIW5xRm2Az5F2Hs"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401396472683-uoatepiah9poll9lb2vgf4g0pq4aackg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

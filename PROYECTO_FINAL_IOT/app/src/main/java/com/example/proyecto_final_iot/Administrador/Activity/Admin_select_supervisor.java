@@ -15,7 +15,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioSelectAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -32,6 +36,21 @@ public class Admin_select_supervisor extends AppCompatActivity implements Serial
     FirebaseFirestore firestore_lista_select_usuario;
     Button btn;
     private String siteId;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(Admin_select_supervisor.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

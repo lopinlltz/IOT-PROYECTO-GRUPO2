@@ -10,7 +10,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DetallesSupervisorSuperadmin extends AppCompatActivity {
     private TextView nombreTextView;
@@ -20,6 +24,21 @@ public class DetallesSupervisorSuperadmin extends AppCompatActivity {
     private TextView telefonoTextView;
     private TextView domicilioTextView;
     private ImageView imagenSupervisor;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(DetallesSupervisorSuperadmin.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
