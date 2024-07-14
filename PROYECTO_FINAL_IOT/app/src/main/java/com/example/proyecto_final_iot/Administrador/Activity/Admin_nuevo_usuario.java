@@ -170,6 +170,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         });
     }
 
+
     private void ConfirmacionPopup() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estás seguro de guardar los cambios?");
@@ -177,12 +178,24 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                guardarSupervisor();
-                uploadImagen(image);
-                Log.d("SelectedImageACEPTAR", "URI de la imagen seleccionada: " + image.toString());
-                dialog.dismiss();
-                NotificationHelper.createNotificationChannel(Admin_nuevo_usuario.this);
-                NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado");
+                // Validar los datos antes de guardar
+                if (validarDatosSupervisor()) {
+                    try {
+                        guardarSupervisor();
+                        if (image != null) {
+                            uploadImagen(image);
+                            Log.d("SelectedImageACEPTAR", "URI de la imagen seleccionada: " + image.toString());
+                        }
+                        dialog.dismiss();
+                        NotificationHelper.createNotificationChannel(Admin_nuevo_usuario.this);
+                        NotificationHelper.sendNotification(Admin_nuevo_usuario.this, "Supervisor", "Nuevo Supervisor creado");
+                    } catch (Exception e) {
+                        Toast.makeText(Admin_nuevo_usuario.this, "Error al guardar el supervisor o subir la imagen", Toast.LENGTH_SHORT).show();
+                        Log.e("ErrorGuardarSupervisor", e.getMessage(), e);
+                    }
+                } else {
+                    Toast.makeText(Admin_nuevo_usuario.this, "Por favor, corrija los errores antes de guardar", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -197,6 +210,55 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         dialog.show();
     }
 
+    // Método para validar los datos del supervisor antes de guardar
+    private boolean validarDatosSupervisor() {
+        boolean esValido = true;
+
+        String nombre = binding_new_supervisor.idNombreUser.getText().toString();
+        String apellido = binding_new_supervisor.idApellidoUser.getText().toString();
+        String dni = binding_new_supervisor.idDniUSer.getText().toString();
+        String correo = binding_new_supervisor.idCorreoUser.getText().toString();
+        String telefono = binding_new_supervisor.idTelefonoUser.getText().toString();
+        String domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
+        String textViewEstado_admin = binding_new_supervisor.textViewEstadoAdmin.getText().toString();
+
+        if (nombre.isEmpty()) {
+            binding_new_supervisor.idNombreUser.setError("El nombre no puede estar vacío");
+            esValido = false;
+        }
+
+        if (apellido.isEmpty()) {
+            binding_new_supervisor.idApellidoUser.setError("El apellido no puede estar vacío");
+            esValido = false;
+        }
+
+        if (dni.isEmpty() || dni.length() != 8 || !dni.matches("\\d{8}")) {
+            binding_new_supervisor.idDniUSer.setError("El DNI debe tener 8 dígitos numéricos");
+            esValido = false;
+        }
+
+        if (correo.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            binding_new_supervisor.idCorreoUser.setError("Por favor ingrese un correo electrónico válido");
+            esValido = false;
+        }
+
+        if (telefono.isEmpty() || telefono.length() != 9 || !telefono.matches("\\d{9}")) {
+            binding_new_supervisor.idTelefonoUser.setError("El teléfono debe tener 9 dígitos numéricos");
+            esValido = false;
+        }
+
+        if (domicilio.isEmpty()) {
+            binding_new_supervisor.idDomicilioUser.setError("El domicilio no puede estar vacío");
+            esValido = false;
+        }
+
+        if (textViewEstado_admin.isEmpty()) {
+            binding_new_supervisor.textViewEstadoAdmin.setError("El estado de admin no puede estar vacío");
+            esValido = false;
+        }
+
+        return esValido;
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -212,6 +274,36 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
         String telefono = binding_new_supervisor.idTelefonoUser.getText().toString();
         String domicilio = binding_new_supervisor.idDomicilioUser.getText().toString();
         String textViewEstado_admin = binding_new_supervisor.textViewEstadoAdmin.getText().toString();
+
+        if (nombre.isEmpty()) {
+            Toast.makeText(this, "El nombre no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (apellido.isEmpty()) {
+            Toast.makeText(this, "El apellido no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (dni.isEmpty() || dni.length() != 8 || !dni.matches("\\d{8}")) {
+            Toast.makeText(this, "El DNI debe tener 8 dígitos numéricos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (correo.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(correo).matches()) {
+            Toast.makeText(this, "Por favor ingrese un correo electrónico válido", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (telefono.isEmpty() || telefono.length() != 9 || !telefono.matches("\\d{9}")) {
+            Toast.makeText(this, "El teléfono debe tener 9 dígitos numéricos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (domicilio.isEmpty()) {
+            Toast.makeText(this, "El domicilio no puede estar vacío", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Supervisor_Data supervisorNuevoData = new Supervisor_Data(nombre, apellido, dni, correo, telefono, domicilio, imagenURL, textViewEstado_admin);
         supervisorNuevoData.setId_nombreUser(nombre);

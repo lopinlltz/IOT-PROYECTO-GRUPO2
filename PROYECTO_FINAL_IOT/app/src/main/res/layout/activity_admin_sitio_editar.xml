@@ -85,11 +85,11 @@
                     android:textColor="@color/color_admin"
                     android:textSize="16sp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/id_ubigeo"
-                    android:layout_width="match_parent"
+                    android:layout_width="160dp"
                     android:layout_height="40dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="9dp"
                     android:background="@drawable/edittext_bkg"
                     android:gravity="start|center_vertical"
                     android:hint="Ubigeo"
@@ -97,10 +97,21 @@
                     android:textColor="@color/color_admin"
                     android:textSize="16sp" />
 
+                <Button
+                    android:id="@+id/btnMostrarUbigeo"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="165dp"
+                    android:layout_marginTop="-40dp"
+                    android:background="@color/color_admin"
+                    android:text="obtener Ubigeo"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
                 <EditText
                     android:id="@+id/id_tipoDeZona"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="40dp"
                     android:layout_below="@id/id_ubigeo"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_bkg"
@@ -113,7 +124,7 @@
                 <EditText
                     android:id="@+id/id_tipoDeSitio"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="40dp"
                     android:layout_below="@id/id_ubigeo"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edittext_bkg"

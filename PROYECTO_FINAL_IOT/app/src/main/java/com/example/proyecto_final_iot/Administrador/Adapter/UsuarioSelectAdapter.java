@@ -63,8 +63,8 @@ public class UsuarioSelectAdapter  extends RecyclerView.Adapter<UsuarioSelectAda
 
         Supervisor_Data supervisorData = supervisor_Select_dataList.get(position);
         holder.bind(supervisorData);
+        holder.item_id_status_admin.setText(supervisorData.getStatus_admin());
 
-        // Assuming image_select_user is an ImageView and not a TextView
         Glide.with(holder.image_select_user.getContext())
                 .load(supervisorData.getDataImage())
                 .into(holder.image_select_user);
@@ -77,7 +77,7 @@ public class UsuarioSelectAdapter  extends RecyclerView.Adapter<UsuarioSelectAda
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView id_nombreUser_select_item;
+        TextView id_nombreUser_select_item, item_id_status_admin;
         ImageView image_select_user;
         ImageView check_super_select;
 
@@ -86,6 +86,7 @@ public class UsuarioSelectAdapter  extends RecyclerView.Adapter<UsuarioSelectAda
             id_nombreUser_select_item = itemView.findViewById(R.id.id_nombreUser_select_item);
             image_select_user = itemView.findViewById(R.id.recImage);
             check_super_select = itemView.findViewById(R.id.check_super_select);
+            item_id_status_admin = itemView.findViewById(R.id.item_id_status_admin);
         }
         void bind(final Supervisor_Data supervisorData){
 
