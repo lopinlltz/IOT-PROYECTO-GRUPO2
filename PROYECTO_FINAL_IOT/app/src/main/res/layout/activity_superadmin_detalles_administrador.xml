@@ -334,20 +334,29 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="@drawable/borde_negro2">
+                    android:background="@drawable/borde_negro2"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/imagenadmin"
-                        android:layout_width="319dp"
+                        android:layout_width="171dp"
                         android:layout_height="match_parent"
                         app:srcCompat="@drawable/image_profile_white" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/estadoadmin"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Button" />
+                    </LinearLayout>
+                </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>
