@@ -14,9 +14,27 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.example.proyecto_final_iot.UserProfileActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class PerfilSuperadmin extends AppCompatActivity {
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(PerfilSuperadmin.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +55,7 @@ public class PerfilSuperadmin extends AppCompatActivity {
         buttonCerrarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(PerfilSuperadmin.this, MainActivity.class);
                 startActivity(intent);
             }

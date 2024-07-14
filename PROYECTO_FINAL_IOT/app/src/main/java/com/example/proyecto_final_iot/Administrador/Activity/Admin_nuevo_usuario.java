@@ -23,15 +23,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioListAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.example.proyecto_final_iot.databinding.ActivityAdminNuevoUsuarioBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.storage.FirebaseStorage;
@@ -56,6 +60,21 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
     private List<Supervisor_Data> dataList;
     private static final int PICK_IMAGE_REQUEST = 1;
     UsuarioListAdminAdapter adapter;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(Admin_nuevo_usuario.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
@@ -208,6 +227,7 @@ public class Admin_nuevo_usuario extends AppCompatActivity {
                 .document(nombre)
                 .set(supervisorNuevoData)
                 .addOnSuccessListener(unused -> {
+                    MainActivity.RegistrarUsuario(correo);
                     Toast.makeText(Admin_nuevo_usuario.this, "Supervisor grabado", Toast.LENGTH_SHORT).show();
                     guardarHistorial("Creó un nuevo supervisor: " + nombre, "Samantha", "Administrador");
                     Intent intent = new Intent(Admin_nuevo_usuario.this, Admin_lista_usuario.class);

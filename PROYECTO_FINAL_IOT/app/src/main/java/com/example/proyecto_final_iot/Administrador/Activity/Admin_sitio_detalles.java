@@ -18,9 +18,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.example.proyecto_final_iot.databinding.ActivityAdminSitioDetallesBinding;
 import com.github.clans.fab.FloatingActionButton;
 import com.example.proyecto_final_iot.R;
@@ -34,6 +36,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
@@ -58,6 +62,21 @@ public class Admin_sitio_detalles extends AppCompatActivity implements OnMapRead
     GoogleMap mMap;
     private DatabaseReference databaseReference;
     FirebaseFirestore db ;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(Admin_sitio_detalles.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
 
     @Override

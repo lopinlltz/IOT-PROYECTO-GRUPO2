@@ -1,7 +1,7 @@
 buildscript {
-    /*repositories {
+    repositories {
         google()
-    }*/
+    }
     dependencies {
         classpath libs.google.services
         //classpath 'com.android.tools.build:gradle:4.1.0'

@@ -1,15 +1,19 @@
     package com.example.proyecto_final_iot.Supervisor.Activity;
 
+    import android.content.Intent;
     import android.os.Bundle;
 
     import androidx.appcompat.app.AppCompatActivity;
     import androidx.recyclerview.widget.LinearLayoutManager;
     import androidx.recyclerview.widget.RecyclerView;
 
+    import com.example.proyecto_final_iot.MainActivity;
     import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
     import com.example.proyecto_final_iot.R;
     import com.example.proyecto_final_iot.Supervisor.Adapter.HistorialSupervisorAdapter;
     import com.google.android.gms.tasks.OnSuccessListener;
+    import com.google.firebase.auth.FirebaseAuth;
+    import com.google.firebase.auth.FirebaseUser;
     import com.google.firebase.firestore.FirebaseFirestore;
     import com.google.firebase.firestore.QueryDocumentSnapshot;
     import com.google.firebase.firestore.QuerySnapshot;
@@ -22,6 +26,21 @@
         private HistorialSupervisorAdapter adapter;
         //CONEXIÓN BD
         FirebaseFirestore db;
+        FirebaseAuth mAuth;
+        @Override
+        public void onStart() {
+            super.onStart();
+            // Check if user is signed in (non-null) and update UI accordingly.
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser == null){
+                Intent loginIntent = new Intent(HistorialSupervisorActivity.this, MainActivity.class);
+                loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(loginIntent);
+                finish();
+            }
+
+        }
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {

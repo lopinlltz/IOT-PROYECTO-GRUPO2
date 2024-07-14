@@ -19,10 +19,14 @@ import com.example.proyecto_final_iot.Administrador.Adapter.SitioAdminAdapter;
 import com.example.proyecto_final_iot.Administrador.Adapter.UsuarioSelectAdapter;
 import com.example.proyecto_final_iot.Administrador.Data.Sitio_Data;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.NuevoReporteActivity;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +52,21 @@ public class Admin_lista_Sitio extends AppCompatActivity{
     String selectedSupervisorId ;
     String siteId;
     private String selectedSupervisorName;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(Admin_lista_Sitio.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     @SuppressLint("MissingInflatedId")
     @Override

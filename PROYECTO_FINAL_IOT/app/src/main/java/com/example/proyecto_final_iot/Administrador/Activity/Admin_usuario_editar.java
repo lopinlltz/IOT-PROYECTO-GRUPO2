@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Activity.Superadmin_vista_principal1;
@@ -26,6 +27,9 @@ import com.example.proyecto_final_iot.Supervisor.Activity.EquipoDetalleActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquipoEditarActivity;
 import com.example.proyecto_final_iot.Supervisor.Activity.EquiposSupervisorActivity;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -44,6 +48,21 @@ public class Admin_usuario_editar extends AppCompatActivity {
 
     // Firestore
     FirebaseFirestore db;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(Admin_usuario_editar.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

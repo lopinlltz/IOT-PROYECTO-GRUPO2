@@ -22,12 +22,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
+import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -52,6 +56,21 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
     private ImageView imageView;
     private String imagenURL;
     private Uri image;
+    FirebaseAuth mAuth;
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser == null){
+            Intent loginIntent = new Intent(superadmin_nuevo_administrador.this, MainActivity.class);
+            loginIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(loginIntent);
+            finish();
+        }
+
+    }
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
@@ -240,6 +259,7 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
         db.collection("administrador").document(adminId)
                 .set(administrador)
                 .addOnSuccessListener(aVoid -> {
+                    MainActivity.RegistrarUsuario(correoString);
                     Log.d("NuevoAdmin", "DocumentSnapshot added with ID: " + adminId);
                     Toast.makeText(superadmin_nuevo_administrador.this, "Admin creado con ID: " + adminId, Toast.LENGTH_SHORT).show();
                     guardarHistorial("Creó un nuevo administrador " +nombreString , "Maricielo", "Superadmin");
