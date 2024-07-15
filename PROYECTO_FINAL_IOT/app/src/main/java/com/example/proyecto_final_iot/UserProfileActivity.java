@@ -8,6 +8,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import static android.Manifest.permission.POST_NOTIFICATIONS;
 
 import androidx.activity.EdgeToEdge;
@@ -21,9 +24,17 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 public class UserProfileActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
+    TextView textView5;
+    TextView textView2;
+    TextView textView8;
+    TextView textView9;
+    TextView textView10;
+    FirebaseFirestore db;
     @Override
     public void onStart() {
         super.onStart();
@@ -44,18 +55,49 @@ public class UserProfileActivity extends AppCompatActivity {
         //EdgeToEdge.enable(this);
         setContentView(R.layout.user_profile);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        db = FirebaseFirestore.getInstance();
+
+        textView5 = findViewById(R.id.textView5);
+        textView2 = findViewById(R.id.textView2);
+        textView8 = findViewById(R.id.textView8);
+        textView9 = findViewById(R.id.textView9);
+        textView10 = findViewById(R.id.textView10);
+
+
+
+        db.collection("supervisorAdmin")
+                .whereEqualTo("id_correoUser", currentUser.getEmail())
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+
+                            String nombre = document.getString("id_nombreUser");
+                            String dni = document.getString("id_dniUser");
+                            String telefono = document.getString("id_telefonoUser");
+                            String domicilio = document.getString("id_domicilioUser");
+
+                            textView5.setText(nombre);
+                            textView2.setText(dni);
+                            textView8.setText(currentUser.getEmail());
+                            textView9.setText(telefono);
+                            textView10.setText(domicilio);
+
+                        }
+                    } else {
+                        // Manejar la falla aquí
+                        Exception exception = task.getException();
+                        if (exception != null) {
+
+                        }
+                    }
+                });
+
+
         createNotificationChannel();
         askPermission();
-
-        // declarar fragment si se usa binding
-        /*binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .setReorderingAllowed(true)
-                    .add(R.id.fragmentContainerView, MenuBarFragment.class, null)
-                    .commit();
-        }*/
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -81,6 +123,10 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
 
 
 

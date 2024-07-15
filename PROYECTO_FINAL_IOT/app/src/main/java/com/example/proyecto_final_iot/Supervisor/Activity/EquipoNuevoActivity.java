@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -32,12 +34,15 @@ import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Supervisor.Entity.EquipoData;
 import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
 import com.example.proyecto_final_iot.databinding.ActivityMainBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -48,8 +53,10 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import java.io.ByteArrayOutputStream;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -69,8 +76,7 @@ public class EquipoNuevoActivity extends AppCompatActivity {
     private EditText modelo;
     private EditText desccripcion;
     private EditText fechaRegistro;
-    private EditText sitio;
-
+    private Spinner sitioSpinner;
     Button boton_upload;
     ImageView imagen_upload;
     String imagenURL_equipo;
@@ -141,54 +147,100 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         storageReference = FirebaseStorage.getInstance().getReference();
+        sitioSpinner = findViewById(R.id.sitio_spinner);
+        populateSitioSpinner();
 
         Guardar =  findViewById(R.id.Guardar);
         Guardar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConfirmacionPopup();
+                sku = findViewById(R.id.id_sku);
+                String skuString = sku.getText().toString().trim();
+
+                serie = findViewById(R.id.serie);
+                String serieString = serie.getText().toString().trim();
+
+                marca = findViewById(R.id.marca);
+                String marcaString = marca.getText().toString().trim();
+
+                modelo = findViewById(R.id.modelo);
+                String modeloString = modelo.getText().toString().trim();
+
+                desccripcion = findViewById(R.id.descripcion);
+                String descripcionString = desccripcion.getText().toString().trim();
+
+                fechaRegistro = findViewById(R.id.fecha_de_registro);
+                String fechaRegistroString = fechaRegistro.getText().toString().trim();
+
+                String sitioString = sitioSpinner.getSelectedItem().toString().trim();
+
+                if (skuString.isEmpty() || serieString.isEmpty() || marcaString.isEmpty() ||
+                        modeloString.isEmpty() || descripcionString.isEmpty() || sitioString.isEmpty() || fechaRegistroString.isEmpty()) {
+                    Toast.makeText(EquipoNuevoActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                // Validación de la imagen seleccionada
+                if (image_equipo == null) {
+                    Toast.makeText(EquipoNuevoActivity.this, "Por favor, seleccione una imagen", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                checkSkuAndSave(skuString, serieString, marcaString, modeloString, descripcionString, fechaRegistroString, sitioString);
             }
         });
 
     }
 
-    private void uploadImagenEquipo(Uri image) {
-        StorageReference reference = storageReference.child("FotosdeEquipos/" + UUID.randomUUID().toString());
-        AlertDialog.Builder builder = new AlertDialog.Builder(EquipoNuevoActivity.this);
-        builder.setCancelable(false);
-        AlertDialog dialog = builder.create();
-        dialog.show();
-
-        reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
-                while (!uriTask.isComplete());
-                Uri urlImage_equipo = uriTask.getResult();
-                imagenURL_equipo = urlImage_equipo.toString();
-                dialog.dismiss();
-                guardarEquipo();  // Llamar a guardarEquipo() después de obtener la URL de la imagen
-                Toast.makeText(EquipoNuevoActivity.this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                dialog.dismiss();
-                Toast.makeText(EquipoNuevoActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
-            }
-        });
+    private void checkSkuAndSave(String skuString, String serieString, String marcaString, String modeloString, String descripcionString, String fechaRegistroString, String sitioString) {
+        db.collection("your_collection_name")  // Reemplaza "your_collection_name" con el nombre de tu colección
+                .whereEqualTo("sku", skuString)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if (!task.getResult().isEmpty()) {
+                                Toast.makeText(EquipoNuevoActivity.this, "El SKU ingresado ya existe. Por favor, ingrese un SKU diferente.", Toast.LENGTH_SHORT).show();
+                            } else {
+                                ConfirmacionPopup(skuString, serieString, marcaString, modeloString, descripcionString, fechaRegistroString, sitioString);
+                            }
+                        } else {
+                            Toast.makeText(EquipoNuevoActivity.this, "Error al verificar el SKU", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 
-    private void ConfirmacionPopup() {
+
+    private void populateSitioSpinner() {
+        List<String> sitios = new ArrayList<>();
+        db.collection("sitio")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        for (DocumentSnapshot document : task.getResult()) {
+                            sitios.add(document.getString("id_codigodeSitio"));
+                        }
+                        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, sitios);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        sitioSpinner.setAdapter(adapter);
+                    } else {
+                        Toast.makeText(EquipoNuevoActivity.this, "Error al cargar sitios", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    private void ConfirmacionPopup(String skuString,String  serieString, String marcaString,String  modeloString,String  descripcionString, String fechaRegistroString,String sitioString) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de guardar los cambios?");
 
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                guardarEquipo();
                 dialog.dismiss();
-                uploadImagenEquipo(image_equipo);
+                uploadImagenEquipo(skuString, serieString, marcaString, modeloString, descripcionString, fechaRegistroString,sitioString,image_equipo);
                 NotificationHelper.createNotificationChannel(EquipoNuevoActivity.this);
                 NotificationHelper.sendNotification(EquipoNuevoActivity.this, "Equipos", "equipo creado");
             }
@@ -205,33 +257,34 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void guardarEquipo() {
-        sku = findViewById(R.id.id_sku);
-        String skuString = sku.getText().toString().trim();
+    private void uploadImagenEquipo(String skuString,String  serieString, String marcaString,String  modeloString,String  descripcionString, String fechaRegistroString,String sitioString,Uri image) {
+        StorageReference reference = storageReference.child("FotosdeEquipos/" + UUID.randomUUID().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(EquipoNuevoActivity.this);
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.create();
+        dialog.show();
 
-        serie = findViewById(R.id.serie);
-        String serieString = serie.getText().toString().trim();
+        reference.putFile(image).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+                while (!uriTask.isComplete());
+                Uri urlImage_equipo = uriTask.getResult();
+                imagenURL_equipo = urlImage_equipo.toString();
+                dialog.dismiss();
+                guardarEquipo(skuString, serieString, marcaString, modeloString, descripcionString, fechaRegistroString,sitioString);  // Llamar a guardarEquipo() después de obtener la URL de la imagen
 
-        marca = findViewById(R.id.marca);
-        String marcaString = marca.getText().toString().trim();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                dialog.dismiss();
+                Toast.makeText(EquipoNuevoActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-        modelo = findViewById(R.id.modelo);
-        String modeloString = modelo.getText().toString().trim();
-
-        desccripcion = findViewById(R.id.descripcion);
-        String descripcionString = desccripcion.getText().toString().trim();
-
-        fechaRegistro = findViewById(R.id.fecha_de_registro);
-        String fechaRegistroString = fechaRegistro.getText().toString().trim();
-
-        sitio = findViewById(R.id.sitio);
-        String sitioString = sitio.getText().toString().trim();
-
-        if (skuString.isEmpty() || serieString.isEmpty() || marcaString.isEmpty() ||
-                modeloString.isEmpty() || descripcionString.isEmpty() || sitioString.isEmpty() || fechaRegistroString.isEmpty()) {
-            Toast.makeText(EquipoNuevoActivity.this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show();
-            return;
-        }
+    private void guardarEquipo(String skuString,String  serieString, String marcaString,String  modeloString,String  descripcionString, String fechaRegistroString,String sitioString) {
 
         db.collection("equipo")
                 .whereEqualTo("sku", skuString)
@@ -280,8 +333,6 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                                                         Log.e(TAG, "Excepción al generar el código QR", e);
                                                     }
 
-
-
                                                 } else {
                                                     Log.e("imagendetalle", "URL de la imagen es null");
                                                 }
@@ -302,33 +353,6 @@ public class EquipoNuevoActivity extends AppCompatActivity {
                 });
     }
 
-    private void guardarHistorial() {
-
-        Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
-
-        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
-        String formattedHour = hourFormat.format(currentDate);
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String formattedDate = dateFormat.format(currentDate);
-
-        HistorialData historial = new HistorialData();
-        historial.setActivityName("Guardate un nuevo equipo");
-        historial.setSupervisorName("Joselin");
-        historial.setDate(formattedDate);
-        historial.setHour(formattedHour);
-
-        db.collection("historial")
-                .add(historial)
-                .addOnSuccessListener(documentReference -> {
-
-                })
-                .addOnFailureListener(e -> {
-
-                });
-
-    }
 
     //PARA GUARDAR QR
     private void saveQRCodeToFirebase(Bitmap bitmap, String sku, Equipo equipo) {
@@ -374,6 +398,37 @@ public class EquipoNuevoActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream.toByteArray();
         return Base64.encodeToString(byteArray, Base64.DEFAULT);
+    }
+
+    private void guardarHistorial() {
+
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
+
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData();
+        historial.setActivityName("Guardate un nuevo equipo");
+        historial.setSupervisorName(currentUser.getEmail());
+        historial.setDate(formattedDate);
+        historial.setHour(formattedHour);
+
+        db.collection("historial")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+
+                })
+                .addOnFailureListener(e -> {
+
+                });
+
     }
 
 }

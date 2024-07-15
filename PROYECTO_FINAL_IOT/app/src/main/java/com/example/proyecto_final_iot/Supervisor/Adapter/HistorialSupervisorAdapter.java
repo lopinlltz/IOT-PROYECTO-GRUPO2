@@ -31,7 +31,6 @@ public class HistorialSupervisorAdapter extends RecyclerView.Adapter<HistorialSu
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         HistorialData historialData = historialList.get(position);
         holder.activityNameTextView.setText(historialData.getActivityName());
-        holder.supervisorNameTextView.setText(historialData.getSupervisorName());
         holder.dateActivityTextView.setText(historialData.getDate());
         holder.hourActivityTextView.setText(historialData.getHour());
     }
@@ -43,14 +42,12 @@ public class HistorialSupervisorAdapter extends RecyclerView.Adapter<HistorialSu
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView activityNameTextView;
-        TextView supervisorNameTextView;
         TextView dateActivityTextView;
         TextView hourActivityTextView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             activityNameTextView = itemView.findViewById(R.id.textViewActivityName);
-            supervisorNameTextView = itemView.findViewById(R.id.textViewSupervisorName);
             dateActivityTextView = itemView.findViewById(R.id.textViewDateActivity);
             hourActivityTextView = itemView.findViewById(R.id.textViewHourActivity);
         }

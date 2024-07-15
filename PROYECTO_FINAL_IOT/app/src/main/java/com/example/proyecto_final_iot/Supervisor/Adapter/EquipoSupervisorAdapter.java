@@ -48,7 +48,7 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         EquipoData equipoData = equipoList.get(position);
-        holder.equipmentNameTextView.setText(equipoData.getModelo());
+        holder.equipmentNameTextView.setText(equipoData.getSku());
         holder.eqTypeTextView.setText(equipoData.getMarca());
 
         holder.imageButtonReport.setOnClickListener(new View.OnClickListener() {
@@ -65,6 +65,7 @@ public class EquipoSupervisorAdapter extends RecyclerView.Adapter<EquipoSupervis
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), EquipoDetalleActivity.class);
+                intent.putExtra("sitio", equipoData.getId_codigodeSitio());
                 intent.putExtra("modelo", equipoData.getModelo());
                 intent.putExtra("marca", equipoData.getMarca());
                 intent.putExtra("sku", equipoData.getSku());

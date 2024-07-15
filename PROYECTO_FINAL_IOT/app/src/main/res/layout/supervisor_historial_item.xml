@@ -33,25 +33,19 @@
         <LinearLayout
             android:layout_width="265dp"
             android:layout_height="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textViewActivityName"
-                android:layout_width="211dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:text="Actividad"
                 android:textSize="17.5dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textViewSupervisorName"
-                android:layout_width="157dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="supervisor x"
-                android:textSize="15dp" />
+
         </LinearLayout>
 
         <LinearLayout
