@@ -6,7 +6,8 @@
     <color  name="color_admin">#957698</color>
     <color  name="red">#c70000</color>
     <color  name="green">#00ff00</color>
-
+    <color name="verde_activar">#4CAF50</color> <!-- Verde -->
+    <color name="rojo_desactivar">#F44336</color> <!-- Rojo -->
     <color name="color_supervisor">#c0a0c3</color>
 
 </resources>

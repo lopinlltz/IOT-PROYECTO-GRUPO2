@@ -344,17 +344,74 @@
                         app:srcCompat="@drawable/image_profile_white" />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="147dp"
                         android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
 
-                        <Button
-                            android:id="@+id/estadoadmin"
+                        android:orientation="vertical" >
+
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Button" />
+                            android:layout_height="64dp"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="54dp"
+                                android:layout_height="match_parent"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/textView56"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Estado" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+                                <TextView
+                                    android:id="@+id/estadoadmin"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Estado" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="23dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"></LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="105dp"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+                                <Button
+                                    android:id="@+id/boton_cambiar_estado"
+                                    android:layout_width="105dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Button"
+                                    android:background="@drawable/borde_superadmin"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"></LinearLayout>
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
 
