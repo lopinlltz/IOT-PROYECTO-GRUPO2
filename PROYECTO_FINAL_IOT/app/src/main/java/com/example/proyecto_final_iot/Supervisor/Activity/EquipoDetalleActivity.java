@@ -47,7 +47,6 @@ import java.io.IOException;
 public class EquipoDetalleActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
-    private ImageView qrCodeImageView;
     TextView textViewSku;
     TextView textViewNroSerie;
     TextView textViewMarca;
@@ -57,6 +56,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     TextView textViewNombreEquipo;
     Button buttonBorrarEq;
     Button buttonEditarEq;
+
+    Button buttonReportes;
     FirebaseFirestore db;
     ImageView dataImage_equipo;
     FirebaseAuth mAuth;
@@ -104,7 +105,6 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion = findViewById(R.id.textViewDescripcion);
         textViewFecha = findViewById(R.id.textViewFecha);
         dataImage_equipo = findViewById(R.id.imagen_equipo_super);
-        qrCodeImageView = findViewById(R.id.qr_code_image);
 
         textViewNombreEquipo.setText(sku);
         textViewSku.setText(sku);
@@ -114,7 +114,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
 
-        loadQRCode(sku);
+       // loadQRCode(sku);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -153,13 +153,24 @@ public class EquipoDetalleActivity extends AppCompatActivity {
             }
         });
 
+        buttonReportes = findViewById(R.id.buttonReportes);
+        buttonReportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EquipoDetalleActivity.this, ReporteActivity.class);
+                intent.putExtra("sku", sku);
+                startActivity(intent);
+
+            }
+        });
+
         Button buttonVerQR = findViewById(R.id.buttonVerQR);
-        buttonVerQR.setOnClickListener(v -> verQRCode());
+        //uttonVerQR.setOnClickListener(v -> verQRCode());
 
     }
 
     //TODO ESTO ES PARA QR
-    private void loadQRCode(String sku) {
+   /* private void loadQRCode(String sku) {
         db.collection("equipo").whereEqualTo("sku", sku).get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -187,8 +198,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
                 Toast.makeText(EquipoDetalleActivity.this, "Error al cargar el código QR", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
+    }*/
+/*
     public void verQRCode() {
         Bitmap bitmap = ((BitmapDrawable) qrCodeImageView.getDrawable()).getBitmap();
         String qrFilePath = saveQRToFile(bitmap);
@@ -196,7 +207,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         //intent.putExtra("qr_bitmap", bitmap);
         intent.putExtra("qr_file_path", qrFilePath);
         startActivity(intent);
-    }
+    }*/
     //new ga
     private String saveQRToFile(Bitmap bitmap) {
         String fileName = "QRCode_" + System.currentTimeMillis() + ".png";

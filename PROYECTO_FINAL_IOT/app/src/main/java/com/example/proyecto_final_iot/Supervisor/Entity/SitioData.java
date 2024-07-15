@@ -13,6 +13,16 @@ public class SitioData {
     private String id_tipo_de_sitio;
     private String id_latitud_long;
 
+    private String id_latitud_latitud;
+
+    public String getId_latitud_latitud() {
+        return id_latitud_latitud;
+    }
+
+    public void setId_latitud_latitud(String id_latitud_latitud) {
+        this.id_latitud_latitud = id_latitud_latitud;
+    }
+
 
     /*public SitioData(String id_codigodeSitio, String id_departamento, String id_provincia, String id_distrito, String id_ubigeo, String id_tipo_de_zona, String id_tipo_de_sitio, String id_latitud_long) {
         this.id_codigodeSitio = id_codigodeSitio;
@@ -35,6 +45,8 @@ public class SitioData {
     }*/
 
     // Getter y Setter para id_codigodeSitio
+
+
     public String getId_codigodeSitio() {
         return id_codigodeSitio;
     }

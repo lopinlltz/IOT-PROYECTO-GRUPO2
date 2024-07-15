@@ -45,13 +45,15 @@ public class TipoEquipoSupervisorActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<TipoEqData> tipoEqList = new ArrayList<>();
-        tipoEqList.add(new TipoEqData("Tipo 1"));
-        tipoEqList.add(new TipoEqData("Tipo 2"));
-        tipoEqList.add(new TipoEqData("Tipo 3"));
-        tipoEqList.add(new TipoEqData("Tipo 4"));
-        tipoEqList.add(new TipoEqData("Tipo 5"));
-        tipoEqList.add(new TipoEqData("Tipo 6"));
-        tipoEqList.add(new TipoEqData("Tipo 7"));
+        tipoEqList.add(new TipoEqData("Routers"));
+        tipoEqList.add(new TipoEqData("Switches"));
+        tipoEqList.add(new TipoEqData("Panel de energía"));
+        tipoEqList.add(new TipoEqData("Rectificador"));
+        tipoEqList.add(new TipoEqData("Gabinete"));
+        tipoEqList.add(new TipoEqData("BBU"));
+        tipoEqList.add(new TipoEqData("RRU"));
+        tipoEqList.add(new TipoEqData("Batería"));
+        tipoEqList.add(new TipoEqData("UPS"));
 
         adapter = new TipoEqSupervisorAdapter(tipoEqList);
         recyclerView.setAdapter(adapter);

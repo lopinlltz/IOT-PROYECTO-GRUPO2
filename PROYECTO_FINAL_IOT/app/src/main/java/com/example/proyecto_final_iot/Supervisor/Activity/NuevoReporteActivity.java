@@ -64,8 +64,6 @@ public class NuevoReporteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String equipoSku = intent.getStringExtra("equipo_sku");
 
-        Log.d("mensajeConfirmacion", equipoSku);
-
         atras =  findViewById(R.id.atras);
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,8 +118,10 @@ public class NuevoReporteActivity extends AppCompatActivity {
         nombre = findViewById(R.id.nombre);
         String nombreString = nombre.getText().toString().trim();
 
+
         descripcion = findViewById(R.id.descripcion);
         String descripcionString = descripcion.getText().toString().trim();
+
 
         // Verificar que los campos no estén vacíos
         if (nombreString.isEmpty() || descripcionString.isEmpty()) {

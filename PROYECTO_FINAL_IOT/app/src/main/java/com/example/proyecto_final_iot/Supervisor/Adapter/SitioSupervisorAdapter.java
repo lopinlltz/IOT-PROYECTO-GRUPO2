@@ -46,14 +46,14 @@ public class SitioSupervisorAdapter extends RecyclerView.Adapter<SitioSupervisor
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), SitioDetalleActivity.class);
                 intent.putExtra("site_name", sitioData.getId_codigodeSitio());
-                intent.putExtra("ubicacion", sitioData.getId_provincia());
                 intent.putExtra("departamento", sitioData.getId_departamento());
                 intent.putExtra("provincia", sitioData.getId_provincia());
                 intent.putExtra("distrito", sitioData.getId_distrito());
                 intent.putExtra("ubigeo", sitioData.getId_ubigeo());
-                intent.putExtra("latitud_longitud", sitioData.getId_latitud_long());
-                //intent.putExtra("tipo_zona", sitioData.getId_tipo_de_zona());
-                //intent.putExtra("tipo_sitio", sitioData.getId_tipo_de_sitio());
+                intent.putExtra("latitud_longitud", sitioData.getId_latitud_latitud());
+                intent.putExtra("longitud", sitioData.getId_latitud_long());
+                intent.putExtra("tipo_zona", sitioData.getId_tipo_de_zona());
+                intent.putExtra("tipo_sitio", sitioData.getId_tipo_de_sitio());
                 v.getContext().startActivity(intent);
             }
         });

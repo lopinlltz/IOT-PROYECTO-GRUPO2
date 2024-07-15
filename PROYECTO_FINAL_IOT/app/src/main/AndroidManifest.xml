@@ -181,6 +181,9 @@
             android:name=".Supervisor.Activity.ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".Supervisor.Activity.ReporteActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
