@@ -2,6 +2,7 @@ package com.example.proyecto_final_iot.Administrador.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,6 +30,7 @@ import com.example.proyecto_final_iot.Administrador.Data.Supervisor_Data;
 import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
+import com.example.proyecto_final_iot.Superadmin.Activity.superadmin_detalles_administrador;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
@@ -49,9 +51,10 @@ public class Admin_usuario_detalles extends AppCompatActivity {
             id_domicilioUser_tw, textViewEstado_admin_tw;
     ImageView dataImage;
     Button editButton_user, backButton_back_det;
-    Button buttonCambiarEstado_admin , buttonCambiarEstadoActivar_admin;
+    Button  cambiarEstadoButtonAdmin;
     FirebaseFirestore db;
     FirebaseAuth mAuth;
+    Supervisor_Data supervisorData;
     @Override
     public void onStart() {
         super.onStart();
@@ -83,10 +86,10 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         id_domicilioUser_tw = findViewById(R.id.id_domicilioUser);
         dataImage = findViewById(R.id.imagenview_detalles);
         textViewEstado_admin_tw = findViewById(R.id.textViewEstado_admin);
-        buttonCambiarEstado_admin = findViewById(R.id.buttonCambiarEstado_admin);
+        cambiarEstadoButtonAdmin = findViewById(R.id.buttonCambiarEstado_admin);
         editButton_user = findViewById(R.id.editButton_user);
         backButton_back_det = findViewById(R.id.backButton_back_det);
-        buttonCambiarEstadoActivar_admin = findViewById(R.id.buttonCambiarEstadoActivar_admin);
+
 
         Intent intent = getIntent();
         String id_nombreUser = intent.getStringExtra("id_nombreUser");
@@ -96,6 +99,15 @@ public class Admin_usuario_detalles extends AppCompatActivity {
         String id_telefonoUser = intent.getStringExtra("id_telefonoUser");
         String id_domicilioUser = intent.getStringExtra("id_domicilioUser");
         String textViewEstado_admin = intent.getStringExtra("textViewEstado_admin");
+
+        supervisorData = new Supervisor_Data();
+        supervisorData.setId_nombreUser(id_nombreUser);
+        supervisorData.setId_apellidoUser(id_apellidoUser);
+        supervisorData.setId_dniUSer(id_dniUSer);
+        supervisorData.setId_correoUser(id_correoUser);
+        supervisorData.setId_telefonoUser(id_telefonoUser);
+        supervisorData.setId_domicilioUser(id_domicilioUser);
+        supervisorData.setStatus_admin(textViewEstado_admin);
 
         id_nombreUser_tw.setText(id_nombreUser);
         id_apellidoUser_tw.setText(id_apellidoUser);
@@ -132,160 +144,68 @@ public class Admin_usuario_detalles extends AppCompatActivity {
             finish(); // Regresar a la actividad anterior
         });
 
-        buttonCambiarEstado_admin.setOnClickListener(v -> {
-            // Cambiar el estado del usuario
-            String nuevoEstado = "DESACTIVADO";
+
+        cambiarEstadoButtonAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cambiarEstado();
+            }
+        });
+
+        // Inicializar el estado del botón al cargar la vista
+        if (supervisorData != null) {
+            actualizarBotonEstado(supervisorData.getStatus_admin());
+        }
+
+
+    }
+
+    private void actualizarBotonEstado(String estado) {
+        Log.d("ActualizarBotonEstado", "Estado: " + estado); // Añadir log
+        if ("activo".equalsIgnoreCase(estado)) {
+            cambiarEstadoButtonAdmin.setText("Desactivar");
+            cambiarEstadoButtonAdmin.setBackgroundColor(getResources().getColor(R.color.rojo_desactivar));
+        } else {
+            cambiarEstadoButtonAdmin.setText("Activar");
+            cambiarEstadoButtonAdmin.setBackgroundColor(getResources().getColor(R.color.verde_activar));
+        }
+    }
+
+    private void cambiarEstado() {
+        if (supervisorData != null) {
+            String nuevoEstado = "activo".equalsIgnoreCase(supervisorData.getStatus_admin()) ? "desactivado" : "activo";
+            supervisorData.setStatus_admin(nuevoEstado);
             textViewEstado_admin_tw.setText(nuevoEstado);
-            Log.d("Debug", "TextoDesactivado: " + textViewEstado_admin_tw.getText().toString());
+            actualizarBotonEstado(nuevoEstado);
 
-            ConfirmacionPopup(id_nombreUser);
+            db.collection("supervisorAdmin")
+                    .whereEqualTo("id_nombreUser", supervisorData.getId_nombreUser())
+                    .get()
+                    .addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            if (!task.getResult().isEmpty()) {
+                                DocumentReference usuarioRef = task.getResult().getDocuments().get(0).getReference();
 
-
-        });
-        buttonCambiarEstadoActivar_admin.setOnClickListener(v -> {
-            // Cambiar el estado del usuario
-            String nuevoEstado = "ACTIVO";
-            textViewEstado_admin_tw.setText(nuevoEstado);
-            Log.d("Debug", "TextoActivado: " + textViewEstado_admin_tw.getText().toString());
-
-            ConfirmacionPopupActivado(id_nombreUser);
-
-
-        });
-
-
-
-    }
-
-    private void ConfirmacionPopup(String id_nombreUser) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Estas seguro de DESACTIVAR este usuario?");
-
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                CambiarEstadoUsuarioDESAC(id_nombreUser);
-                Intent intent = new Intent(Admin_usuario_detalles.this, Admin_lista_usuario.class);
-                startActivity(intent);
-                dialog.dismiss();
-
-                NotificationHelper.createNotificationChannel(Admin_usuario_detalles.this);
-                NotificationHelper.sendNotification(Admin_usuario_detalles.this, "Usuario", "Usuario DESACTIVADO");
-            }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private  void CambiarEstadoUsuarioDESAC(String id_nombreUser){
-
-        db.collection("supervisorAdmin")
-                .whereEqualTo("id_nombreUser", id_nombreUser)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (!task.getResult().isEmpty()) {
-                            // Obtén la referencia del documento
-                            DocumentReference usuarioRef = task.getResult().getDocuments().get(0).getReference();
-
-                            // Actualiza el campo `estado` con el nuevo valor
-                            usuarioRef.update("status_admin", "DESACTIVADO")
-                                    .addOnSuccessListener(aVoid -> {
-                                        // La actualización fue exitosa
-                                        Log.d("Firebase", "Estado actualizado exitosamente.");
-                                        finish();
-                                        Intent intent = new Intent(Admin_usuario_detalles.this, Admin_lista_usuario.class);
-                                        startActivity(intent);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Log.w("Firebase", "Error al actualizar estado", e);
-                                    });
+                                usuarioRef.update("status_admin", nuevoEstado)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(Admin_usuario_detalles.this, "Estado actualizado", Toast.LENGTH_SHORT).show();
+                                            Log.d("Firebase", "Estado actualizado exitosamente.");
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Log.w("Firebase", "Error al actualizar estado", e);
+                                            Toast.makeText(Admin_usuario_detalles.this, "Error al actualizar estado", Toast.LENGTH_SHORT).show();
+                                        });
+                            } else {
+                                Log.d("Firebase", "No se encontró ningún documento con el id_nombreUser especificado.");
+                                Toast.makeText(Admin_usuario_detalles.this, "No se encontró ningún documento con el id_nombreUser especificado", Toast.LENGTH_SHORT).show();
+                            }
                         } else {
-
-                            Log.d("Firebase", "No se encontró ningún documento con el id_nombreUser especificado.");
+                            Log.w("Firebase", "Error al realizar la consulta", task.getException());
+                            Toast.makeText(Admin_usuario_detalles.this, "Error al realizar la consulta", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        Log.w("Firebase", "Error al realizar la consulta", task.getException());
-                    }
-                });
-
+                    });
+        }
     }
-
-    private void ConfirmacionPopupActivado(String id_nombreUser) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("¿Estas seguro de ACTIVAR este usuario?");
-
-        builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                CambiarEstadoUsuarioACT(id_nombreUser);
-                Intent intent = new Intent(Admin_usuario_detalles.this, Admin_lista_usuario.class);
-                startActivity(intent);
-                dialog.dismiss();
-
-                NotificationHelper.createNotificationChannel(Admin_usuario_detalles.this);
-                NotificationHelper.sendNotification(Admin_usuario_detalles.this, "Usuario", "Usuario ACTIVADO");
-            }
-        });
-
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        AlertDialog dialog = builder.create();
-        dialog.show();
-    }
-
-    private  void CambiarEstadoUsuarioACT(String id_nombreUser){
-
-        db.collection("supervisorAdmin")
-                .whereEqualTo("id_nombreUser", id_nombreUser)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        if (!task.getResult().isEmpty()) {
-                            // Obtén la referencia del documento
-                            DocumentReference usuarioRef = task.getResult().getDocuments().get(0).getReference();
-
-                            // Actualiza el campo `estado` con el nuevo valor
-                            usuarioRef.update("status_admin", "ACTIVO")
-                                    .addOnSuccessListener(aVoid -> {
-                                        // La actualización fue exitosa
-                                        Log.d("Firebase", "Estado actualizado exitosamente.");
-                                        finish();
-                                        Intent intent = new Intent(Admin_usuario_detalles.this, Admin_lista_usuario.class);
-                                        startActivity(intent);
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Log.w("Firebase", "Error al actualizar estado", e);
-                                    });
-                        } else {
-
-                            Log.d("Firebase", "No se encontró ningún documento con el id_nombreUser especificado.");
-                        }
-                    } else {
-                        Log.w("Firebase", "Error al realizar la consulta", task.getException());
-                    }
-                });
-
-    }
-
-
-
-
 }
 
 

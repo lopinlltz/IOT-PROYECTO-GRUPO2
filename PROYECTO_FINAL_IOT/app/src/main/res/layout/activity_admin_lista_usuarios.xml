@@ -30,6 +30,21 @@ tools:context=".Administrador.Activity.Admin_lista_usuario">
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
+    <ImageView
+        android:id="@+id/imageProfileAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:src="@drawable/image_profile_white"
+        android:layout_alignParentEnd="true"/>
+
+    <ImageView
+        android:id="@+id/imageChateAdmin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_toStartOf="@+id/imageProfileAdmin"
+        android:src="@drawable/image_chat_derecha" />
 
 
 </RelativeLayout>

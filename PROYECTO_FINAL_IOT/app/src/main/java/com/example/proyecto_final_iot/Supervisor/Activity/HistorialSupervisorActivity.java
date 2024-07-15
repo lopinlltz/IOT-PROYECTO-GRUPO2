@@ -2,7 +2,9 @@
 
     import android.content.Intent;
     import android.os.Bundle;
+    import android.util.Log;
 
+    import androidx.annotation.NonNull;
     import androidx.appcompat.app.AppCompatActivity;
     import androidx.recyclerview.widget.LinearLayoutManager;
     import androidx.recyclerview.widget.RecyclerView;
@@ -11,14 +13,18 @@
     import com.example.proyecto_final_iot.Supervisor.Entity.HistorialData;
     import com.example.proyecto_final_iot.R;
     import com.example.proyecto_final_iot.Supervisor.Adapter.HistorialSupervisorAdapter;
+    import com.google.android.gms.tasks.OnFailureListener;
     import com.google.android.gms.tasks.OnSuccessListener;
     import com.google.firebase.auth.FirebaseAuth;
     import com.google.firebase.auth.FirebaseUser;
     import com.google.firebase.firestore.FirebaseFirestore;
+    import com.google.firebase.firestore.Query;
     import com.google.firebase.firestore.QueryDocumentSnapshot;
     import com.google.firebase.firestore.QuerySnapshot;
 
     import java.util.ArrayList;
+    import java.util.Collections;
+    import java.util.Comparator;
     import java.util.List;
 
     public class HistorialSupervisorActivity extends AppCompatActivity {
@@ -52,10 +58,15 @@
 
             db = FirebaseFirestore.getInstance();
 
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            String gmail = currentUser.getEmail();
+
             List<HistorialData> historialList = new ArrayList<>();
 
             // Obtener todos los documentos de la colección "historial"
             db.collection("historial")
+                    .whereEqualTo("supervisorName", gmail)
                     .get()
                     .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
@@ -70,6 +81,15 @@
                             adapter = new HistorialSupervisorAdapter(historialList);
                             recyclerView.setAdapter(adapter);
                         }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.e("TAG", "Error al obtener documentos: ", e);
+                            // Manejar el error, por ejemplo, mostrar un mensaje al usuario
+                        }
                     });
         }
+
+
     }

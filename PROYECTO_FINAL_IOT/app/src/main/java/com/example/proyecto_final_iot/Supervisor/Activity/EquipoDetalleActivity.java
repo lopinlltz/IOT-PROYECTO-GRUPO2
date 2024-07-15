@@ -47,7 +47,7 @@ import java.io.IOException;
 public class EquipoDetalleActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
-    TextView textViewSku;
+    TextView textViewSitio;
     TextView textViewNroSerie;
     TextView textViewMarca;
     TextView textViewModelo;
@@ -87,6 +87,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String sku = intent.getStringExtra("sku");
+        String sitio = intent.getStringExtra("sitio");
         String serie = intent.getStringExtra("serie");
         String marca = intent.getStringExtra("marca");
         String modelo =  intent.getStringExtra("modelo");
@@ -98,7 +99,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         textViewNombreEquipo = findViewById(R.id.textViewNombreEquipo);
-        textViewSku = findViewById(R.id.textViewSku);
+        textViewSitio = findViewById(R.id.textViewSitio);
         textViewNroSerie = findViewById(R.id.textViewNroSerie);
         textViewMarca = findViewById(R.id.textViewMarca);
         textViewModelo = findViewById(R.id.textViewModelo);
@@ -107,7 +108,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         dataImage_equipo = findViewById(R.id.imagen_equipo_super);
 
         textViewNombreEquipo.setText(sku);
-        textViewSku.setText(sku);
+        textViewSitio.setText(sitio);
         textViewNroSerie.setText(serie);
         textViewMarca.setText(marca);
         textViewModelo.setText(modelo);
@@ -338,6 +339,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     }
 
     private void guardarHistorial() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
@@ -350,7 +353,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
 
         HistorialData historial = new HistorialData();
         historial.setActivityName("Borraste un equipo");
-        historial.setSupervisorName("Joselin");
+        historial.setSupervisorName(currentUser.getEmail());
         historial.setDate(formattedDate);
         historial.setHour(formattedHour);
 

@@ -58,7 +58,7 @@
             android:layout_height="16dp"
             android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="ACTIVO" />
+            android:text="activo" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

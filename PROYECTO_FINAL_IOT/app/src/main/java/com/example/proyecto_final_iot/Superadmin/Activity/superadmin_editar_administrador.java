@@ -2,6 +2,7 @@ package com.example.proyecto_final_iot.Superadmin.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -11,6 +12,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,14 +26,18 @@ import com.example.proyecto_final_iot.R;
 import com.example.proyecto_final_iot.Superadmin.Data.Admin;
 import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 public class superadmin_editar_administrador extends AppCompatActivity {
@@ -40,8 +49,12 @@ public class superadmin_editar_administrador extends AppCompatActivity {
     private EditText editTelefono;
     private EditText editDomicilio;
     private ImageView imageView;
+    private String imagenURL;
+    private Button uploadImagen, subirimagen;
+    private Uri image;
     private String adminId;
     FirebaseAuth mAuth;
+    StorageReference storageReference;
     @Override
     public void onStart() {
         super.onStart();
@@ -56,6 +69,22 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         }
 
     }
+    private static final int PICK_IMAGE_REQUEST = 1;
+    private final ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if (result.getResultCode() == RESULT_OK) {
+                if (result.getData() != null) {
+                    image = result.getData().getData();
+                    uploadImagen.setEnabled(true);
+                    Glide.with(getApplicationContext()).load(image).into(imageView);
+                }
+            } else {
+                Toast.makeText(superadmin_editar_administrador.this, "Selecciona una imagen, por favor", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,19 +97,23 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         editCorreo = findViewById(R.id.editCorreo);
         editTelefono = findViewById(R.id.editTelefono);
         editDomicilio = findViewById(R.id.editDomicilio);
-        imageView = findViewById(R.id.imagenadmin); // Asegúrate de tener un ImageView en tu layout
+        imageView = findViewById(R.id.imagensubir);
+        subirimagen = findViewById(R.id.subirimagen);
+        uploadImagen = findViewById(R.id.button5);
 
         ImageButton btnUserProfile = findViewById(R.id.imageButton6);
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         Button atras = findViewById(R.id.button2);
-        Button guardar = findViewById(R.id.button5);
+        //Button guardar = findViewById(R.id.button5);
         ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
+
         buttonsupervisor.setOnClickListener(v -> {
             Intent intent = new Intent(superadmin_editar_administrador.this, superadmin_vista_supervisor2.class);
             startActivity(intent);
         });
 
+        storageReference = FirebaseStorage.getInstance().getReference();
         db = FirebaseFirestore.getInstance();
 
         Intent intent = getIntent();
@@ -104,14 +137,19 @@ public class superadmin_editar_administrador extends AppCompatActivity {
             }
         });
 
-        guardar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (validarCampos()) {
-                    showSaveConfirmationDialog(imagenUrl); // Pasa la URL de la imagen al diálogo de confirmación
-                }
+
+        subirimagen.setOnClickListener(v -> {
+            Intent pickImageIntent  = new Intent(Intent.ACTION_PICK);
+            pickImageIntent .setType("image/*");
+            activityResultLauncher.launch(pickImageIntent );
+        });
+
+        uploadImagen.setOnClickListener(v -> {
+            if (validarCampos()) {
+                showSaveConfirmationDialog();
             }
         });
+
 
         btnHistory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,25 +220,45 @@ public class superadmin_editar_administrador extends AppCompatActivity {
 
         return true;
     }
-
-    private void showSaveConfirmationDialog(String imagenUrl) {
+    private void showSaveConfirmationDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirmar");
-        builder.setMessage("¿Está seguro que desea guardar?");
-        builder.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                guardarAdministrador(imagenUrl);
-            }
+        builder.setMessage("¿Está seguro que quiere guardar?");
+        builder.setPositiveButton("Sí", (dialog, which) -> {
+            uploadImagen(image);
+            dialog.dismiss();
+            NotificationHelper.createNotificationChannel(superadmin_editar_administrador.this);
+            NotificationHelper.sendNotification(superadmin_editar_administrador.this, "Usuarios", "Administrador editado");
         });
-        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("No", (dialog, which) -> dialog.dismiss());
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void uploadImagen(Uri imageUri) {
+        if (imageUri == null) {
+            guardarAdministrador(null);
+            return;
+        }
+
+        StorageReference reference = storageReference.child("FotosdeAdministradores/" + adminId + "/" + UUID.randomUUID().toString());
+        AlertDialog.Builder builder = new AlertDialog.Builder(superadmin_editar_administrador.this);
+        builder.setCancelable(false);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+
+        reference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            Task<Uri> uriTask = taskSnapshot.getStorage().getDownloadUrl();
+            while (!uriTask.isComplete());
+            Uri urlImage = uriTask.getResult();
+            imagenURL = urlImage.toString();
+            dialog.dismiss();
+            guardarAdministrador(imagenURL);
+            Toast.makeText(superadmin_editar_administrador.this, "Imagen subida exitosamente", Toast.LENGTH_SHORT).show();
+        }).addOnFailureListener(e -> {
+            Toast.makeText(superadmin_editar_administrador.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
     }
 
     private void guardarAdministrador(String imagenUrl) {
@@ -217,7 +275,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
                 .set(administrador)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(superadmin_editar_administrador.this, "Datos guardados", Toast.LENGTH_SHORT).show();
-                    guardarHistorial("Se edito un administrador" + nombre , "Maricielo", "Superadmin");
+                    guardarHistorial("Se editó un administrador: " + nombre, "Maricielo", "Superadmin");
                     NotificationHelper.createNotificationChannel(superadmin_editar_administrador.this);
                     NotificationHelper.sendNotification(superadmin_editar_administrador.this, "Usuarios", "Administrador editado");
                     Intent intent = new Intent(superadmin_editar_administrador.this, Superadmin_vista_principal1.class);

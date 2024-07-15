@@ -152,6 +152,9 @@ public class NuevoReporteActivity extends AppCompatActivity {
 
     private void guardarHistorial() {
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
 
@@ -163,7 +166,7 @@ public class NuevoReporteActivity extends AppCompatActivity {
 
         HistorialData historial = new HistorialData();
         historial.setActivityName("Guardate un nuevo reporte");
-        historial.setSupervisorName("Joselin");
+        historial.setSupervisorName(currentUser.getEmail());
         historial.setDate(formattedDate);
         historial.setHour(formattedHour);
 
