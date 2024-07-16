@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.Supervisor.Activity.SitioSupervisorActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -35,6 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
     TextView textView9;
     TextView textView10;
     FirebaseFirestore db;
+    private ImageView profileImageView;
     @Override
     public void onStart() {
         super.onStart();
@@ -64,6 +67,9 @@ public class UserProfileActivity extends AppCompatActivity {
         textView8 = findViewById(R.id.textView8);
         textView9 = findViewById(R.id.textView9);
         textView10 = findViewById(R.id.textView10);
+        profileImageView = findViewById(R.id.circleImageView);
+
+
 
 
 
@@ -78,12 +84,18 @@ public class UserProfileActivity extends AppCompatActivity {
                             String dni = document.getString("id_dniUser");
                             String telefono = document.getString("id_telefonoUser");
                             String domicilio = document.getString("id_domicilioUser");
+                            String profileImageUrl = document.getString("dataImage");
 
                             textView5.setText(nombre);
                             textView2.setText(dni);
                             textView8.setText(currentUser.getEmail());
                             textView9.setText(telefono);
                             textView10.setText(domicilio);
+                            if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+                                Glide.with(this).load(profileImageUrl).into(profileImageView);
+                            } else {
+                                profileImageView.setImageResource(R.drawable.default_profile); // imagen por defecto
+                            }
 
                         }
                     } else {
