@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -27,7 +25,6 @@ import com.bumptech.glide.Glide;
 import com.example.proyecto_final_iot.MainActivity;
 import com.example.proyecto_final_iot.NotificationHelper;
 import com.example.proyecto_final_iot.R;
-import com.example.proyecto_final_iot.Superadmin.Activity.superadmin_editar_administrador;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -44,7 +41,6 @@ import java.util.Map;
 import java.util.UUID;
 
 public class EquipoEditarActivity extends AppCompatActivity {
-
 
     private ConstraintLayout atras;
     private ConstraintLayout Guardar;
@@ -68,7 +64,6 @@ public class EquipoEditarActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
         }
-
     }
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -90,7 +85,6 @@ public class EquipoEditarActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.supervisor_editar_equipo);
 
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -100,10 +94,9 @@ public class EquipoEditarActivity extends AppCompatActivity {
         String sku = intent.getStringExtra("sku");
         String serie = intent.getStringExtra("serie");
         String marca = intent.getStringExtra("marca");
-        String modelo = intent.getStringExtra("modelo");
+        String nuevoModelo = intent.getStringExtra("modelo");
         String descripcion = intent.getStringExtra("descripcion");
         String fecha = intent.getStringExtra("fecha");
-
 
         // Referencias a los EditTexts
         TextView skuText = findViewById(R.id.id_sku);
@@ -115,9 +108,8 @@ public class EquipoEditarActivity extends AppCompatActivity {
 
         skuText.setText(sku);
         marcaEditText.setText(marca);
-        modeloEditText.setText(modelo);
+        modeloEditText.setText(nuevoModelo);
         descripcionEditText.setText(descripcion);
-
 
         String imagenUrl = intent.getStringExtra("dataImage_equipo");
         if (imagenUrl != null && !imagenUrl.isEmpty()) {
@@ -128,16 +120,16 @@ public class EquipoEditarActivity extends AppCompatActivity {
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent(EquipoEditarActivity.this, EquipoDetalleActivity.class);
-                intent.putExtra("modelo", modelo);
+                intent.putExtra("modelo", nuevoModelo);
                 intent.putExtra("marca", marca);
                 intent.putExtra("sku", sku);
                 intent.putExtra("serie", serie);
                 intent.putExtra("descripcion", descripcion);
                 intent.putExtra("fecha", fecha);
-                v.getContext().startActivity(intent);
+                intent.putExtra("dataImage_equipo", imagenURL); // Pasar la URL de la imagen actualizada
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -160,9 +152,7 @@ public class EquipoEditarActivity extends AppCompatActivity {
             pickImageIntent.setType("image/*");
             activityResultLauncher.launch(pickImageIntent);
         });
-
     }
-
 
     private void ConfirmacionPopup(String sku, String nuevaMarca, String nuevoModelo, String nuevaDescripcion) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -172,7 +162,7 @@ public class EquipoEditarActivity extends AppCompatActivity {
                 uploadImagenEquipo(sku, nuevaMarca, nuevoModelo, nuevaDescripcion, image);
                 Log.e("imagenEditarConfirmacionPopup", String.valueOf(image));
             } else {
-                editarEquipo(sku, nuevaMarca, nuevoModelo, nuevaDescripcion, null);
+                editarEquipo(sku, nuevaMarca, nuevoModelo, nuevaDescripcion, imagenURL);
             }
             dialog.dismiss();
         });
@@ -183,7 +173,7 @@ public class EquipoEditarActivity extends AppCompatActivity {
 
     private void uploadImagenEquipo(String sku, String nuevaMarca, String nuevoModelo, String nuevaDescripcion, Uri imageUri) {
         if (imageUri == null) {
-            editarEquipo(sku, nuevaMarca, nuevoModelo, nuevaDescripcion, null);
+            editarEquipo(sku, nuevaMarca, nuevoModelo, nuevaDescripcion, imagenURL);
             return;
         }
 
@@ -215,6 +205,7 @@ public class EquipoEditarActivity extends AppCompatActivity {
             Toast.makeText(EquipoEditarActivity.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
         });
     }
+
     private void editarEquipo(String sku, String nuevaMarca, String nuevoModelo, String nuevaDescripcion, String imagenUrl) {
         db.collection("equipo")
                 .whereEqualTo("sku", sku)
@@ -228,7 +219,7 @@ public class EquipoEditarActivity extends AppCompatActivity {
                         updates.put("descripcion", nuevaDescripcion);
                         if (imagenUrl != null) {
                             updates.put("imagenUrl", imagenUrl);
-                            Log.e("imagenUrleditarEquipo",imagenUrl);
+                            Log.e("imagenUrleditarEquipo", imagenUrl);
                         }
 
                         equipoRef.update(updates)
@@ -242,8 +233,8 @@ public class EquipoEditarActivity extends AppCompatActivity {
                                     intent.putExtra("marca", nuevaMarca);
                                     intent.putExtra("modelo", nuevoModelo);
                                     intent.putExtra("descripcion", nuevaDescripcion);
-                                    intent.putExtra("dataImage_equipo", imagenUrl); // Pass the image URL
-                                    Log.e("imagenUrlequipoRef.update(updates)",imagenUrl);
+                                    intent.putExtra("dataImage_equipo", imagenUrl); // Pasar la URL de la imagen actualizada
+                                    Log.e("imagenUrlequipoRef.update(updates)", imagenUrl);
                                     startActivity(intent);
                                     finish();
                                 })

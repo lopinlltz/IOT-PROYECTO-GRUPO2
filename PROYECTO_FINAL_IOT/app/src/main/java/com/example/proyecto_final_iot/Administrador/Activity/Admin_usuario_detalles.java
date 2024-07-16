@@ -162,18 +162,18 @@ public class Admin_usuario_detalles extends AppCompatActivity {
 
     private void actualizarBotonEstado(String estado) {
         Log.d("ActualizarBotonEstado", "Estado: " + estado); // Añadir log
-        if ("activo".equalsIgnoreCase(estado)) {
-            cambiarEstadoButtonAdmin.setText("Desactivar");
+        if ("ACTIVO".equals(estado)) {
+            cambiarEstadoButtonAdmin.setText("DESACTIVAR");
             cambiarEstadoButtonAdmin.setBackgroundColor(getResources().getColor(R.color.rojo_desactivar));
         } else {
-            cambiarEstadoButtonAdmin.setText("Activar");
+            cambiarEstadoButtonAdmin.setText("ACTIVAR");
             cambiarEstadoButtonAdmin.setBackgroundColor(getResources().getColor(R.color.verde_activar));
         }
     }
 
     private void cambiarEstado() {
         if (supervisorData != null) {
-            String nuevoEstado = "activo".equalsIgnoreCase(supervisorData.getStatus_admin()) ? "desactivado" : "activo";
+            String nuevoEstado = "ACTIVO".equals(supervisorData.getStatus_admin()) ? "DESACTIVADO" : "ACTIVO";
             supervisorData.setStatus_admin(nuevoEstado);
             textViewEstado_admin_tw.setText(nuevoEstado);
             actualizarBotonEstado(nuevoEstado);

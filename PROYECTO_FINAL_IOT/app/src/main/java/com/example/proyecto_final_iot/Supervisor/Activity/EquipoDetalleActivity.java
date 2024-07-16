@@ -62,6 +62,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     FirebaseFirestore db;
     ImageView dataImage_equipo;
     FirebaseAuth mAuth;
+
     @Override
     public void onStart() {
         super.onStart();
@@ -74,11 +75,11 @@ public class EquipoDetalleActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
         }
-
     }
 
     private static final String TAG = "EquipoDetalleActivity";
     Uri imageUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,8 +95,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         String modelo =  intent.getStringExtra("modelo");
         String descripcion =  intent.getStringExtra("descripcion");
         String fecha =  intent.getStringExtra("fecha");
-
-
+        imagenUrl = intent.getStringExtra("dataImage_equipo"); // Obtener URL de imagen del Intent
 
         FirebaseApp.initializeApp(this);
 
@@ -117,69 +117,49 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
 
-
-       // loadQRCode(sku);
-       loadQRCode(sku);
-
+        loadQRCode(sku);
 
         if (imagenUrl != null && !imagenUrl.isEmpty()) {
             Glide.with(this).load(imagenUrl).into(dataImage_equipo);
-            Log.e("imagenUrldetalles",imagenUrl);
+            Log.e("imagenUrldetalles", imagenUrl);
+        } else {
+            Log.e("imagenUrldetalles", "URL de imagen es nula o vacía");
         }
 
+        buttonBorrarEq = findViewById(R.id.buttonBorrarEq);
+        buttonBorrarEq.setOnClickListener(v -> ConfirmacionPopup(sku));
 
-        buttonBorrarEq =  findViewById(R.id.buttonBorrarEq);
-        buttonBorrarEq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EquipoDetalleActivity.this, EquiposSupervisorActivity.class);
-                ConfirmacionPopup(sku);
-            }
-        });
-
-        buttonEditarEq =  findViewById(R.id.buttonEditarEq);
-        buttonEditarEq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EquipoDetalleActivity.this, EquipoEditarActivity.class);
-                intent.putExtra("sku", sku);
-                intent.putExtra("serie", serie);
-                intent.putExtra("marca", marca);
-                intent.putExtra("modelo", modelo);
-                intent.putExtra("descripcion", descripcion);
-                intent.putExtra("fecha", fecha);
-                //intent.putExtra("dataImage_equipo", getIntent().getStringExtra("dataImage_equipo"));
-                intent.putExtra("dataImage_equipo", imagenUrl);
-                startActivity(intent);
-
-            }
+        buttonEditarEq = findViewById(R.id.buttonEditarEq);
+        buttonEditarEq.setOnClickListener(v -> {
+            Intent editIntent = new Intent(EquipoDetalleActivity.this, EquipoEditarActivity.class);
+            editIntent.putExtra("sku", sku);
+            editIntent.putExtra("serie", serie);
+            editIntent.putExtra("marca", marca);
+            editIntent.putExtra("modelo", modelo);
+            editIntent.putExtra("descripcion", descripcion);
+            editIntent.putExtra("fecha", fecha);
+            editIntent.putExtra("dataImage_equipo", imagenUrl);
+            startActivity(editIntent);
         });
 
         buttonReportes = findViewById(R.id.buttonReportes);
-        buttonReportes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(EquipoDetalleActivity.this, ReporteActivity.class);
-                intent.putExtra("sku", sku);
-                startActivity(intent);
-
-            }
+        buttonReportes.setOnClickListener(v -> {
+            Intent reportIntent = new Intent(EquipoDetalleActivity.this, ReporteActivity.class);
+            reportIntent.putExtra("sku", sku);
+            startActivity(reportIntent);
         });
 
         Button buttonVerQR = findViewById(R.id.buttonVerQR);
         buttonVerQR.setOnClickListener(v -> verQRCode());
-
     }
 
-    //TODO ESTO ES PARA QR
-   private void loadQRCode(String sku) {
+    private void loadQRCode(String sku) {
         db.collection("equipo").whereEqualTo("sku", sku).get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
                     String qrCodeUrl = document.getString("qrCodeUrl");
                     if (qrCodeUrl != null && !qrCodeUrl.isEmpty()) {
                         Log.d(TAG, "QR Code URL found: " + qrCodeUrl);
-                        //Picasso.get().load(qrCodeUrl).into(qrCodeImageView);
                         Picasso.get().load(qrCodeUrl).into(qrCodeImageView, new com.squareup.picasso.Callback() {
                             @Override
                             public void onSuccess() {
@@ -206,11 +186,10 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         Bitmap bitmap = ((BitmapDrawable) qrCodeImageView.getDrawable()).getBitmap();
         String qrFilePath = saveQRToFile(bitmap);
         Intent intent = new Intent(this, QRCodePreviewActivity.class);
-        //intent.putExtra("qr_bitmap", bitmap);
         intent.putExtra("qr_file_path", qrFilePath);
         startActivity(intent);
     }
-    //new ga
+
     private String saveQRToFile(Bitmap bitmap) {
         String fileName = "QRCode_" + System.currentTimeMillis() + ".png";
         File qrDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "QR_Codes");
@@ -229,114 +208,43 @@ public class EquipoDetalleActivity extends AppCompatActivity {
             return null;
         }
     }
-    //HASTA AQUI
 
     private void ConfirmacionPopup(String equipoId) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estas seguro de eliminar el equipo?");
-
-
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(EquipoDetalleActivity.this, EquiposSupervisorActivity.class);
-                borrarEquipoPorSKU( equipoId);
-                startActivity(intent);
+                borrarEquipoPorSKU(equipoId);
                 dialog.dismiss();
-
                 NotificationHelper.createNotificationChannel(EquipoDetalleActivity.this);
                 NotificationHelper.sendNotification(EquipoDetalleActivity.this, "Equipos", "equipo borrado");
             }
         });
 
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
 
         AlertDialog dialog = builder.create();
         dialog.show();
     }
 
-
-
-    /*private Bitmap base64ToBitmap(String base64) {
-        byte[] decodedString = android.util.Base64.decode(base64, android.util.Base64.DEFAULT);
-        return android.graphics.BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-    }
-
-    private boolean saveQRCodeToStorage(Bitmap bitmap) {
-        File path = getExternalFilesDir(null);
-        File qrCodeFile = new File(path, "QRCode.png");
-        try (FileOutputStream outputStream = new FileOutputStream(qrCodeFile)) {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            outputStream.flush();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }*/
-
-
-    /*private void saveQrCodeToFile() {
-        qrCodeImageView.setDrawingCacheEnabled(true);
-        Bitmap bitmap = ((BitmapDrawable) qrCodeImageView.getDrawable()).getBitmap();
-        File filePath = new File(getExternalFilesDir(null), "qrCode.png");
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream(filePath);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            Toast.makeText(this, "QR Code guardado en " + filePath.getAbsolutePath(), Toast.LENGTH_LONG).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Error al guardar el QR Code", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults); // Llamar al método de la superclase
-        if (requestCode == REQUEST_WRITE_STORAGE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                saveQrCodeToFile();
-            } else {
-                Toast.makeText(this, "Permiso denegado para escribir en el almacenamiento", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }*/
     private void borrarEquipoPorSKU(String sku) {
-        // Realizar una consulta para encontrar el documento con el SKU deseado
-        db.collection("equipo")
-                .whereEqualTo("sku", sku)
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Obtener el ID del documento que coincide con el SKU
-                            String equipoId = document.getId();
-                            // Eliminar el documento usando el ID obtenido
-                            db.collection("equipo").document(equipoId)
-                                    .delete()
-                                    .addOnSuccessListener(unused -> {
-                                        // Correcto
-                                        guardarHistorial();
-                                        Toast.makeText(this, "Equipo con SKU " + sku + " eliminado correctamente", Toast.LENGTH_SHORT).show();
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        // Error
-                                        Toast.makeText(this, "No se pudo eliminar el equipo con SKU " + sku, Toast.LENGTH_SHORT).show();
-                                    });
-                        }
-                    } else {
-                        // Error al realizar la consulta
-                        Toast.makeText(this, "Error al buscar el equipo con SKU " + sku, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        db.collection("equipo").whereEqualTo("sku", sku).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                for (QueryDocumentSnapshot document : task.getResult()) {
+                    String equipoId = document.getId();
+                    db.collection("equipo").document(equipoId).delete()
+                            .addOnSuccessListener(unused -> {
+                                guardarHistorial();
+                                Toast.makeText(this, "Equipo con SKU " + sku + " eliminado correctamente", Toast.LENGTH_SHORT).show();
+                                finish(); // Finalizar la actividad después de la eliminación
+                            })
+                            .addOnFailureListener(e -> Toast.makeText(this, "No se pudo eliminar el equipo con SKU " + sku, Toast.LENGTH_SHORT).show());
+                }
+            } else {
+                Toast.makeText(this, "Error al buscar el equipo con SKU " + sku, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void guardarHistorial() {
@@ -358,16 +266,6 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         historial.setDate(formattedDate);
         historial.setHour(formattedHour);
 
-        db.collection("historial")
-                .add(historial)
-                .addOnSuccessListener(documentReference -> {
-
-                })
-                .addOnFailureListener(e -> {
-
-                });
-
+        db.collection("historial").add(historial).addOnSuccessListener(documentReference -> {}).addOnFailureListener(e -> {});
     }
-
-
 }
