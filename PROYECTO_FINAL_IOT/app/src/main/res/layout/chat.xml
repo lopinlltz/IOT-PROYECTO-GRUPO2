@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ChatMsgActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,14 +34,27 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/textViewName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="32dp"
                 android:text="Lana Fernandez"
                 android:textColor="#000000"
                 android:textSize="18sp"
                 android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.144"
+                app:layout_constraintStart_toEndOf="@+id/circleImageView"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewRole"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:text="Administrador"
+                android:textColor="#000000"
+                android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.144"
                 app:layout_constraintStart_toEndOf="@+id/circleImageView"
@@ -60,7 +74,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <EditText
-                    android:id="@+id/editTextText"
+                    android:id="@+id/editTextMsg"
                     android:layout_width="284dp"
                     android:layout_height="50dp"
                     android:background="@drawable/search_background"
@@ -79,7 +93,7 @@
                     tools:drawablePadding="10dp" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageView1"
+                    android:id="@+id/circleImageViewSendMsg"
                     android:layout_width="66dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center"
@@ -87,18 +101,18 @@
                     android:src="@drawable/icono_enviar"
                     app:civ_border_color="#6A496C"
                     app:civ_border_width="6dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/editTextText"
+                    app:layout_constraintBottom_toBottomOf="@+id/editTextMsg"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/editTextText"
-                    app:layout_constraintTop_toTopOf="@+id/editTextText"
+                    app:layout_constraintStart_toEndOf="@+id/editTextMsg"
+                    app:layout_constraintTop_toTopOf="@+id/editTextMsg"
                     app:layout_constraintVertical_bias="0.0" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="527dp"
+                android:layout_height="525dp"
                 app:layout_constraintBottom_toTopOf="@+id/constraintLayout17"
                 app:layout_constraintTop_toBottomOf="@+id/circleImageView"
                 tools:layout_editor_absoluteX="0dp">
@@ -112,7 +126,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_view_chat"
                         android:layout_width="match_parent"
-                        android:layout_height="550dp" />
+                        android:layout_height="500dp" />
                 </LinearLayout>
             </ScrollView>
 

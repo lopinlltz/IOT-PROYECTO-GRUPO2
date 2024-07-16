@@ -52,8 +52,8 @@ public class ChatContactoAdapter extends RecyclerView.Adapter<ChatContactoAdapte
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            nameAdminTextView = itemView.findViewById(R.id.AdminName);
-            shortMsgTextView = itemView.findViewById(R.id.AdminMsgPrev);
+            nameAdminTextView = itemView.findViewById(R.id.ContactName);
+            shortMsgTextView = itemView.findViewById(R.id.ContactMsg);
         }
     }
 }

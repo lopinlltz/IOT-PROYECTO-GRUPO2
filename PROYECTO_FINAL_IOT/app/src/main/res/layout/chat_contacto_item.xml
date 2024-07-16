@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:padding="2dp"
     android:clickable="true"
+    android:focusable="true"
     android:background="?android:attr/selectableItemBackground">
 
     <LinearLayout
@@ -45,17 +46,33 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/AdminName"
-                android:layout_width="230dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="Lana"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="27dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/ContactName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="Lana"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/ContactApellido"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Del Rey"
+                    android:paddingStart="10dp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"  />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/AdminMsgPrev"
+                android:id="@+id/ContactMsg"
                 android:layout_width="229dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -74,7 +91,7 @@
                 android:id="@+id/tvTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12:36"
+                android:text=""
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>

@@ -92,7 +92,8 @@ public class BarraSuperior extends Fragment {
             imageButtonChat.setScaleY(0.8f);
             textViewChat.setVisibility(View.VISIBLE);
 
-            Intent intent = new Intent(getActivity(), ChatContactoListaActivity.class);
+            //Intent intent = new Intent(getActivity(), ChatContactoListaActivity.class);
+            Intent intent = new Intent(getActivity(), ContactActivity.class);
             startActivity(intent);
         }
 

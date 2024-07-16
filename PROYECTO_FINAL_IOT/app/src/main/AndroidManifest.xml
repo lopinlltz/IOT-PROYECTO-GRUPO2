@@ -181,10 +181,11 @@
             android:name=".NotificacionActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatContactoListaActivity"
+            android:name=".ContactActivity"
             android:exported="true" />
         <activity
-            android:name=".Supervisor.Activity.ChatActivity"
+            android:name=".ChatMsgActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".Supervisor.Activity.ReporteActivity"
