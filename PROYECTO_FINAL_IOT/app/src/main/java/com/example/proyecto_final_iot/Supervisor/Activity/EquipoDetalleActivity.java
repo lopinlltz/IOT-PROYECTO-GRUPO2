@@ -47,8 +47,7 @@ import java.io.IOException;
 public class EquipoDetalleActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
-    private ImageView qrCodeImageView;
-    TextView textViewSku;
+    TextView textViewSitio;
     TextView textViewNroSerie;
     TextView textViewMarca;
     TextView textViewModelo;
@@ -57,6 +56,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     TextView textViewNombreEquipo;
     Button buttonBorrarEq;
     Button buttonEditarEq;
+
+    Button buttonReportes;
     FirebaseFirestore db;
     ImageView dataImage_equipo;
     FirebaseAuth mAuth;
@@ -86,6 +87,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String sku = intent.getStringExtra("sku");
+        String sitio = intent.getStringExtra("sitio");
         String serie = intent.getStringExtra("serie");
         String marca = intent.getStringExtra("marca");
         String modelo =  intent.getStringExtra("modelo");
@@ -97,24 +99,23 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         FirebaseApp.initializeApp(this);
 
         textViewNombreEquipo = findViewById(R.id.textViewNombreEquipo);
-        textViewSku = findViewById(R.id.textViewSku);
+        textViewSitio = findViewById(R.id.textViewSitio);
         textViewNroSerie = findViewById(R.id.textViewNroSerie);
         textViewMarca = findViewById(R.id.textViewMarca);
         textViewModelo = findViewById(R.id.textViewModelo);
         textViewDescripcion = findViewById(R.id.textViewDescripcion);
         textViewFecha = findViewById(R.id.textViewFecha);
         dataImage_equipo = findViewById(R.id.imagen_equipo_super);
-        qrCodeImageView = findViewById(R.id.qr_code_image);
 
         textViewNombreEquipo.setText(sku);
-        textViewSku.setText(sku);
+        textViewSitio.setText(sitio);
         textViewNroSerie.setText(serie);
         textViewMarca.setText(marca);
         textViewModelo.setText(modelo);
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
 
-        loadQRCode(sku);
+       // loadQRCode(sku);
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
@@ -153,13 +154,24 @@ public class EquipoDetalleActivity extends AppCompatActivity {
             }
         });
 
+        buttonReportes = findViewById(R.id.buttonReportes);
+        buttonReportes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EquipoDetalleActivity.this, ReporteActivity.class);
+                intent.putExtra("sku", sku);
+                startActivity(intent);
+
+            }
+        });
+
         Button buttonVerQR = findViewById(R.id.buttonVerQR);
-        buttonVerQR.setOnClickListener(v -> verQRCode());
+        //uttonVerQR.setOnClickListener(v -> verQRCode());
 
     }
 
     //TODO ESTO ES PARA QR
-    private void loadQRCode(String sku) {
+   /* private void loadQRCode(String sku) {
         db.collection("equipo").whereEqualTo("sku", sku).get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -187,8 +199,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
                 Toast.makeText(EquipoDetalleActivity.this, "Error al cargar el código QR", Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
+    }*/
+/*
     public void verQRCode() {
         Bitmap bitmap = ((BitmapDrawable) qrCodeImageView.getDrawable()).getBitmap();
         String qrFilePath = saveQRToFile(bitmap);
@@ -196,7 +208,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         //intent.putExtra("qr_bitmap", bitmap);
         intent.putExtra("qr_file_path", qrFilePath);
         startActivity(intent);
-    }
+    }*/
     //new ga
     private String saveQRToFile(Bitmap bitmap) {
         String fileName = "QRCode_" + System.currentTimeMillis() + ".png";
@@ -327,6 +339,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     }
 
     private void guardarHistorial() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
@@ -339,7 +353,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
 
         HistorialData historial = new HistorialData();
         historial.setActivityName("Borraste un equipo");
-        historial.setSupervisorName("Joselin");
+        historial.setSupervisorName(currentUser.getEmail());
         historial.setDate(formattedDate);
         historial.setHour(formattedHour);
 

@@ -1,7 +1,9 @@
 package com.example.proyecto_final_iot.Administrador.Activity;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -12,6 +14,11 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -32,6 +39,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,11 +53,16 @@ public class Admin_usuario_editar extends AppCompatActivity {
     // Variables para las vistas
     EditText id_nombreUser_et, id_apellidoUser_et, id_dniUSer_et, id_correoUser_et, id_telefonoUser_et, id_domicilioUser_et;
     Button saveButton_user_edit, saveButton_back_edit;
-    ImageView dataImage;
-
+    Button uploadImagen, selecImage;
+    ImageView dataImage,imagenview_editar;
+    String imagenURL;
+    Uri image;
     // Firestore
     FirebaseFirestore db;
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
     FirebaseAuth mAuth;
+    private ActivityResultLauncher<Intent> activityResultLauncher;
     @Override
     public void onStart() {
         super.onStart();
@@ -72,6 +86,9 @@ public class Admin_usuario_editar extends AppCompatActivity {
         // Inicializar Firestore
         db = FirebaseFirestore.getInstance();
 
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
+
         // Asignar vistas a las variables
         id_nombreUser_et = findViewById(R.id.id_nombreUser);
         id_apellidoUser_et = findViewById(R.id.id_apellidoUser);
@@ -80,6 +97,7 @@ public class Admin_usuario_editar extends AppCompatActivity {
         id_telefonoUser_et = findViewById(R.id.id_telefonoUser);
         id_domicilioUser_et = findViewById(R.id.id_domicilioUser);
         dataImage = findViewById(R.id.imagenview_editar);
+        selecImage = findViewById(R.id.selecImage);
 
         // Obtener datos del Intent
         Intent intent = getIntent();
@@ -140,8 +158,48 @@ public class Admin_usuario_editar extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
 
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null && data.getData() != null) {
+                            image = data.getData();
+                            Glide.with(this).load(image).into(dataImage);
+                        }
+                    }
+                });
+        selecImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType("image/*");
+                activityResultLauncher.launch(intent);
+            }
+        });
+
+    }
+    private void subirImagenYActualizarUsuario(String id_nombreUser, String id_apellidoUser, String id_dniUser, String id_correoUser, String id_telefonoUser, String id_domicilioUser) {
+        if (image != null) {
+            StorageReference imagenRef = storageRef.child("imagenes_usuarios/" + id_nombreUser + ".jpg");
+
+            imagenRef.putFile(image)
+                    .addOnSuccessListener(taskSnapshot -> {
+                        imagenRef.getDownloadUrl().addOnSuccessListener(uri -> {
+                            String imageUrl = uri.toString();
+                            editarUsuario(id_nombreUser, id_apellidoUser, id_dniUser, id_correoUser, id_telefonoUser, id_domicilioUser, imageUrl);
+                        });
+                    })
+                    .addOnFailureListener(e -> {
+                        Log.e("Admin_usuario_editar", "Error al subir la imagen", e);
+                        Toast.makeText(Admin_usuario_editar.this, "Error al subir la imagen", Toast.LENGTH_SHORT).show();
+                    });
+        } else {
+            // Si no hay nueva imagen, actualiza solo los otros datos
+            editarUsuario(id_nombreUser, id_apellidoUser, id_dniUser, id_correoUser, id_telefonoUser, id_domicilioUser, null);
+        }
+    }
     private void ConfirmacionPopup(String id_nombreUser, String id_apellidoUser, String id_dniUSer, String id_correoUser, String id_telefonoUser, String id_domicilioUser) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("¿Estás seguro de guardar los cambios?");
@@ -149,14 +207,12 @@ public class Admin_usuario_editar extends AppCompatActivity {
         builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                // Editar usuario en Firestore
-                editarUsuario(id_nombreUser, id_apellidoUser, id_dniUSer, id_correoUser, id_telefonoUser, id_domicilioUser);
+                // Subir imagen y actualizar usuario en Firestore
+                subirImagenYActualizarUsuario(id_nombreUser, id_apellidoUser, id_dniUSer, id_correoUser, id_telefonoUser, id_domicilioUser);
                 guardarHistorial("Editó el usuario: " + id_nombreUser, "Samantha", "Administrador");
-                Intent intent = new Intent(Admin_usuario_editar.this, Admin_lista_usuario.class);
-                startActivity(intent);
                 dialog.dismiss();
 
-                // Notificación y redirección
+                // Notificación
                 NotificationHelper.createNotificationChannel(Admin_usuario_editar.this);
                 NotificationHelper.sendNotification(Admin_usuario_editar.this, "Usuario", "Usuario editado");
             }
@@ -173,7 +229,7 @@ public class Admin_usuario_editar extends AppCompatActivity {
         dialog.show();
     }
 
-    private void editarUsuario(String id_nombreUser, String id_apellidoUser, String id_dniUser, String id_correoUser, String id_telefonoUser, String id_domicilioUser) {
+    private void editarUsuario(String id_nombreUser, String id_apellidoUser, String id_dniUser, String id_correoUser, String id_telefonoUser, String id_domicilioUser, String imageUrl) {
         db.collection("supervisorAdmin")
                 .whereEqualTo("id_nombreUser", id_nombreUser)
                 .get()
@@ -182,37 +238,39 @@ public class Admin_usuario_editar extends AppCompatActivity {
                         if (!task.getResult().isEmpty()) {
                             DocumentReference usuarioRef = task.getResult().getDocuments().get(0).getReference();
 
-                            // Actualizar el documento
-                            usuarioRef.update(
-                                    "id_nombreUser", id_nombreUser,
-                                    "id_apellidoUser", id_apellidoUser,
-                                    "id_dniUSer", id_dniUser,
-                                    "id_correoUser", id_correoUser,
-                                    "id_telefonoUser", id_telefonoUser,
-                                    "id_domicilioUser", id_domicilioUser
-                            ).addOnSuccessListener(aVoid -> {
-                                Log.d("Admin_usuario_editar", "Usuario actualizado con éxito");
+                            Map<String, Object> updates = new HashMap<>();
+                            updates.put("id_nombreUser", id_nombreUser);
+                            updates.put("id_apellidoUser", id_apellidoUser);
+                            updates.put("id_dniUSer", id_dniUser);
+                            updates.put("id_correoUser", id_correoUser);
+                            updates.put("id_telefonoUser", id_telefonoUser);
+                            updates.put("id_domicilioUser", id_domicilioUser);
+                            if (imageUrl != null) {
+                                updates.put("dataImage", imageUrl);
+                            }
 
-                                Toast.makeText(Admin_usuario_editar.this, "Usuario actualizado con éxito", Toast.LENGTH_SHORT).show();
+                            usuarioRef.update(updates)
+                                    .addOnSuccessListener(aVoid -> {
+                                        Log.d("Admin_usuario_editar", "Usuario actualizado con éxito");
+                                        Toast.makeText(Admin_usuario_editar.this, "Usuario actualizado con éxito", Toast.LENGTH_SHORT).show();
 
+                                        // Actualizar UI
+                                        id_nombreUser_et.setText(id_nombreUser);
+                                        id_apellidoUser_et.setText(id_apellidoUser);
+                                        id_dniUSer_et.setText(id_dniUser);
+                                        id_correoUser_et.setText(id_correoUser);
+                                        id_telefonoUser_et.setText(id_telefonoUser);
+                                        id_domicilioUser_et.setText(id_domicilioUser);
 
-                                id_nombreUser_et.setText(id_nombreUser);
-                                id_apellidoUser_et.setText(id_apellidoUser);
-                                id_dniUSer_et.setText(id_dniUser);
-                                id_correoUser_et.setText(id_correoUser);
-                                id_telefonoUser_et.setText(id_telefonoUser);
-                                id_domicilioUser_et.setText(id_domicilioUser);
-
-                                Intent intent = new Intent(Admin_usuario_editar.this, Admin_lista_usuario.class);
-                                startActivity(intent);
-                                // Volver a la actividad anterior o lista de usuarios
-                                finish();
-                            }).addOnFailureListener(e -> {
-                                Log.e("Admin_usuario_editar", "Error al actualizar el usuario", e);
-                                Toast.makeText(Admin_usuario_editar.this, "Error al actualizar el usuario", Toast.LENGTH_SHORT).show();
-                            });
+                                        Intent intent = new Intent(Admin_usuario_editar.this, Admin_lista_usuario.class);
+                                        startActivity(intent);
+                                        finish();
+                                    })
+                                    .addOnFailureListener(e -> {
+                                        Log.e("Admin_usuario_editar", "Error al actualizar el usuario", e);
+                                        Toast.makeText(Admin_usuario_editar.this, "Error al actualizar el usuario", Toast.LENGTH_SHORT).show();
+                                    });
                         } else {
-                            // No se encontró ningún documento con el `id_nombreUser` especificado
                             Log.e("Admin_usuario_editar", "El documento con Nombre " + id_nombreUser + " no existe.");
                             Toast.makeText(Admin_usuario_editar.this, "El documento con Nombre " + id_nombreUser + " no existe.", Toast.LENGTH_SHORT).show();
                         }

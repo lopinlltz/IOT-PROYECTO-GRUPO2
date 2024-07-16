@@ -64,8 +64,6 @@ public class NuevoReporteActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String equipoSku = intent.getStringExtra("equipo_sku");
 
-        Log.d("mensajeConfirmacion", equipoSku);
-
         atras =  findViewById(R.id.atras);
         atras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,8 +118,10 @@ public class NuevoReporteActivity extends AppCompatActivity {
         nombre = findViewById(R.id.nombre);
         String nombreString = nombre.getText().toString().trim();
 
+
         descripcion = findViewById(R.id.descripcion);
         String descripcionString = descripcion.getText().toString().trim();
+
 
         // Verificar que los campos no estén vacíos
         if (nombreString.isEmpty() || descripcionString.isEmpty()) {
@@ -152,6 +152,9 @@ public class NuevoReporteActivity extends AppCompatActivity {
 
     private void guardarHistorial() {
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+
         Calendar calendar = Calendar.getInstance();
         Date currentDate = calendar.getTime();
 
@@ -163,7 +166,7 @@ public class NuevoReporteActivity extends AppCompatActivity {
 
         HistorialData historial = new HistorialData();
         historial.setActivityName("Guardate un nuevo reporte");
-        historial.setSupervisorName("Joselin");
+        historial.setSupervisorName(currentUser.getEmail());
         historial.setDate(formattedDate);
         historial.setHour(formattedHour);
 

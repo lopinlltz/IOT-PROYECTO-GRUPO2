@@ -29,7 +29,7 @@
                 android:id="@+id/textView33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Atras"
+                android:text="Atrás"
                 android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -176,14 +176,11 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0">
 
-                    <EditText
-                        android:id="@+id/sitio"
+                    <Spinner
+                        android:id="@+id/sitio_spinner"
                         android:layout_width="276dp"
                         android:layout_height="33dp"
                         android:background="@drawable/circular_border"
-                        android:ems="10"
-                        android:hint="Sitio"
-                        android:inputType="text"
                         android:paddingStart="20dp"
                         android:textAlignment="center"
                         android:textSize="14sp"
@@ -194,6 +191,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"

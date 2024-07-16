@@ -94,7 +94,7 @@
                 android:layout_marginTop="20dp"
                 android:elevation="3dp"
                 android:padding="8dp"
-                android:text="ACTIVO"
+                android:text="activo"
                 android:textSize="12sp"
                 android:textStyle="bold" />
 

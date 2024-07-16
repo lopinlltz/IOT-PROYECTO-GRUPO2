@@ -91,6 +91,23 @@ public class Admin_lista_usuario extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ImageView imageProfileAdmin = findViewById(R.id.imageProfileAdmin);
+        imageProfileAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin_lista_usuario.this, Admin_perfil.class);
+                startActivity(intent);
+            }
+        });
+
+        ImageView imageChateAdmin = findViewById(R.id.imageChateAdmin);
+        imageChateAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Admin_lista_usuario.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         /*cargar datos de la Firebase a recycler*/
         CargarDatos_lista_usuario();

@@ -128,7 +128,8 @@
                 android:layout_marginTop="-150dp"
                 android:background="@drawable/edittext_bkg2"
                 android:padding="10dp"
-                android:text="ACTIVO"
+                android:text="activo"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 

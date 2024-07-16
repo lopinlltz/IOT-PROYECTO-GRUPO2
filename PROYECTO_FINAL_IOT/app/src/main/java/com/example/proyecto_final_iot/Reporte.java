@@ -19,7 +19,7 @@ public class    Reporte {
     }
 
     public void setidEquipo(String idEquipo) {
-        this.nombre = idEquipo;
+        this.idEquipo = idEquipo;
     }
 
     public String getDescripcion() {
