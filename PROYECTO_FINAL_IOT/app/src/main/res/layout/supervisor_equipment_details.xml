@@ -4,55 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="120dp"
     tools:context=".Supervisor.Activity.EquipmentDetailsActivity">
 
     <TextView
         android:id="@+id/textViewSKU"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="SKU"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/textViewNumeroSerie"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Número de serie"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/textViewMarca"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Marca"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/textViewModelo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Modelo"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/textViewDescripcion"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Descripción"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp" />
-
-    <TextView
-        android:id="@+id/textViewFechaRegistro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Fecha de registro"
-        android:textSize="16sp"
-        android:layout_marginTop="8dp" />
+        android:layout_width="200dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="EQUIPO HALLADO"
+        android:textSize="16sp" />
 
 </LinearLayout>

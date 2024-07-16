@@ -47,6 +47,7 @@ import java.io.IOException;
 public class EquipoDetalleActivity extends AppCompatActivity {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
+    private ImageView qrCodeImageView;
     TextView textViewSitio;
     TextView textViewNroSerie;
     TextView textViewMarca;
@@ -56,7 +57,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     TextView textViewNombreEquipo;
     Button buttonBorrarEq;
     Button buttonEditarEq;
-
+    private String imagenUrl;
     Button buttonReportes;
     FirebaseFirestore db;
     ImageView dataImage_equipo;
@@ -106,6 +107,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion = findViewById(R.id.textViewDescripcion);
         textViewFecha = findViewById(R.id.textViewFecha);
         dataImage_equipo = findViewById(R.id.imagen_equipo_super);
+        qrCodeImageView = findViewById(R.id.qr_code_image);
 
         textViewNombreEquipo.setText(sku);
         textViewSitio.setText(sitio);
@@ -115,19 +117,16 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
 
+
        // loadQRCode(sku);
+       loadQRCode(sku);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            dataImage_equipo.setImageURI(Uri.parse(bundle.getString("dataImage_equipo")));
-            if (bundle != null && bundle.getString("dataImage_equipo") != null) {
-                String imageUrl = bundle.getString("dataImage_equipo");
-                Glide.with(this)
-                        .load(imageUrl)
-                        .into(dataImage_equipo);
-            }
 
+        if (imagenUrl != null && !imagenUrl.isEmpty()) {
+            Glide.with(this).load(imagenUrl).into(dataImage_equipo);
+            Log.e("imagenUrldetalles",imagenUrl);
         }
+
 
         buttonBorrarEq =  findViewById(R.id.buttonBorrarEq);
         buttonBorrarEq.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +148,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
                 intent.putExtra("modelo", modelo);
                 intent.putExtra("descripcion", descripcion);
                 intent.putExtra("fecha", fecha);
+                //intent.putExtra("dataImage_equipo", getIntent().getStringExtra("dataImage_equipo"));
+                intent.putExtra("dataImage_equipo", imagenUrl);
                 startActivity(intent);
 
             }
@@ -166,12 +167,12 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         });
 
         Button buttonVerQR = findViewById(R.id.buttonVerQR);
-        //uttonVerQR.setOnClickListener(v -> verQRCode());
+        buttonVerQR.setOnClickListener(v -> verQRCode());
 
     }
 
     //TODO ESTO ES PARA QR
-   /* private void loadQRCode(String sku) {
+   private void loadQRCode(String sku) {
         db.collection("equipo").whereEqualTo("sku", sku).get().addOnCompleteListener(task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 for (QueryDocumentSnapshot document : task.getResult()) {
@@ -199,8 +200,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
                 Toast.makeText(EquipoDetalleActivity.this, "Error al cargar el código QR", Toast.LENGTH_SHORT).show();
             }
         });
-    }*/
-/*
+    }
+
     public void verQRCode() {
         Bitmap bitmap = ((BitmapDrawable) qrCodeImageView.getDrawable()).getBitmap();
         String qrFilePath = saveQRToFile(bitmap);
@@ -208,7 +209,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         //intent.putExtra("qr_bitmap", bitmap);
         intent.putExtra("qr_file_path", qrFilePath);
         startActivity(intent);
-    }*/
+    }
     //new ga
     private String saveQRToFile(Bitmap bitmap) {
         String fileName = "QRCode_" + System.currentTimeMillis() + ".png";
