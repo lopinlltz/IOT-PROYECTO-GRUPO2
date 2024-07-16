@@ -27,6 +27,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.proyecto_final_iot.Superadmin.Data.HistorialData;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -54,7 +55,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -117,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                     String userEmail = mAuth.getCurrentUser().getEmail();
                                     if (userEmail != null) {
                                         checkUserRoleAndRedirect(userEmail);
+                                        guardarHistorial("Inicio de sesión", userEmail, "Usuario");
                                     } else {
                                         Toast.makeText(MainActivity.this, "Error: No se pudo obtener el correo del usuario.", Toast.LENGTH_SHORT).show();
                                     }
@@ -283,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
                             String userEmail = user.getEmail();
                             if (userEmail != null) {
                                 checkUserRoleAndRedirect(userEmail);
+                                guardarHistorial("Inicio de sesión", userEmail, "Usuario");
                             } else {
                                 Toast.makeText(MainActivity.this, "Error: No se pudo obtener el correo del usuario.", Toast.LENGTH_SHORT).show();
                             }
@@ -301,23 +308,27 @@ public class MainActivity extends AppCompatActivity {
         Log.d("CHECK", email);
 
         if (email.equals("a20200825@pucp.edu.pe")){
+            String nombre = "Superadmin";
+            String rol = "Superadmin";
+            guardarHistorial("Inicio de sesión", nombre, rol);
             Intent intent = new Intent(MainActivity.this, Superadmin_vista_principal1.class);
             startActivity(intent);
             finish();
-        }else{
+        } else {
             db.collection("supervisorAdmin")
                     .whereEqualTo("id_correoUser", email)
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                // Obtener el ID del documento que coincide con el SKU
-                                String equipoId = document.getId();
+                                String nombre = document.getString("id_nombreUser") + " " + document.getString("id_apellidoUser");
+                                String rol = "Supervisor";
+                                guardarHistorial("Inicio de sesión", nombre, rol);
                                 Intent intent = new Intent(MainActivity.this, SitioSupervisorActivity.class);
                                 startActivity(intent);
                                 finish();
+                                return;
                             }
-                        } else {
                         }
                     });
 
@@ -327,22 +338,42 @@ public class MainActivity extends AppCompatActivity {
                     .addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task1.getResult()) {
-                                // Obtener el ID del documento que coincide con el SKU
-                                String equipoId = document.getId();
+                                String nombre = document.getString("nombreUser") + " " + document.getString("apellidoUser");
+                                String rol = "Administrador";
+                                guardarHistorial("Inicio de sesión", nombre, rol);
                                 Intent intent = new Intent(MainActivity.this, Admin_lista_Sitio.class);
                                 startActivity(intent);
                                 finish();
+                                return;
                             }
-                        } else {
-                            Intent intent = new Intent(MainActivity.this, Superadmin_vista_principal1.class);
-                            startActivity(intent);
-                            finish();
                         }
+                        // Si no se encontró al usuario en supervisorAdmin ni administrador
+                        guardarHistorial("Intento de inicio de sesión", email, "Desconocido");
+                        Toast.makeText(MainActivity.this, "No se encontró el usuario", Toast.LENGTH_SHORT).show();
                     });
         }
+    }
 
+    private void guardarHistorial(String actividad, String usuario, String rol) {
+        Calendar calendar = Calendar.getInstance();
+        Date currentDate = calendar.getTime();
 
+        SimpleDateFormat hourFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        String formattedHour = hourFormat.format(currentDate);
 
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String formattedDate = dateFormat.format(currentDate);
+
+        HistorialData historial = new HistorialData(actividad, usuario, rol, formattedDate, formattedHour);
+
+        db.collection("historialglobal")
+                .add(historial)
+                .addOnSuccessListener(documentReference -> {
+                    // Historial guardado con éxito
+                })
+                .addOnFailureListener(e -> {
+                    // Error al guardar el historial
+                });
     }
 
 
