@@ -57,7 +57,7 @@ public class EquipoDetalleActivity extends AppCompatActivity {
     TextView textViewNombreEquipo;
     Button buttonBorrarEq;
     Button buttonEditarEq;
-
+    private String imagenUrl;
     Button buttonReportes;
     FirebaseFirestore db;
     ImageView dataImage_equipo;
@@ -117,19 +117,16 @@ public class EquipoDetalleActivity extends AppCompatActivity {
         textViewDescripcion.setText(descripcion);
         textViewFecha.setText(fecha);
 
+
+       // loadQRCode(sku);
        loadQRCode(sku);
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            dataImage_equipo.setImageURI(Uri.parse(bundle.getString("dataImage_equipo")));
-            if (bundle != null && bundle.getString("dataImage_equipo") != null) {
-                String imageUrl = bundle.getString("dataImage_equipo");
-                Glide.with(this)
-                        .load(imageUrl)
-                        .into(dataImage_equipo);
-            }
 
+        if (imagenUrl != null && !imagenUrl.isEmpty()) {
+            Glide.with(this).load(imagenUrl).into(dataImage_equipo);
+            Log.e("imagenUrldetalles",imagenUrl);
         }
+
 
         buttonBorrarEq =  findViewById(R.id.buttonBorrarEq);
         buttonBorrarEq.setOnClickListener(new View.OnClickListener() {
@@ -151,6 +148,8 @@ public class EquipoDetalleActivity extends AppCompatActivity {
                 intent.putExtra("modelo", modelo);
                 intent.putExtra("descripcion", descripcion);
                 intent.putExtra("fecha", fecha);
+                //intent.putExtra("dataImage_equipo", getIntent().getStringExtra("dataImage_equipo"));
+                intent.putExtra("dataImage_equipo", imagenUrl);
                 startActivity(intent);
 
             }
