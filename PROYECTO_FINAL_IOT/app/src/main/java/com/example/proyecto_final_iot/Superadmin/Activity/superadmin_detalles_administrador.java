@@ -154,7 +154,7 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
     }
 
     private void actualizarBotonEstado(String estado) {
-        if ("activo".equalsIgnoreCase(estado)) {
+        if ("ACTIVO".equals(estado)) {
             cambiarEstadoButton.setText("Desactivar");
             cambiarEstadoButton.setBackgroundColor(getResources().getColor(R.color.rojo_desactivar));
         } else {
@@ -165,7 +165,7 @@ public class superadmin_detalles_administrador extends AppCompatActivity {
 
     private void cambiarEstado() {
         if (administrador != null) {
-            String nuevoEstado = "activo".equalsIgnoreCase(administrador.getStatus_admin()) ? "desactivado" : "activo";
+            String nuevoEstado = "ACTIVO".equals(administrador.getStatus_admin()) ? "DESACTIVADO" : "ACTIVO";
             administrador.setStatus_admin(nuevoEstado);
             estadoTextView.setText(nuevoEstado);
             actualizarBotonEstado(nuevoEstado);

@@ -211,7 +211,7 @@ public class superadmin_editar_administrador extends AppCompatActivity {
         String telefono = editTelefono.getText().toString().trim();
         String domicilio = editDomicilio.getText().toString().trim();
 
-        Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, imagenUrl, "activo");
+        Admin administrador = new Admin(adminId, nombre, apellido, dni, correo, telefono, domicilio, imagenUrl, "ACTIVO");
 
         db.collection("administrador").document(adminId)
                 .set(administrador)

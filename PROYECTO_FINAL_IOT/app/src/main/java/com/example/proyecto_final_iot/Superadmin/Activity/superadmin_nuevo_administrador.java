@@ -253,7 +253,7 @@ public class superadmin_nuevo_administrador extends AppCompatActivity {
                 telefonoString,
                 domicilioString,
                 imagenUrl,
-                "Activo"  // ejemplo de status
+                "ACTIVO"  // ejemplo de status
         );
 
         db.collection("administrador").document(adminId)

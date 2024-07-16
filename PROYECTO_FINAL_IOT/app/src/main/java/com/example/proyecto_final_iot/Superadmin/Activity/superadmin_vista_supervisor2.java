@@ -3,6 +3,7 @@ package com.example.proyecto_final_iot.Superadmin.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -58,7 +59,14 @@ public class superadmin_vista_supervisor2 extends AppCompatActivity {
         ImageButton btnHome = findViewById(R.id.buttonhomesuper);
         ImageButton btnHistory = findViewById(R.id.buttonhistorialsuper);
         ImageButton buttonsupervisor = findViewById(R.id.buttonsupervisor);
-
+        ImageButton btnUserProfile = findViewById(R.id.imageButton6);
+        btnUserProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(superadmin_vista_supervisor2.this, PerfilSuperadmin.class);
+                startActivity(intent);
+            }
+        });
 
         buttonsupervisor.setOnClickListener(v -> {
             Intent intent = new Intent(superadmin_vista_supervisor2.this, superadmin_vista_supervisor2.class);
