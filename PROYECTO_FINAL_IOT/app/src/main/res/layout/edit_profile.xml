@@ -290,14 +290,13 @@
 
                             <EditText
                                 android:id="@+id/editTextPhone"
-                                android:layout_width="200dp"
-                                android:layout_margin="10dp"
-                                android:paddingStart="10dp"
-                                android:layout_height="30dp"
-                                android:textSize="13.5dp"
-                                android:hint="999111111"
+                                android:layout_width="219dp"
+                                android:layout_height="41dp"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/white"/>
+                                android:layout_margin="10dp"
+                                android:hint="999111111"
+                                android:paddingStart="10dp"
+                                android:textSize="13.5dp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -346,8 +345,8 @@
                             android:layout_height="match_parent"
                             android:orientation="horizontal">
 
-                            <EditText
-                                android:id="@+id/editTextAddress"
+                            <TextView
+                                android:id="@+id/editTextDomicilio"
                                 android:layout_width="200dp"
                                 android:layout_margin="10dp"
                                 android:paddingStart="10dp"
@@ -355,7 +354,7 @@
                                 android:textSize="13.5dp"
                                 android:hint="Av. Brasil 1234, Pueblo Libre"
                                 android:layout_gravity="center_vertical"
-                                android:background="@color/white"/>
+                                />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
