@@ -48,13 +48,6 @@ public class EquipmentDetailsActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-        textViewSKU = findViewById(R.id.textViewSKU);
-        textViewNumeroSerie = findViewById(R.id.textViewNumeroSerie);
-        textViewMarca = findViewById(R.id.textViewMarca);
-        textViewModelo = findViewById(R.id.textViewModelo);
-        textViewDescripcion = findViewById(R.id.textViewDescripcion);
-        textViewFechaRegistro = findViewById(R.id.textViewFechaRegistro);
-
         // Obtener el SKU del intent
         if (getIntent().hasExtra("qr_content")) {
             String qrContent = getIntent().getStringExtra("qr_content");
@@ -67,29 +60,48 @@ public class EquipmentDetailsActivity extends AppCompatActivity {
 
     //me falta revisar esta vaina pq el sku si lo lee, tengo q ver la bd
     private void buscarEquipoPorSKU(String sku) {
+
+        String number = sku.substring(sku.indexOf(":") + 1);
+
+
         Log.d("EquipmentDetails", "SKU recibido: " + sku);
 
         db.collection("equipo")
-                .whereEqualTo("sku", sku)
+                .whereEqualTo("sku", number)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
-                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                            finish();
+
                             //EquipoData equipo = document.toObject(EquipoData.class);
                             Equipo equipo = document.toObject(Equipo.class);
-                            mostrarDetallesEquipo(equipo);
-                            return;
+
+                            Intent intent = new Intent(EquipmentDetailsActivity.this, EquipoDetalleActivity.class);
+                            intent.putExtra("sitio", equipo.getId_codigodeSitio());
+                            intent.putExtra("modelo", equipo.getModelo());
+                            intent.putExtra("marca", equipo.getMarca());
+                            intent.putExtra("sku", equipo.getSku());
+                            intent.putExtra("serie", equipo.getSerie());
+                            intent.putExtra("descripcion", equipo.getDescripcion());
+                            intent.putExtra("fecha", equipo.getFechaRegistro());
+                            intent.putExtra("dataImage_equipo", equipo.getDataImage_equipo());
+                            startActivity(intent);
+                            finish(); // Cierra EquipmentDetailsActivity después de iniciar EquipoDetalleActivity
+                            return; // Salir del método una vez que se ha encontrado el equipo
                         }
                     } else {
-                        Toast.makeText(this, "No se encontró al equipo con ese SKU", Toast.LENGTH_SHORT).show();
-                        finish();
+                        Toast.makeText(EquipmentDetailsActivity.this, "No se encontró al equipo con ese SKU", Toast.LENGTH_SHORT).show();
                     }
+                    finish(); // Terminar la actividad después de procesar los resultados
                 })
                 .addOnFailureListener(e -> {
                     Log.e("EquipmentDetails", "Error al buscar equipo por SKU", e);
                     Toast.makeText(EquipmentDetailsActivity.this, "Error al buscar equipo por SKU", Toast.LENGTH_SHORT).show();
                     finish();
                 });
+
+
     }
 
     private void mostrarDetallesEquipo(Equipo equipo) {

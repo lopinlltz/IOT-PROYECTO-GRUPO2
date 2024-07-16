@@ -307,6 +307,7 @@ public class MainActivity extends AppCompatActivity {
         }else{
             db.collection("supervisorAdmin")
                     .whereEqualTo("id_correoUser", email)
+                    .whereEqualTo("status_admin", "ACTIVO")
                     .get()
                     .addOnCompleteListener(task -> {
                         if (task.isSuccessful()) {
@@ -323,6 +324,7 @@ public class MainActivity extends AppCompatActivity {
 
             db.collection("administrador")
                     .whereEqualTo("correoUser", email)
+                    .whereEqualTo("status_admin", "ACTIVO")
                     .get()
                     .addOnCompleteListener(task1 -> {
                         if (task1.isSuccessful()) {
