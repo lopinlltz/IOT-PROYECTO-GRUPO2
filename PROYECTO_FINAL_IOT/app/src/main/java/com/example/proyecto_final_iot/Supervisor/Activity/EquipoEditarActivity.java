@@ -219,6 +219,7 @@ public class EquipoEditarActivity extends AppCompatActivity {
                         updates.put("descripcion", nuevaDescripcion);
                         if (imagenUrl != null) {
                             updates.put("imagenUrl", imagenUrl);
+                            updates.put("dataImage_equipo", imagenUrl);
                             Log.e("imagenUrleditarEquipo", imagenUrl);
                         }
 
